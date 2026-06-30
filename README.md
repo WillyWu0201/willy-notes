@@ -75,6 +75,27 @@ node scripts/build-details.mjs
 
 兩者各有英文版 `summary_en` / `deepdive_en`;詳解頁切到 EN 時優先用英文,缺漏時回退中文。`deepdive` 必須與 `chapters` 的 `t`/`title` 完全對齊,所以 `build-details.mjs` 之前若 Apple 更新了章節,記得先重跑 `npm run fetch`(清 `.cache/raw` 重抓)讓兩者一致。
 
+### 沒有 API key?用 subagent 生成 summary / deepdive
+
+`summarize.ts` 需要 `ANTHROPIC_API_KEY`,且目前只產中文版。沒有 key(或要補英文版)時,改用「分批 → subagent 生成 → 驗證合併」流程,全部讀本機檔、不呼叫 API:
+
+```bash
+# 0. 先確保 .cache/raw 是含逐字稿的最新版（必要時清掉重抓）
+rm -rf .cache/raw && npm run fetch
+
+# A. 把還缺 summary/deepdive 的場次分成 N 批（預設 14；--all 重做全部）
+node scripts/prep-gen-batches.mjs
+
+# B. 每批派一個 subagent，提示詞用 scripts/gen-notes-prompt.md（把 {BATCH} 換成批號），
+#    各自把 .cache/gen/{id}.json 寫出來
+
+# C. 驗證並合併進 sessions.json（會檢查中英對齊與章節對齊），再重建詳解頁
+node scripts/merge-notes.mjs
+node scripts/build-details.mjs
+```
+
+`prep` 會依逐字稿長度＋章節數做負載平衡;`merge` 只在每一筆都通過驗證時才寫入,失敗會列出要重跑的 id,並在 Apple 更新章節時自動把該場 `chapters` 同步成最新。
+
 ## 二、建立 Google OAuth client
 
 1. 到 Google Cloud Console → APIs & Services → **Credentials** → Create Credentials → **OAuth client ID** → Application type: **Web application**。
