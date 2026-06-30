@@ -7,8 +7,8 @@ const md = (x) => esc(x).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 const fmt = (n) => `${Math.floor(n / 60)}:${String(n % 60).padStart(2, "0")}`;
 const CAT_EN = { swift: "Swift", uikit: "UIKit", swiftui: "SwiftUI", testing: "Testing", ai: "AI & ML", design: "Design", appstore: "App Store", graphics: "Graphics & Games", visionos: "visionOS", other: "Other" };
 const TT = {
-  zh: { back: "← 返回清單", watch: "看原片 ↗", highlights: "重點", chapters: "章節", deepdive: "逐章節詳解", apis: "關鍵 API / 框架", audience: "適合誰看", code: "範例程式碼", related: "相關場次", none: "(無)", src: "資料來源" },
-  en: { back: "← Back to list", watch: "Watch ↗", highlights: "Highlights", chapters: "Chapters", deepdive: "Deep dive", apis: "Key APIs / Frameworks", audience: "Who should watch", code: "Sample code", related: "Related sessions", none: "(none)", src: "Source" },
+  zh: { back: "← 返回清單", watch: "看原片 ↗", summary: "整場整理", copy: "複製分享", copied: "已複製 ✓", highlights: "重點", chapters: "章節", deepdive: "逐章節詳解", apis: "關鍵 API / 框架", audience: "適合誰看", code: "範例程式碼", related: "相關場次", none: "(無)", src: "資料來源" },
+  en: { back: "← Back to list", watch: "Watch ↗", summary: "Summary", copy: "Copy to share", copied: "Copied ✓", highlights: "Highlights", chapters: "Chapters", deepdive: "Deep dive", apis: "Key APIs / Frameworks", audience: "Who should watch", code: "Sample code", related: "Related sessions", none: "(none)", src: "Source" },
 };
 
 function curLang() {
@@ -42,6 +42,8 @@ function render() {
   const chapters = (s.chapters || []).map(([sec, name]) =>
     `<a href="${esc(safeUrl)}?time=${encodeURIComponent(sec)}" target="_blank" rel="noopener"><span class="t">${fmt(sec)}</span><span>${esc(name)}</span></a>`).join("");
   const points = L("points").map((p) => `<li class="${p.hot ? "hot" : ""}">${md(p.text)}</li>`).join("");
+  const sumArr = (lang === "en" ? (s.summary_en || s.summary) : s.summary) || [];
+  const summary = sumArr.map((p) => `<p>${md(p)}</p>`).join("");
   const dd = (lang === "en" ? (s.deepdive_en || s.deepdive) : s.deepdive) || [];
   const deepdive = dd.map((d) =>
     `<div class="dd-item"><a class="dd-h" href="${esc(safeUrl)}?time=${encodeURIComponent(d.t)}" target="_blank" rel="noopener"><span class="t">${fmt(d.t)}</span><span>${esc(d.title)}</span></a><p>${md(d.body)}</p></div>`).join("");
@@ -67,6 +69,8 @@ function render() {
     <div class="gloss">${esc(L("gloss"))}</div>
     <p class="takeaway">${md(L("takeaway"))}</p>
     <a class="watch" href="${esc(safeUrl)}" target="_blank" rel="noopener">${t.watch}</a>
+
+    ${summary ? `<div class="label-row"><div class="label">${t.summary}</div><button class="copybtn" id="copyBtn">${t.copy}</button></div><div class="summary">${summary}</div>` : ""}
 
     <div class="label">${t.highlights}</div>
     <ul class="points">${points}</ul>
@@ -95,6 +99,19 @@ function render() {
     const u = new URL(location.href); if (lang === "en") u.searchParams.set("lang", "en"); else u.searchParams.delete("lang");
     history.replaceState(null, "", u);
     render();
+  });
+  const copyBtn = document.getElementById("copyBtn");
+  if (copyBtn) copyBtn.addEventListener("click", async () => {
+    const plain = (x) => String(x).replace(/\*\*(.+?)\*\*/g, "$1");
+    const text = `${s.title}（${plain(L("gloss"))}）\nWWDC26 · Session ${s.id}\n\n` +
+      sumArr.map(plain).join("\n\n") + `\n\n${lang === "en" ? "Watch" : "原片"}：${safeUrl}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = t.copied;
+      setTimeout(() => { copyBtn.textContent = t.copy; }, 1800);
+    } catch (e) {
+      copyBtn.textContent = "⌘C";
+    }
   });
   document.getElementById("themeBtn").addEventListener("click", () => {
     const next = effectiveTheme() === "dark" ? "light" : "dark";

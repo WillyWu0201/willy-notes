@@ -26,6 +26,10 @@ Reply with ONLY a JSON object (no markdown, no prose) matching exactly:
   "points": [ { "text": string, "hot": boolean } ],  // 3-5 items, Traditional Chinese, **bold** key terms; hot=true only for a notably important/breaking item
   "apis": string[],           // key API / framework names mentioned (keep as code identifiers)
   "audience": string,         // Traditional Chinese: who should watch, **bold** the core phrase
+  "summary": string[],        // 2-4 paragraphs (one string each) of flowing Traditional Chinese prose
+      // summarizing the WHOLE session top-to-bottom, written to be read on its own and shared with
+      // colleagues. Cover the problem, the key techniques/APIs, and the practical takeaway in narrative
+      // form. You may **bold** a few key terms; keep English for API/framework names.
   "deepdive": [ { "t": number, "title": string, "body": string } ]
       // chapter-by-chapter analysis. One entry per chapter, in order, with the SAME t (seconds)
       // and title as the given chapters. body = 2-4 sentences of concrete Traditional Chinese
@@ -89,6 +93,7 @@ async function main() {
         points: s.points,
         apis: s.apis,
         audience: s.audience,
+        summary: s.summary || [],
         deepdive: s.deepdive || [],
       });
       console.log(`  ✓ ${raw.id}  ${raw.title}`);

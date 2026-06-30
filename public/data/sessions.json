@@ -1897,6 +1897,11 @@
         "title": "Adopt UITextInput",
         "body": "完整實作 `UITextInput` 的關鍵：用 `selectionRects` 計算選取範圍的矩形（範例以每行已知寬高搭配 `selectionRectFromImage` 推算）、用 `textInRange` 回傳對應子字串、並提供 **tokenizer**（子類化 `UITextInputStringTokenizer`）管理逐行／句／字導覽；再加上 `UITextInteraction` 與 input delegate 補齊選取把手與高亮視覺。協定需**完整實作**才能拿到全部好處，且能與 `causesPageTurn`、導覽 API 並用。最後呼籲：開著 VoiceOver 親自稽核自己的 app。"
       }
+    ],
+    "summary": [
+      "這場由 Apple Accessibility 團隊主講，核心訊息是：**長篇閱讀內容**的無障礙體驗，和一般 UI 導覽是兩回事——閱讀重在於文字之間流暢移動，而非在控制項間跳轉。講者以一個 Chicago 旅遊導覽 app 為例，鎖定 **VoiceOver** 與 **Speak Screen** 兩種輔助技術，訂出三個目標：逐行的細緻導覽、不被分頁打斷的連續朗讀，以及完整的文字選取。",
+      "第一條路是盡量採用系統內建、開箱即無障礙的標準文字 view：iOS 的 `UITextView`、SwiftUI 的 `TextEditor` 或開啟 selection 的 `Text`、macOS 的 `NSTextView`。在此基礎上再用 API 補強：跨段落導覽用 iOS 18 的 **text navigation APIs**（`accessibilityNextTextNavigationElement` 系列）或 SwiftUI iOS 27 的 **`accessibilityLinkedGroup`**；分頁連續朗讀靠 **`causesPageTurn`** 搭配 `accessibilityScroll` 自動翻頁；要讓選取後的動作（如「儲存選取」）被發現，則用帶 edit category 的 custom action 加進 VoiceOver 的 edit rotor。這些改善也會讓 iOS 26 的 **Accessibility Reader** 一併受惠。",
+      "當版面無法使用標準 view（例如顯示掃描頁、進階排版或自訂繪製文字）時，第二條路是在 accessibility element 上完整採用 **`UITextInput`** 協定：實作 `selectionRects`、`textInRange`、提供 tokenizer，並用 `UITextInteraction` 補齊選取把手與高亮。必須整套實作才能拿到逐行探索、rotor 導覽與選取等全部能力。行動建議很明確：開著 VoiceOver 親自稽核你的 app——試 read-all、用 lines rotor 導覽、並選取文字。"
     ]
   },
   {
@@ -2401,6 +2406,11 @@
         "title": "Associate an intent with a button",
         "body": "最後把按鈕接上 intent：更新同時用於 `ActivityView` 與 `DynamicIslandExpandedRegion` 的評分 Button view，為每個動作各加一個按鈕並建立對應的 `RateDrinkIntent`，讓人能直接在 Live Activity 上快速完成評分這類即時動作。"
       }
+    ],
+    "summary": [
+      "**Live Activities** 讓 app 提供「此刻正在發生」的即時、可一眼掌握的更新。它顯示在 **Lock Screen** 與 **Dynamic Island**，長按或有 alert 時可展開；iOS 27 起在直向與橫向都看得到，並會自動延伸到 **StandBy**、Apple Watch 的 Smart Stack、macOS 選單列與 CarPlay，無需額外開發。",
+      "導入分三步。第一步規劃**資料模型**，關鍵是區分靜態與動態：不變的資料放進符合 **`ActivityAttributes`** 的 struct，會變的放進 **`ContentState`**（只有後者能在存活期間更新，以達成高效更新）。第二步用 **WidgetKit** 的 **`ActivityConfiguration`** 建立各種呈現的 SwiftUI view，包含 Lock Screen 與 Dynamic Island 的 `compactLeading`／`compactTrailing`／`minimal`／expanded 各區。第三步用 **ActivityKit** 在前景啟動並以 `.update` 更新，或改用推播（大量同時更新用 broadcast channel、其餘用個別 push token）。",
+      "最後是讓它在各處都好看的最佳化：橫向寬度受限時讀 **`isDynamicIslandLimitedInWidth`** 換精簡 view；StandBy 用 **`showsWidgetContainerBackground`** 搭配 **`.activityBackgroundTint`** 做滿版背景；要上 Apple Watch 與 CarPlay 則宣告並實作 **`activityFamily` `.small`**；並可用 **App Intents**（`LiveActivityIntent`）替按鈕加入即時互動，例如直接在 Live Activity 上替訂單評分。"
     ]
   },
   {
