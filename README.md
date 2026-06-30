@@ -13,10 +13,14 @@
 
 ```
 Apple WWDC 頁面 ──► scripts/fetch.ts ──► .cache/raw/*.json
-                                              │
+（含逐字稿 transcript）                        │
                           scripts/summarize.ts (呼叫 Claude)
                                               │
                                    public/data/sessions.json
+                                              │
+                       scripts/build-details.mjs
+                                              │
+                                   public/s/{id}.html（每場詳解頁）
                                               │
         Cloudflare Pages ── 靜態站(public/) + Functions(functions/api/*)
                                               │
@@ -46,7 +50,7 @@ npm install
 ## 一、產生筆記(可先跳過)
 
 ```bash
-# 抓取所有 session 原料到 .cache/raw/（增量,跑過的會跳過）
+# 抓取所有 session 原料到 .cache/raw/（含逐字稿 transcript；增量,跑過的會跳過）
 npm run fetch
 
 # 用 Claude 摘要成 public/data/sessions.json（增量）
@@ -54,10 +58,22 @@ ANTHROPIC_API_KEY=sk-ant-... npm run summarize
 
 # 兩步一起
 ANTHROPIC_API_KEY=sk-ant-... npm run notes
+
+# 產生每場詳解頁 public/s/{id}.html（資料變更後重跑）
+node scripts/build-details.mjs
 ```
 
 - 想省錢把 `SUMMARY_MODEL=claude-haiku-4-5-20251001` 加在前面即可。
 - `scripts/fetch.ts` 的解析是針對目前 Apple 頁面結構寫的;若某欄位抓不到,調整檔案裡的 regex 即可。
+
+### sessions.json 每場的欄位
+
+`summarize.ts` 會請 Claude 依逐字稿產出固定 schema。除了基本欄位(`gloss` / `category` / `takeaway` / `points` / `apis` / `audience`,及對應的 `_en` 英文版),還包含兩個閱讀用欄位:
+
+- **`summary`** — 2–4 段連貫敘述的「整場整理」,可獨立閱讀並一鍵分享給同事(詳解頁上方有「複製分享」按鈕)。
+- **`deepdive`** — 逐章節分析,每筆 `{ t, title, body }` 對齊該場 `chapters`(無章節的 Keynote / Lab / Daily 為空陣列)。
+
+兩者各有英文版 `summary_en` / `deepdive_en`;詳解頁切到 EN 時優先用英文,缺漏時回退中文。`deepdive` 必須與 `chapters` 的 `t`/`title` 完全對齊,所以 `build-details.mjs` 之前若 Apple 更新了章節,記得先重跑 `npm run fetch`(清 `.cache/raw` 重抓)讓兩者一致。
 
 ## 二、建立 Google OAuth client
 
@@ -131,7 +147,9 @@ npm run dev   # wrangler pages dev，本機同時跑 Functions
 ```
 public/
   index.html              前端(瀏覽 / 篩選 / 標記 / 認領)
-  data/sessions.json      筆記資料(pipeline 產出;附 3 場範例)
+  data/sessions.json      筆記資料(pipeline 產出;含 summary / deepdive 與 _en 英文版)
+  s/{id}.html             每場詳解頁(build-details.mjs 產出)
+  s/detail.js, detail.css 詳解頁共用渲染與樣式
 functions/api/
   me.ts                   目前登入者
   interest.ts             個人標記(GET/POST,需登入)
@@ -141,11 +159,8 @@ functions/api/
   auth/logout.ts          清除 session
 lib/auth.ts               session JWT、cookie、Google id_token 解碼
 scripts/
-  fetch.ts                抓 Apple 頁面
-  summarize.ts            呼叫 Claude 產 schema
+  fetch.ts                抓 Apple 頁面(含逐字稿)
+  summarize.ts            呼叫 Claude 產 schema(含 summary / deepdive)
+  build-details.mjs       由 sessions.json 產每場詳解頁 public/s/{id}.html
 wrangler.toml             Pages 輸出 + KV 綁定
 ```
-
-## 之後可加(第二階段)
-
-標記想深入的場次後,對那幾場抓完整逐字稿 + sample code 做深度筆記,寫成每場的 detail 頁(`public/s/{id}.html`)再 rebuild。資料層不用動。
