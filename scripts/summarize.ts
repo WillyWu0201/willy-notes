@@ -25,14 +25,19 @@ Reply with ONLY a JSON object (no markdown, no prose) matching exactly:
   "takeaway": string,         // one-sentence Traditional Chinese takeaway
   "points": [ { "text": string, "hot": boolean } ],  // 3-5 items, Traditional Chinese, **bold** key terms; hot=true only for a notably important/breaking item
   "apis": string[],           // key API / framework names mentioned (keep as code identifiers)
-  "audience": string          // Traditional Chinese: who should watch, **bold** the core phrase
+  "audience": string,         // Traditional Chinese: who should watch, **bold** the core phrase
+  "deepdive": [ { "t": number, "title": string, "body": string } ]
+      // chapter-by-chapter analysis. One entry per chapter, in order, with the SAME t (seconds)
+      // and title as the given chapters. body = 2-4 sentences of concrete Traditional Chinese
+      // analysis of what that chapter actually covers (grounded in the transcript, not the title),
+      // **bold** key terms, keep English for API/framework names.
 }
 Be concrete and technical. Keep English for API names and framework terms.`;
 
 async function summarize(raw: any) {
   const body = {
     model: MODEL,
-    max_tokens: 1500,
+    max_tokens: 4000,
     system: SCHEMA_INSTRUCTIONS,
     messages: [
       {
@@ -41,7 +46,8 @@ async function summarize(raw: any) {
           `Title: ${raw.title}\nDuration(sec): ${raw.duration}\n` +
           `Description: ${raw.description}\n` +
           `Chapters:\n${raw.chapters.map(([t, n]: [number, string]) => `- ${t}s ${n}`).join("\n")}\n` +
-          (raw.code?.length ? `\nSample code:\n${raw.code.slice(0, 8).join("\n---\n")}` : ""),
+          (raw.code?.length ? `\nSample code:\n${raw.code.slice(0, 8).join("\n---\n")}\n` : "") +
+          (raw.transcript ? `\nTranscript:\n${String(raw.transcript).slice(0, 24000)}` : ""),
       },
     ],
   };
@@ -83,6 +89,7 @@ async function main() {
         points: s.points,
         apis: s.apis,
         audience: s.audience,
+        deepdive: s.deepdive || [],
       });
       console.log(`  ✓ ${raw.id}  ${raw.title}`);
       await writeFile(OUT, JSON.stringify(existing, null, 2)); // write as we go (crash-safe)

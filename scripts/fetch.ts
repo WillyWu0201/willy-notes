@@ -45,6 +45,7 @@ interface RawSession extends IndexEntry {
   description: string;
   chapters: [number, string][];
   code: string[];
+  transcript: string;
 }
 
 async function getSession(entry: IndexEntry): Promise<RawSession> {
@@ -68,7 +69,16 @@ async function getSession(entry: IndexEntry): Promise<RawSession> {
     const block = decode(xm[1].replace(/<[^>]+>/g, ""));
     if (block.trim().length > 12) code.push(block.trim());
   }
-  return { ...entry, description, chapters, code };
+  // Full spoken transcript: each line is a <span class="sentence">…</span>.
+  const sentences: string[] = [];
+  const sre = /class="sentence">([\s\S]*?)<\/span>/g;
+  let sm: RegExpExecArray | null;
+  while ((sm = sre.exec(html))) {
+    const line = decode(stripTags(sm[1]));
+    if (line) sentences.push(line);
+  }
+  const transcript = sentences.join(" ");
+  return { ...entry, description, chapters, code, transcript };
 }
 
 async function main() {

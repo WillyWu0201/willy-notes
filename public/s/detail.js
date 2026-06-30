@@ -7,8 +7,8 @@ const md = (x) => esc(x).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 const fmt = (n) => `${Math.floor(n / 60)}:${String(n % 60).padStart(2, "0")}`;
 const CAT_EN = { swift: "Swift", uikit: "UIKit", swiftui: "SwiftUI", testing: "Testing", ai: "AI & ML", design: "Design", appstore: "App Store", graphics: "Graphics & Games", visionos: "visionOS", other: "Other" };
 const TT = {
-  zh: { back: "← 返回清單", watch: "看原片 ↗", highlights: "重點", chapters: "章節", apis: "關鍵 API / 框架", audience: "適合誰看", code: "範例程式碼", related: "相關場次", none: "(無)", src: "資料來源" },
-  en: { back: "← Back to list", watch: "Watch ↗", highlights: "Highlights", chapters: "Chapters", apis: "Key APIs / Frameworks", audience: "Who should watch", code: "Sample code", related: "Related sessions", none: "(none)", src: "Source" },
+  zh: { back: "← 返回清單", watch: "看原片 ↗", highlights: "重點", chapters: "章節", deepdive: "逐章節詳解", apis: "關鍵 API / 框架", audience: "適合誰看", code: "範例程式碼", related: "相關場次", none: "(無)", src: "資料來源" },
+  en: { back: "← Back to list", watch: "Watch ↗", highlights: "Highlights", chapters: "Chapters", deepdive: "Deep dive", apis: "Key APIs / Frameworks", audience: "Who should watch", code: "Sample code", related: "Related sessions", none: "(none)", src: "Source" },
 };
 
 function curLang() {
@@ -42,6 +42,9 @@ function render() {
   const chapters = (s.chapters || []).map(([sec, name]) =>
     `<a href="${esc(safeUrl)}?time=${encodeURIComponent(sec)}" target="_blank" rel="noopener"><span class="t">${fmt(sec)}</span><span>${esc(name)}</span></a>`).join("");
   const points = L("points").map((p) => `<li class="${p.hot ? "hot" : ""}">${md(p.text)}</li>`).join("");
+  const dd = (lang === "en" ? (s.deepdive_en || s.deepdive) : s.deepdive) || [];
+  const deepdive = dd.map((d) =>
+    `<div class="dd-item"><a class="dd-h" href="${esc(safeUrl)}?time=${encodeURIComponent(d.t)}" target="_blank" rel="noopener"><span class="t">${fmt(d.t)}</span><span>${esc(d.title)}</span></a><p>${md(d.body)}</p></div>`).join("");
   const apis = (s.apis || []).map((a) => `<span class="api">${esc(a)}</span>`).join("");
   const code = (s.code || []).map((b) => `<pre><code>${esc(b)}</code></pre>`).join("");
   const rel = related.map((r) =>
@@ -70,6 +73,8 @@ function render() {
 
     <div class="label">${t.chapters}</div>
     <div class="chapters">${chapters || '<span class="audience">' + t.none + "</span>"}</div>
+
+    ${deepdive ? `<div class="label">${t.deepdive}</div><div class="deepdive">${deepdive}</div>` : ""}
 
     <div class="label">${t.apis}</div>
     <div class="apis">${apis || '<span class="audience">' + t.none + "</span>"}</div>

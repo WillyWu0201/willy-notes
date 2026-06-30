@@ -1850,7 +1850,54 @@
         "hot": true
       }
     ],
-    "audience_en": "**UIKit/SwiftUI engineers building reading, document, or e-book apps** who want to perfect the accessible reading experience."
+    "audience_en": "**UIKit/SwiftUI engineers building reading, document, or e-book apps** who want to perfect the accessible reading experience.",
+    "deepdive": [
+      {
+        "t": 1,
+        "title": "Introduction",
+        "body": "由 Accessibility 團隊的 Josh 開場，點出**長篇閱讀內容**與一般 UI 導覽的本質差異：閱讀是在文字間「流暢移動」，而非在控制項之間跳轉。講者以一個 Chicago 旅遊導覽 app 為範例，貫穿全場示範如何讓使用 **VoiceOver** 與 **Speak Screen** 的人也能順暢閱讀。"
+      },
+      {
+        "t": 86,
+        "title": "Characteristics",
+        "body": "說明兩種內建輔助技術：**VoiceOver** 是給失明／弱視者的螢幕報讀器，朗讀游標所在處；**Speak Screen** 則從上到下朗讀整頁並同步高亮。講者據此訂出三個目標：**granular text navigation**（逐行／逐字導覽）、**continuous reading**（不被頁面打斷的連續閱讀）、與 **comprehensive text selection**（完整的文字選取）。"
+      },
+      {
+        "t": 225,
+        "title": "Standard views",
+        "body": "強調 UIKit 與 SwiftUI 的標準文字元件**開箱即具備無障礙能力**：iOS 用 `UITextView`、SwiftUI 用 `TextEditor` 或開啟 selection 的 `Text`、macOS 用 `NSTextView`。本場聚焦比 `UIAccessibilityReadingContent` 更高保真的 **`UITextInput`** 協定。範例 app 因版面需求對每個段落各用一個 `UITextView`，也埋下後續跨段落導覽的問題。"
+      },
+      {
+        "t": 449,
+        "title": "Link text elements together with navigation APIs",
+        "body": "點出問題：段落各自獨立成 view 時，VoiceOver 會卡在段落內無法逐行跨段。解法是 iOS 18 起的 **text navigation APIs**——在各元素實作 `accessibilityNextTextNavigationElement` 與 `accessibilityPreviousTextNavigationElement`，回傳上一個／下一個應前往的文字元素。範例在 `configureNavigationElements` 流程中為每頁段落設定雙向連結。"
+      },
+      {
+        "t": 479,
+        "title": "Link text elements together with a linked group",
+        "body": "對應的 SwiftUI 作法：iOS 27 起用 **`accessibilityLinkedGroup`** modifier，將多個文字元素以相同的 `id` 與 `namespace` 串起即可獲得同樣的跨元素導覽行為。macOS 上的 AppKit 則對應 **`accessibilitySharedTextUIElements`**。"
+      },
+      {
+        "t": 590,
+        "title": "Turn pages automatically after reading",
+        "body": "處理分頁內容的**連續朗讀**：對每頁最後一段套用 **`causesPageTurn`** trait（UIKit／SwiftUI 皆有），並搭配 **`accessibilityScroll`**，Speak Screen 與 VoiceOver 讀到頁尾就會自動翻頁，像有聲書一樣連續往下讀，而非停在頁底。"
+      },
+      {
+        "t": 705,
+        "title": "Add actions to the editor rotor",
+        "body": "讓文字選取功能更易被發現：範例的「Save recommendation」原本只是工具列按鈕，講者改用 **custom action** 並指定 **edit category**，覆寫 `UITextView` 子類的 `accessibilityCustomActions`，把動作加進 VoiceOver 的 **edit rotor**。重點：與選取文字相關的動作要用 edit category，而非一般動作。"
+      },
+      {
+        "t": 845,
+        "title": "Custom text",
+        "body": "進入無法使用標準 view 的情境——進階排版、跨 app 共用文字繪製、或顯示掃描頁面。範例把段落換成手寫筆記的掃描圖後，連最基本的「讀出文字」都失去了。解法是在任意 accessibility element 上採用 **`UITextInput`** 協定，讓繪製文字或圖片中的文字也能像原生文字 view 一樣可讀、可導覽、可選取。"
+      },
+      {
+        "t": 970,
+        "title": "Adopt UITextInput",
+        "body": "完整實作 `UITextInput` 的關鍵：用 `selectionRects` 計算選取範圍的矩形（範例以每行已知寬高搭配 `selectionRectFromImage` 推算）、用 `textInRange` 回傳對應子字串、並提供 **tokenizer**（子類化 `UITextInputStringTokenizer`）管理逐行／句／字導覽；再加上 `UITextInteraction` 與 input delegate 補齊選取把手與高亮視覺。協定需**完整實作**才能拿到全部好處，且能與 `causesPageTurn`、導覽 API 並用。最後呼籲：開著 VoiceOver 親自稽核自己的 app。"
+      }
+    ]
   },
   {
     "id": "220",
@@ -2292,7 +2339,69 @@
         "hot": false
       }
     ],
-    "audience_en": "iOS developers **looking to add or refine Live Activities and Dynamic Island**."
+    "audience_en": "iOS developers **looking to add or refine Live Activities and Dynamic Island**.",
+    "deepdive": [
+      {
+        "t": 1,
+        "title": "Introduction",
+        "body": "由系統體驗工程師 Adi 開場，定義 **Live Activities** 是 app 提供「此刻正在發生」之即時、可一眼掌握資訊的方式（以 MLB 比分為例）。內容會出現在 Lock Screen 與 **Dynamic Island**，長按或有 alert 更新時可展開。iOS 27 起 Dynamic Island 在直向與橫向皆可見，並會自動延伸到 **StandBy**、Apple Watch Smart Stack、macOS 選單列與 CarPlay。"
+      },
+      {
+        "t": 113,
+        "title": "Create and update",
+        "body": "本場路線圖：先規劃**資料模型**讓更新快速有效率，再建立各種呈現的基本 view，最後在 app 前景執行時或透過背景推播提供更新。以一個咖啡訂單 app 作為貫穿範例。"
+      },
+      {
+        "t": 256,
+        "title": "Define initial Live Activity",
+        "body": "資料模型的核心是區分**靜態與動態資料**：永不改變的放進符合 **`ActivityAttributes`** 的 struct（咖啡店名、飲品、訂單 id），會隨時間變動的放進 **`ContentState`**（訂單階段、預估完成時間、評分）。只有 ContentState 能在 Live Activity 存活期間被更新，這樣才能做到高效更新。記得 `import ActivityKit`。"
+      },
+      {
+        "t": 335,
+        "title": "Create each Live Activity view",
+        "body": "介面用 **WidgetKit** 建構：加入 widget extension 並提供 **`ActivityConfiguration`**，每個呈現都是讀取 `context`（attributes ＋ 最新 content state）的 SwiftUI view。Dynamic Island 需提供 `compactLeading`、`compactTrailing`、`minimal` 三種小型 view，以及由多個 **`DynamicIslandExpandedRegion`** 組成、環繞感測器的展開 view。"
+      },
+      {
+        "t": 463,
+        "title": "Start and update a Live Activity",
+        "body": "啟動方式有三：app 前景時用 ActivityKit 直接啟動、預約於特定時間啟動、或由推播啟動。範例先檢查授權，建立 attributes 與初始 `contentState`（設定 ordered 階段與 15 分鐘的預估完成時間），並介紹 **`staleDate`** 用來標記內容何時過期。之後呼叫 `.update` 帶入新的 ContentState 與 staleDate 即可更新。"
+      },
+      {
+        "t": 591,
+        "title": "Optimize",
+        "body": "進入最佳化主題的概觀：講者接著會示範如何加入更客製化的呈現，以及為 view 帶來互動性。"
+      },
+      {
+        "t": 633,
+        "title": "Optimize for limited width in the Dynamic Island",
+        "body": "iOS 27 的 compact／minimal view 在直向與橫向都會顯示，但橫向時寬度無法增長。解法是讀取 **`isDynamicIslandLimitedInWidth`** environment 值，在寬度受限時改顯示較精簡的替代 trailing view（例如以進度圖示取代文字標籤）。"
+      },
+      {
+        "t": 694,
+        "title": "Extend background color in StandBy",
+        "body": "**StandBy**（橫向充電）會把 Lock Screen view 放大到 200%，原本的漸層背景會留下大片空白。解法是讀取 **`showsWidgetContainerBackground`** environment 值：在 Lock Screen（值為 true）套用漸層 `.background`，其餘情境改用 **`.activityBackgroundTint`** 設定可辨識的背景色，讓 StandBy 呈現滿版色塊。"
+      },
+      {
+        "t": 750,
+        "title": "Add support for activityFamily small",
+        "body": "Live Activities 也會出現在 Apple Watch 的 Smart Stack 與 CarPlay。預設會直接轉送 iPhone 的 view，但在小空間中並不合身，因此需先**宣告支援 small activity family**，向系統表明你的 view 已為較小格式調整過。"
+      },
+      {
+        "t": 763,
+        "title": "Optimize for small family",
+        "body": "實作上讀取 **`activityFamily`** environment 值，當其為 `.small` 時提供專為此情境客製的 view，讓 Live Activity 在 Apple Watch 與 CarPlay 上也能呈現得宜。"
+      },
+      {
+        "t": 816,
+        "title": "Add interactivity with App Intents",
+        "body": "用 **App Intents** 加入互動：每個按鈕關聯一個 intent，點擊時系統執行對應 intent。範例的 `RateDrinkIntent` 符合 **`LiveActivityIntent`**，帶入訂單 ID 與表示好評與否的布林值，實際邏輯（回傳評分給 server、更新資料庫）寫在 `perform` 方法中。"
+      },
+      {
+        "t": 846,
+        "title": "Associate an intent with a button",
+        "body": "最後把按鈕接上 intent：更新同時用於 `ActivityView` 與 `DynamicIslandExpandedRegion` 的評分 Button view，為每個動作各加一個按鈕並建立對應的 `RateDrinkIntent`，讓人能直接在 Live Activity 上快速完成評分這類即時動作。"
+      }
+    ]
   },
   {
     "id": "224",
