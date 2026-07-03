@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>部落格 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<style>
+  :root{
+    --bg:#FAFAF7; --surface:#FFFFFF; --ink:#18181B; --muted:#71717A;
+    --line:#E8E8E3; --accent:#3B5BDB; --accent-soft:#EEF1FC;
+    --mono:"SF Mono",ui-monospace,"Menlo",monospace;
+    --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",system-ui,sans-serif;
+  }
+  :root[data-theme="dark"]{--bg:#0E0E10;--surface:#191A1D;--ink:#ECECEE;--muted:#9A9AA2;--line:#27272B;--accent:#8AA0F2;--accent-soft:#1C2138}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0E0E10;--surface:#191A1D;--ink:#ECECEE;--muted:#9A9AA2;--line:#27272B;--accent:#8AA0F2;--accent-soft:#1C2138}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--ui);line-height:1.55;padding:0 20px 96px}
+  .wrap{max-width:880px;margin:0 auto}
+  a{color:inherit}
+  .head{padding:48px 0 24px}
+  h1{font-size:26px;font-weight:680;letter-spacing:-.02em}
+  .empty{margin-top:24px;border:1px dashed var(--line);border-radius:14px;padding:40px 24px;text-align:center;color:var(--muted);font-size:15px}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap">
+  <section class="head"><h1>部落格</h1></section>
+  <div class="empty">尚無文章。之後會由每日自動整理的草稿審閱後發佈於此。</div>
+</div>
+<script src="/nav.js"></script>
+</body>
+</html>
