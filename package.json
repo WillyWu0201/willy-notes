@@ -9,12 +9,16 @@
     "notes": "npm run fetch && npm run summarize",
     "test": "node --test scripts/",
     "dev": "wrangler pages dev public",
-    "deploy": "wrangler pages deploy public"
+    "deploy": "wrangler pages deploy public",
+    "build:blog": "node scripts/build-blog.mjs"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240909.0",
     "@types/node": "^20.14.0",
     "tsx": "^4.16.0",
     "wrangler": "^3.80.0"
+  },
+  "dependencies": {
+    "marked": "^18.0.5"
   }
 }

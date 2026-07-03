@@ -1,0 +1,29 @@
+:root{--bg:#FAFAF7;--surface:#FFFFFF;--ink:#18181B;--muted:#71717A;--faint:#A1A1AA;--line:#E8E8E3;--accent:#3B5BDB;--accent-soft:#EEF1FC;--mono:"SF Mono",ui-monospace,"Menlo",monospace;--ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",system-ui,sans-serif}
+:root[data-theme="dark"]{--bg:#0E0E10;--surface:#191A1D;--ink:#ECECEE;--muted:#9A9AA2;--faint:#6B6B73;--line:#27272B;--accent:#8AA0F2;--accent-soft:#1C2138}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E0E10;--surface:#191A1D;--ink:#ECECEE;--muted:#9A9AA2;--faint:#6B6B73;--line:#27272B;--accent:#8AA0F2;--accent-soft:#1C2138}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);line-height:1.7;-webkit-font-smoothing:antialiased;padding:0 20px 96px}
+.wrap{max-width:720px;margin:0 auto}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.blog-head{padding:48px 0 8px}
+.blog-head h1{font-size:26px;font-weight:680;letter-spacing:-.02em;color:var(--ink)}
+.post-list{list-style:none;margin-top:8px}
+.post-list li{padding:20px 0;border-top:1px solid var(--line)}
+.post-list .t{font-size:18px;font-weight:640;color:var(--ink)}
+.post-list .d{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:4px}
+.post-list .s{color:var(--muted);font-size:14px;margin-top:6px}
+article{padding:48px 0 0}
+article h1.title{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.2;color:var(--ink)}
+article .meta{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+article .meta .tag{background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:999px}
+article .body{margin-top:28px}
+article .body h2{font-size:20px;margin:28px 0 10px}
+article .body h3{font-size:17px;margin:22px 0 8px}
+article .body p{margin:14px 0}
+article .body ul,article .body ol{margin:14px 0 14px 22px}
+article .body pre{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;margin:16px 0}
+article .body code{font-family:var(--mono);font-size:13px}
+article .body :not(pre)>code{background:var(--accent-soft);padding:1px 6px;border-radius:6px}
+article .body blockquote{border-left:3px solid var(--line);padding-left:14px;color:var(--muted);margin:16px 0}
+.back{display:inline-block;margin-top:36px;font-size:13px;color:var(--muted)}

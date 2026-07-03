@@ -57,3 +57,51 @@ export function assertUniqueSlugs(posts) {
     seen.add(p.slug);
   }
 }
+
+const esc = (x) => String(x).replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c]));
+
+function layout(title, bodyHtml) {
+  return `<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)}</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+${bodyHtml}
+<script src="/nav.js"></script>
+</body>
+</html>
+`;
+}
+
+export function renderPost(post, bodyHtml) {
+  const tags = (post.tags || []).map((t) => `<span class="tag">#${esc(t)}</span>`).join("");
+  const body = `<div class="wrap"><article>
+<h1 class="title">${esc(post.title)}</h1>
+<div class="meta"><span>${esc(post.date)}</span>${tags}</div>
+<div class="body">${bodyHtml}</div>
+<a class="back" href="/blog/">← 回部落格</a>
+</article></div>`;
+  return layout(`${post.title} · willy-notes`, body);
+}
+
+export function renderList(posts) {
+  const items = posts
+    .map((p) => `<li>
+<a class="t" href="/blog/${esc(p.slug)}">${esc(p.title)}</a>
+<div class="d">${esc(p.date)}</div>
+${p.summary ? `<div class="s">${esc(p.summary)}</div>` : ""}
+</li>`)
+    .join("");
+  const body = `<div class="wrap">
+<div class="blog-head"><h1>部落格</h1></div>
+<ul class="post-list">${items || `<li class="s">尚無文章。</li>`}</ul>
+</div>`;
+  return layout("部落格 · willy-notes", body);
+}
