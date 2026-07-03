@@ -25,3 +25,35 @@ export function parseFrontmatter(raw) {
   }
   return { data, body: raw.slice(m[0].length) };
 }
+
+export function deriveDate(data, filename) {
+  if (data.date) return String(data.date).trim();
+  const m = /^(\d{4}-\d{2}-\d{2})/.exec(filename);
+  if (m) return m[1];
+  throw new Error(`No date: set 'date' in frontmatter or prefix filename with YYYY-MM-DD (${filename})`);
+}
+
+export function deriveSlug(data, filename) {
+  if (data.slug) return String(data.slug).trim();
+  return deriveDate(data, filename);
+}
+
+export function postFromFile(filename, data) {
+  if (!data.title) throw new Error(`Missing 'title' in ${filename}`);
+  const tags = Array.isArray(data.tags) ? data.tags : data.tags ? [data.tags] : [];
+  return {
+    title: String(data.title),
+    date: deriveDate(data, filename),
+    slug: deriveSlug(data, filename),
+    summary: data.summary || "",
+    tags,
+  };
+}
+
+export function assertUniqueSlugs(posts) {
+  const seen = new Set();
+  for (const p of posts) {
+    if (seen.has(p.slug)) throw new Error(`Duplicate slug "${p.slug}" — add a unique 'slug' in frontmatter`);
+    seen.add(p.slug);
+  }
+}

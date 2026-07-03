@@ -22,3 +22,34 @@ test("parseFrontmatter with no frontmatter returns empty data and raw body", () 
   assert.deepEqual(data, {});
   assert.equal(body, "no front matter here");
 });
+
+import { deriveDate, deriveSlug, postFromFile, assertUniqueSlugs } from "./blog-lib.mjs";
+
+test("deriveDate prefers frontmatter date", () => {
+  assert.equal(deriveDate({ date: "2026-01-02" }, "whatever.md"), "2026-01-02");
+});
+test("deriveDate falls back to filename prefix", () => {
+  assert.equal(deriveDate({}, "2026-07-03-hello.md"), "2026-07-03");
+});
+test("deriveDate throws when neither present", () => {
+  assert.throws(() => deriveDate({}, "hello.md"), /date/i);
+});
+test("deriveSlug prefers frontmatter slug, else date", () => {
+  assert.equal(deriveSlug({ slug: "my-post" }, "2026-07-03.md"), "my-post");
+  assert.equal(deriveSlug({}, "2026-07-03.md"), "2026-07-03");
+});
+test("postFromFile builds a post and normalizes tags", () => {
+  const p = postFromFile("2026-07-03.md", { title: "Hi", tags: "solo" });
+  assert.equal(p.title, "Hi");
+  assert.equal(p.date, "2026-07-03");
+  assert.equal(p.slug, "2026-07-03");
+  assert.equal(p.summary, "");
+  assert.deepEqual(p.tags, ["solo"]);
+});
+test("postFromFile throws when title missing", () => {
+  assert.throws(() => postFromFile("2026-07-03.md", {}), /title/i);
+});
+test("assertUniqueSlugs throws on duplicate", () => {
+  assert.throws(() => assertUniqueSlugs([{ slug: "a" }, { slug: "a" }]), /slug/i);
+  assert.doesNotThrow(() => assertUniqueSlugs([{ slug: "a" }, { slug: "b" }]));
+});
