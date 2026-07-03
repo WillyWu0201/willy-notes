@@ -32,6 +32,7 @@ writeFileSync(
 );
 if (process.argv.includes("--drafts")) {
   const drafts = load("drafts");
+  assertUniqueSlugs(drafts);
   const draftsOut = join(OUT, "drafts");
   mkdirSync(draftsOut, { recursive: true });
   for (const d of drafts) writeFileSync(join(draftsOut, `${d.slug}.html`), renderPost(d, d.bodyHtml));

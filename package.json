@@ -7,7 +7,7 @@
     "fetch": "tsx scripts/fetch.ts",
     "summarize": "tsx scripts/summarize.ts",
     "notes": "npm run fetch && npm run summarize",
-    "test": "node --test scripts/",
+    "test": "node --test scripts/*.test.mjs",
     "dev": "wrangler pages dev public",
     "deploy": "wrangler pages deploy public",
     "build:blog": "node scripts/build-blog.mjs",
