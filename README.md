@@ -1,6 +1,6 @@
-# WWDC26 開發者筆記
+# willy-notes
 
-一個把 WWDC session 自動整理成可瀏覽筆記、並讓團隊標記與認領的站台。
+Willy 的個人網站(`willy-notes.pages.dev`)。目前的分頁包含首頁、部落格,以及 **WWDC26 筆記**(`/wwdc26/`)——把 WWDC session 自動整理成可瀏覽筆記、並讓團隊標記與認領。下面的文件描述 WWDC 筆記這條 pipeline。
 
 - **瀏覽公開**:任何人(不登入)都能看全部 session、篩選、搜尋。
 - **個人標記(跨裝置)**:用 Google 登入後,星號標記只屬於你,換手機也記得。

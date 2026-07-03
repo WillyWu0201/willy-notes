@@ -34,7 +34,7 @@
 ### 1. 安裝 & 建 GitHub repo
 ```bash
 npm install
-gh repo create wwdc-notes --private --source=. --remote=origin --push
+gh repo create willy-notes --private --source=. --remote=origin --push
 ```
 (repo 設 private 沒關係——站台是否公開由程式決定,跟 repo 可見性無關。)
 
@@ -47,10 +47,10 @@ npx wrangler kv namespace create NOTES_KV
 
 ### 3. 第一次部署,取得 pages.dev 網址
 ```bash
-npx wrangler pages project create wwdc-notes --production-branch main
-npx wrangler pages deploy public --project-name wwdc-notes
+npx wrangler pages project create willy-notes --production-branch main
+npx wrangler pages deploy public --project-name willy-notes
 ```
-記下輸出的 `https://wwdc-notes-xxx.pages.dev`(下一步要用)。
+記下輸出的 `https://willy-notes-xxx.pages.dev`(下一步要用)。
 
 ### 4.（這一步停下來,交給我做)建 Google OAuth client
 Claude Code 請把以下指示列給我,等我貼回 Client ID 與 Client secret:
@@ -64,18 +64,18 @@ Claude Code 請把以下指示列給我,等我貼回 Client ID 與 Client secret
 
 ### 5. 設定 Pages 環境變數(用我貼回的值)
 ```bash
-npx wrangler pages secret put GOOGLE_CLIENT_ID     --project-name wwdc-notes
-npx wrangler pages secret put GOOGLE_CLIENT_SECRET --project-name wwdc-notes
+npx wrangler pages secret put GOOGLE_CLIENT_ID     --project-name willy-notes
+npx wrangler pages secret put GOOGLE_CLIENT_SECRET --project-name willy-notes
 # SESSION_SECRET 用隨機值:
-openssl rand -base64 32 | npx wrangler pages secret put SESSION_SECRET --project-name wwdc-notes
+openssl rand -base64 32 | npx wrangler pages secret put SESSION_SECRET --project-name willy-notes
 # 選填:限制只有公司網域能登入
-# echo "cdcoverseas.com" | npx wrangler pages secret put ALLOWED_EMAIL_DOMAIN --project-name wwdc-notes
+# echo "cdcoverseas.com" | npx wrangler pages secret put ALLOWED_EMAIL_DOMAIN --project-name willy-notes
 ```
 KV 綁定靠 `wrangler.toml` 的 `[[kv_namespaces]]`,不需在 dashboard 另設。
 
 ### 6. 重新部署讓 secret + KV 生效
 ```bash
-npx wrangler pages deploy public --project-name wwdc-notes
+npx wrangler pages deploy public --project-name willy-notes
 ```
 
 ### 7. 產生全部 session 的筆記(先小量試跑,確認解析 OK 再整批)
@@ -93,7 +93,7 @@ ANTHROPIC_API_KEY=sk-ant-... npm run notes
 git add public/data/sessions.json wrangler.toml
 git commit -m "Add full WWDC26 sessions + KV id"
 git push
-npx wrangler pages deploy public --project-name wwdc-notes
+npx wrangler pages deploy public --project-name willy-notes
 ```
 
 ---
