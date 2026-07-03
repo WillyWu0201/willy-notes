@@ -30,5 +30,13 @@ writeFileSync(
   "public/data/posts.json",
   JSON.stringify(posts.map(({ slug, title, date, summary, tags }) => ({ slug, title, date, summary, tags })), null, 2)
 );
-rmSync(join(OUT, "drafts"), { recursive: true, force: true }); // deploy safety
-console.log(`built ${posts.length} posts`);
+if (process.argv.includes("--drafts")) {
+  const drafts = load("drafts");
+  const draftsOut = join(OUT, "drafts");
+  mkdirSync(draftsOut, { recursive: true });
+  for (const d of drafts) writeFileSync(join(draftsOut, `${d.slug}.html`), renderPost(d, d.bodyHtml));
+  console.log(`built ${posts.length} posts + ${drafts.length} drafts (preview)`);
+} else {
+  rmSync(join(OUT, "drafts"), { recursive: true, force: true }); // deploy safety
+  console.log(`built ${posts.length} posts`);
+}

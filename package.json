@@ -10,7 +10,8 @@
     "test": "node --test scripts/",
     "dev": "wrangler pages dev public",
     "deploy": "wrangler pages deploy public",
-    "build:blog": "node scripts/build-blog.mjs"
+    "build:blog": "node scripts/build-blog.mjs",
+    "preview": "node scripts/build-blog.mjs --drafts && wrangler pages dev public"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240909.0",
