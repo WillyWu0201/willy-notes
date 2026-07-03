@@ -46,9 +46,11 @@ for (const s of sessions) {
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 </head>
 <body>
+<div id="site-nav"></div>
 <div id="app"></div>
 <script id="d" type="application/json">${json}</script>
 <script src="/wwdc26/s/detail.js"></script>
+<script src="/nav.js"></script>
 </body>
 </html>
 `;
