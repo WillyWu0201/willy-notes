@@ -15,10 +15,10 @@
     '#site-nav{position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(12px);' +
     '-webkit-backdrop-filter:saturate(180%) blur(12px);' +
     'background:color-mix(in srgb,var(--bg) 86%,transparent);border-bottom:1px solid var(--line)}' +
-    '#site-nav .snav{max-width:880px;margin:0 auto;display:flex;gap:6px;align-items:center;padding:10px 20px}' +
+    '#site-nav .snav{max-width:880px;margin:0 auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px 20px}' +
     '#site-nav .brand{font-family:var(--mono,ui-monospace,monospace);font-size:13px;font-weight:700;' +
-    'letter-spacing:-.01em;color:var(--ink);text-decoration:none;margin-right:auto}' +
-    '#site-nav a.tab{font-size:13.5px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:999px}' +
+    'letter-spacing:-.01em;color:var(--ink);text-decoration:none;margin-right:auto;white-space:nowrap}' +
+    '#site-nav a.tab{font-size:13.5px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:999px;white-space:nowrap}' +
     '#site-nav a.tab:hover{color:var(--ink)}' +
     '#site-nav a.tab[aria-current="page"]{color:var(--ink);background:var(--accent-soft,rgba(127,127,127,.14))}';
   var tabs = items
@@ -33,4 +33,6 @@
   style.textContent = css;
   document.head.appendChild(style);
   mount.innerHTML = '<div class="snav"><a class="brand" href="/">willy-notes</a>' + tabs + "</div>";
+  // Expose the nav's height so a page with its own sticky bar can offset below it.
+  document.documentElement.style.setProperty("--nav-h", (mount.offsetHeight || 54) + "px");
 })();
