@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<style>
+  :root{
+    --bg:#FAFAF7; --surface:#FFFFFF; --ink:#18181B; --muted:#71717A; --faint:#A1A1AA;
+    --line:#E8E8E3; --accent:#3B5BDB; --accent-soft:#EEF1FC;
+    --mono:"SF Mono",ui-monospace,"JetBrains Mono","Menlo",monospace;
+    --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",system-ui,sans-serif;
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E0E10; --surface:#191A1D; --ink:#ECECEE; --muted:#9A9AA2; --faint:#6B6B73;
+    --line:#27272B; --accent:#8AA0F2; --accent-soft:#1C2138;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E0E10; --surface:#191A1D; --ink:#ECECEE; --muted:#9A9AA2; --faint:#6B6B73;
+      --line:#27272B; --accent:#8AA0F2; --accent-soft:#1C2138;
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--ui);line-height:1.55;-webkit-font-smoothing:antialiased;padding:0 20px 96px}
+  .wrap{max-width:880px;margin:0 auto}
+  a{color:inherit}
+  .hero{padding:56px 0 32px}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-size:32px;font-weight:680;letter-spacing:-.02em;line-height:1.12}
+  .lede{color:var(--muted);font-size:16px;margin-top:12px;max-width:60ch}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  @media (max-width:640px){.cards{grid-template-columns:1fr}}
+  .card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;text-decoration:none;transition:border-color .15s ease}
+  .card:hover{border-color:var(--faint)}
+  .card h2{font-size:17px;font-weight:640;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap">
+  <section class="hero">
+    <div class="eyebrow">willy-notes</div>
+    <h1>Willy 的筆記與作品</h1>
+    <p class="lede">技術筆記、每日開發日誌,以及把資料自動整理成可瀏覽知識庫的實驗場。</p>
+  </section>
+  <div class="cards">
+    <a class="card" href="/blog/">
+      <h2>部落格 →</h2>
+      <p>技術文章與每日開發日誌。</p>
+    </a>
+    <a class="card" href="/wwdc26/">
+      <h2>WWDC26 →</h2>
+      <p>WWDC26 session 自動整理的可瀏覽筆記。</p>
+    </a>
+  </div>
+</div>
+<script src="/nav.js"></script>
+</body>
+</html>
