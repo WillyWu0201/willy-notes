@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const sessions = JSON.parse(readFileSync("public/data/sessions.json", "utf8"));
-mkdirSync("public/s", { recursive: true });
+mkdirSync("public/wwdc26/s", { recursive: true });
 
 function relatedFor(s) {
   const mine = new Set((s.apis || []).map((a) => a.toLowerCase()));
@@ -42,17 +42,17 @@ for (const s of sessions) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escTitle(s.title)} · WWDC26</title>
 <link rel="icon" href="/favicon.svg">
-<link rel="stylesheet" href="/s/detail.css">
+<link rel="stylesheet" href="/wwdc26/s/detail.css">
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 </head>
 <body>
 <div id="app"></div>
 <script id="d" type="application/json">${json}</script>
-<script src="/s/detail.js"></script>
+<script src="/wwdc26/s/detail.js"></script>
 </body>
 </html>
 `;
-  writeFileSync(`public/s/${s.id}.html`, html);
+  writeFileSync(`public/wwdc26/s/${s.id}.html`, html);
   n++;
 }
 console.log(`wrote ${n} detail pages (${withCode} with sample code)`);
