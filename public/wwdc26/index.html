@@ -340,7 +340,7 @@ function writeHash() {
 async function boot() {
   const target = readHash();
   const [sData, meData, clData, cmData] = await Promise.all([
-    fetch("data/sessions.json").then((r) => r.json()).catch(() => []),
+    fetch("/data/sessions.json").then((r) => r.json()).catch(() => []),
     fetch("/api/me").then((r) => r.json()).catch(() => ({ user: null })),
     fetch("/api/claimed").then((r) => r.json()).catch(() => ({ claimed: {} })),
     fetch("/api/comments").then((r) => r.json()).catch(() => ({ comments: {} })),
@@ -456,7 +456,7 @@ function cardHTML(s) {
     ${c && c.note ? `<div class="claim-note">📌 ${esc(c.note)}</div>` : ""}
     <div class="card-foot">
       <span class="foot-right">
-        <a class="src" href="/s/${esc(s.id)}${state.lang === "en" ? "?lang=en" : ""}">${t.detail}</a>
+        <a class="src" href="/wwdc26/s/${esc(s.id)}${state.lang === "en" ? "?lang=en" : ""}">${t.detail}</a>
         <a class="src" href="${esc(safeUrl)}" target="_blank" rel="noopener">${t.src}</a>
       </span>
       <span class="foot-right">
