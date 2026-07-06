@@ -34,6 +34,7 @@ export function extractSession(jsonlText) {
       continue;
     }
     if (o.type !== "user" && o.type !== "assistant") continue;
+    if (o.isMeta) continue;
     const c = o.message && o.message.content;
     let text = "";
     if (typeof c === "string") text = c;
@@ -68,7 +69,7 @@ export function renderBundle(date, sources) {
   return out;
 }
 
-import { readFileSync, readdirSync, statSync, mkdirSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, statSync, mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 import { readConfig } from "./blog-lib.mjs";
@@ -159,7 +160,7 @@ function main() {
   }
   mkdirSync("automation/.cache", { recursive: true });
   const bundlePath = join("automation/.cache", `daily-${date}.md`);
-  writeFileSync(bundlePath, bundle);
+  writeFileSync(bundlePath, trim(bundle, maxChars));
   const draftPath = join(contentDir, "drafts", `${date}.md`);
   console.log(`BUNDLE: ${bundlePath}`);
   console.log(`DRAFT_TARGET: ${draftPath}`);

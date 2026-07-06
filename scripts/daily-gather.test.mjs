@@ -40,6 +40,16 @@ test("extractSession keeps user/assistant text and skips noise", () => {
   assert.doesNotMatch(out, /tool_use|Bash/); // tool_use skipped
 });
 
+test("extractSession skips isMeta (harness-injected) user turns", () => {
+  const lines = [
+    JSON.stringify({ type: "user", isMeta: true, message: { content: "Base directory for this skill: ..." } }),
+    JSON.stringify({ type: "user", message: { content: "真正的問題" } }),
+  ].join("\n");
+  const out = extractSession(lines);
+  assert.match(out, /真正的問題/);
+  assert.doesNotMatch(out, /Base directory/);
+});
+
 import { trim, renderBundle } from "./daily-gather.mjs";
 
 test("trim leaves short text unchanged and truncates long text with a note", () => {
