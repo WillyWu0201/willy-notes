@@ -44,3 +44,26 @@ export function extractSession(jsonlText) {
   }
   return turns.join("\n\n");
 }
+
+export function trim(text, cap) {
+  if (text.length <= cap) return text;
+  const cut = text.length - cap;
+  return text.slice(0, cap) + `\n\n…(已裁切 ${cut} 字)`;
+}
+
+export function renderBundle(date, sources) {
+  const hasContent = sources.some((s) => (s.commits && s.commits.length) || (s.sessionText && s.sessionText.trim()));
+  if (!hasContent) return "NO_CONTENT";
+  let out = `# 素材包 · ${date}\n`;
+  for (const s of sources) {
+    out += `\n## ${s.repo}\n`;
+    if (s.commits && s.commits.length) {
+      out += `\n### commits\n`;
+      for (const c of s.commits) out += `- ${c.hash} ${c.subject}${c.files.length ? ` (${c.files.join(", ")})` : ""}\n`;
+    } else {
+      out += `\n(今天無 commit)\n`;
+    }
+    if (s.sessionText && s.sessionText.trim()) out += `\n### session 重點\n${s.sessionText}\n`;
+  }
+  return out;
+}

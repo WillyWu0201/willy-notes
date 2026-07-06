@@ -39,3 +39,23 @@ test("extractSession keeps user/assistant text and skips noise", () => {
   assert.doesNotMatch(out, /hmm/);       // thinking skipped
   assert.doesNotMatch(out, /tool_use|Bash/); // tool_use skipped
 });
+
+import { trim, renderBundle } from "./daily-gather.mjs";
+
+test("trim leaves short text unchanged and truncates long text with a note", () => {
+  assert.equal(trim("short", 100), "short");
+  const out = trim("abcdefghij", 4);
+  assert.ok(out.startsWith("abcd"));
+  assert.match(out, /已裁切 6 字/);
+});
+test("renderBundle returns NO_CONTENT when nothing is present", () => {
+  assert.equal(renderBundle("2026-07-04", [{ repo: "/x", commits: [], sessionText: "" }]), "NO_CONTENT");
+});
+test("renderBundle renders commits and session per repo", () => {
+  const out = renderBundle("2026-07-04", [
+    { repo: "/x", commits: [{ hash: "abc", subject: "do", files: ["a.js"] }], sessionText: "使用者: hi" },
+  ]);
+  assert.match(out, /## \/x/);
+  assert.match(out, /abc do \(a\.js\)/);
+  assert.match(out, /使用者: hi/);
+});
