@@ -2,6 +2,10 @@
   "repos": [
     "/Users/willy/Developer/clvn_ios",
     "/Users/willy/Developer/clvn-e2e",
+    "/Users/willy/Developer/clvn_ios-contract-coverage",
+    "/Users/willy/Developer/clvn_ios-openapi-contract-test",
+    "/Users/willy/Developer/clvn_ios-appium-ui-test",
+    "/Users/willy/Developer/clvn_ios-unittest-skip-app-launch",
     "/Users/willy/Developer/wwdc26-notes"
   ],
   "sessionsDir": "~/.claude/projects",
