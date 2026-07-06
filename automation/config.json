@@ -1,6 +1,10 @@
 {
-  "repos": ["/Users/willy/Developer/wwdc26-notes"],
+  "repos": [
+    "/Users/willy/Developer/clvn_ios",
+    "/Users/willy/Developer/clvn-e2e",
+    "/Users/willy/Developer/wwdc26-notes"
+  ],
   "sessionsDir": "~/.claude/projects",
-  "authorEmail": "test001@tpisoftware.com",
+  "authorEmail": "nt89136@cathaybk.com.tw\\|test001@tpisoftware.com",
   "maxChars": 40000
 }
