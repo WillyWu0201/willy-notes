@@ -67,3 +67,102 @@ export function renderBundle(date, sources) {
   }
   return out;
 }
+
+import { readFileSync, readdirSync, statSync, mkdirSync, writeFileSync, existsSync } from "node:fs";
+import { join, resolve } from "node:path";
+import { execFileSync } from "node:child_process";
+import { readConfig } from "./blog-lib.mjs";
+
+function todayLocal() {
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
+function isSameLocalDay(mtime, dateStr) {
+  const p = (n) => String(n).padStart(2, "0");
+  const s = `${mtime.getFullYear()}-${p(mtime.getMonth() + 1)}-${p(mtime.getDate())}`;
+  return s === dateStr;
+}
+
+function expandHome(p) {
+  return p.startsWith("~/") ? resolve(process.env.HOME || "", p.slice(2)) : p;
+}
+
+function gitCommits(repo, date, authorEmail) {
+  try {
+    const out = execFileSync(
+      "git",
+      ["-C", repo, "log", `--since=${date} 00:00`, `--until=${date} 23:59`,
+       `--author=${authorEmail}`, "--no-merges", "--pretty=format:%x1e%h%x1f%s", "--name-only"],
+      { encoding: "utf8" }
+    );
+    return parseGitLog(out);
+  } catch {
+    return [];
+  }
+}
+
+function sessionText(repo, date, sessionsDir) {
+  const key = repoToProjectKey(repo);
+  const root = expandHome(sessionsDir);
+  let dirs = [];
+  try {
+    dirs = readdirSync(root).filter((d) => matchesRepo(d, key));
+  } catch {
+    return "";
+  }
+  const parts = [];
+  for (const d of dirs) {
+    const dirPath = join(root, d);
+    let files = [];
+    try {
+      files = readdirSync(dirPath).filter((f) => f.endsWith(".jsonl"));
+    } catch {
+      continue;
+    }
+    for (const f of files) {
+      const fp = join(dirPath, f);
+      try {
+        if (!isSameLocalDay(statSync(fp).mtime, date)) continue;
+        const text = extractSession(readFileSync(fp, "utf8"));
+        if (text.trim()) parts.push(text);
+      } catch {
+        continue;
+      }
+    }
+  }
+  return parts.join("\n\n");
+}
+
+function main() {
+  const dateArg = process.argv.indexOf("--date");
+  const date = dateArg !== -1 ? process.argv[dateArg + 1] : todayLocal();
+  const { contentDir } = readConfig();
+  const cfg = JSON.parse(readFileSync("automation/config.json", "utf8"));
+  const maxChars = cfg.maxChars || 40000;
+
+  const sources = cfg.repos.map((repo) => ({
+    repo,
+    commits: gitCommits(repo, date, cfg.authorEmail),
+    sessionText: sessionText(repo, date, cfg.sessionsDir),
+  }));
+
+  const withSession = sources.filter((s) => s.sessionText.trim()).length || 1;
+  const perCap = Math.floor(maxChars / withSession);
+  for (const s of sources) s.sessionText = trim(s.sessionText, perCap);
+
+  const bundle = renderBundle(date, sources);
+  if (bundle === "NO_CONTENT") {
+    console.log("NO_CONTENT");
+    return;
+  }
+  mkdirSync("automation/.cache", { recursive: true });
+  const bundlePath = join("automation/.cache", `daily-${date}.md`);
+  writeFileSync(bundlePath, bundle);
+  const draftPath = join(contentDir, "drafts", `${date}.md`);
+  console.log(`BUNDLE: ${bundlePath}`);
+  console.log(`DRAFT_TARGET: ${draftPath}`);
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) main();

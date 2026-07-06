@@ -12,7 +12,8 @@
     "deploy": "wrangler pages deploy public",
     "build:blog": "node scripts/build-blog.mjs",
     "preview": "node scripts/build-blog.mjs --drafts && wrangler pages dev public",
-    "publish": "node scripts/publish.mjs"
+    "publish": "node scripts/publish.mjs",
+    "gather": "node scripts/daily-gather.mjs"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240909.0",
