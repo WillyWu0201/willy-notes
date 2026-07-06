@@ -1,5 +1,16 @@
 [
   {
+    "slug": "2026-07-03",
+    "title": "開發日誌 · 2026-07-03",
+    "date": "2026-07-03",
+    "summary": "從 diff 量級反推視覺回歸的 flaky 根因、用 OpenAPI spec 當事實來源驗合約、以及 CI exit 65 的啟動時序問題。",
+    "tags": [
+      "visual-regression",
+      "openapi-contract",
+      "ios-testing"
+    ]
+  },
+  {
     "slug": "hello",
     "title": "willy-notes 上線了",
     "date": "2026-07-03",

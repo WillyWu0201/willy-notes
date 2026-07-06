@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>開發日誌 · 2026-07-03 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">開發日誌 · 2026-07-03</h1>
+<div class="meta"><span>2026-07-03</span><span class="tag">#visual-regression</span><span class="tag">#openapi-contract</span><span class="tag">#ios-testing</span></div>
+<div class="body"><blockquote>
+<p>以下程式碼皆為說明用的<strong>示意片段</strong>(通用命名),重點在技術概念而非特定實作。</p>
+</blockquote>
+<h2>從「diff 量級」反推 flaky 的根因</h2>
+<p>Appium/WDIO 的視覺回歸裡,有個透過 navigation push 進入的表單畫面,基準圖一直出現 ~3% 差異,但沒改任何 UI。與其重截圖碰運氣,<strong>diff 的量級本身就是線索</strong>:</p>
+<ul>
+<li>caret 閃爍大約 0.05–0.1%,anti-aliasing 抖動更小 → 3% 太大,不是雜訊。</li>
+<li>鍵盤蓋掉半個畫面會是 40%+ → 3% 又太小,不是整塊遮擋。</li>
+<li>3% 這種量級 = <strong>一個區域性的位移</strong>;畫面大部分是白底(白對白仍相符),只有欄位與文字在動,才會落在 3–7%。</li>
+</ul>
+<p>根因是 <strong>navigation 的橫向滑入動畫還沒定格就截圖</strong>——元素一 <code>waitForDisplayed</code> 回來就截,抓到動畫中途那一影格:</p>
+<pre><code class="language-ts">// 舊:元素「存在」不代表畫面「靜止」
+await screen.waitForDisplayed()
+await compareToBaseline(&#39;form&#39;)   // 抓到滑動中的影格 → 整畫面水平位移
+</code></pre>
+<p>修法是在截圖前加一道<strong>穩定門檻</strong>:連拍兩張、像素一致才視為定格。</p>
+<pre><code class="language-ts">// 示意:一個 stability gate
+async function waitUntilStable({ interval = 150, tries = 10 } = {}) {
+  let prev = await takeScreenshot()
+  for (let i = 0; i &lt; tries; i++) {
+    await browser.pause(interval)
+    const next = await takeScreenshot()
+    if (pixelDiff(prev, next) === 0) return   // 兩張一致 → 已定格
+    prev = next
+  }
+}
+
+await screen.waitForDisplayed()
+await waitUntilStable()
+await compareToBaseline(&#39;form&#39;)
+</code></pre>
+<p><strong>埋著的次要風險(multi-state-capture 陷阱)</strong>:同一個 visual tag 若對應兩個結構不同的到達點——例如「初次進入的空白表單」與「返回時的表單」——會共用同一 baseline,由先跑到的測試決定基準。今天兩者剛好像素一致所以沒事,但哪天返回時某個欄位被預填,那塊就會冒出區域性 diff、而且看測試執行順序而定。通則:<strong>一個 visual tag 只該對應一個確定狀態</strong>。</p>
+<h2>用 OpenAPI spec 當單一事實來源驗合約</h2>
+<p>合約測試的核心思路是<strong>讓 OpenAPI spec 成為唯一事實來源</strong>,而不是各處各自維護一份預期格式。把 spec 從 yaml 轉 json、測試載入解析;validator 的關鍵是<strong>累積所有落差</strong>(一次看完,而非遇錯即停)並正確處理 nullable:</p>
+<pre><code class="language-swift">// 示意:遞迴比對 JSON 與 schema,回傳所有 issue
+func validate(_ value: JSONValue, against schema: Schema, at path: String) -&gt; [Issue] {
+    if value == .null {
+        return schema.nullable ? [] : [Issue(path, &quot;unexpected null&quot;)]   // nullable 才放行
+    }
+    switch schema {
+    case .object(let props): return props.flatMap { validate(value[$0.key], against: $0.value, at: &quot;\(path).\($0.key)&quot;) }
+    case .array(let items):  return value.array.enumerated().flatMap { validate($1, against: items, at: &quot;\(path)[\($0)]&quot;) }
+    case .ref(let name):     return validate(value, against: resolve(name), at: path)   // $ref 解析
+    default:                 return checkScalar(value, schema, path)
+    }
+}
+</code></pre>
+<p>要把「model 欄位」對到「spec 欄位」時,decode 後用 <code>Mirror</code> 取欄位名,就能算 required 覆蓋與缺漏:</p>
+<pre><code class="language-swift">let decoded = try decoder.decode(ModelType.self, from: sampleJSON)
+let modelFields = Set(Mirror(reflecting: decoded).children.compactMap { $0.label })
+let missing = requiredFields.subtracting(modelFields)
+</code></pre>
+<p>驗證分層、而且<strong>先 report-only 再強制</strong>,才不會一上線紅一片:先驗 fixtures 是否符合 schema、再比對 model 欄位與 spec 的 required、接著算欄位覆蓋率、最後輸出覆蓋率報告。</p>
+<h2>CI exit 65:根因在啟動時序,不是編譯</h2>
+<p>單元測試在 CI 掛 <code>exit 65</code>,容易被當成編譯錯誤,但根因是<strong>執行時序</strong>:測試過程中 app 會 relaunch,加上部分 UIKit 斷言跑在<strong>非主緒</strong>。</p>
+<pre><code class="language-swift">// UIKit 存取必須在 main thread
+await MainActor.run {
+    XCTAssertEqual(label.text, expected)
+}
+</code></pre>
+<p>再加一道 <strong>relaunch-safe 的啟動 gate</strong>(重啟時別重跑會 crash 的初始化)。通則:iOS 單元測試看到 65,先查啟動流程與主緒假設,再懷疑編譯。</p>
+</div>
+<a class="back" href="/blog/">← 回部落格</a>
+</article></div>
+<script src="/nav.js"></script>
+</body>
+</html>
