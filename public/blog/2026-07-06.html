@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>開發日誌 · 2026-07-06 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">開發日誌 · 2026-07-06</h1>
+<div class="meta"><span>2026-07-06</span><span class="tag">#visual-regression</span><span class="tag">#flaky-tests</span><span class="tag">#xcode-build</span></div>
+<div class="body"><blockquote>
+<p>程式碼都改成通用命名的示意片段,重點在當下的判斷,不對應特定專案。</p>
+</blockquote>
+<p>今天在一個 Appium/WDIO 專案裡從零接視覺回歸(screenshot diff)。真正花腦筋的都不是「怎麼呼叫比對 API」,是三個岔路:比對失敗該不該連累功能測試、一份太漂亮的報告、還有一個 build 失敗把我拖去 yak shaving 半天。</p>
+<h2>視覺比對憑什麼讓功能測試變紅</h2>
+<p>第一個要拍板的問題:screenshot diff 對不上,要不要讓那條測案 fail?</p>
+<p>我的答案是不要。功能測試驗的是「登入流程走不走得完」,某個按鈕位移 2px 不該讓它變紅;反過來我也不想為了看幾張截圖,就得把整套功能測試重跑一輪。這兩種失敗的意思根本不一樣,綁在一起只會互相拖累。所以視覺層做成一條旁路:只觀察、只寫檔,絕不 throw。</p>
+<pre><code class="language-ts">async function visualCheck(tag) {
+  try {
+    record(await compareScreen(tag))
+  } catch (e) {
+    record({ tag, status: &#39;error&#39; })   // 連截圖失敗都只是記一筆
+  }
+}
+</code></pre>
+<p>麻煩在收集。這套 runner 每支 spec 檔各自一個 process、平行跑,大家搶著寫同一個 <code>results.json</code>,不是互相蓋掉就是寫出半殘的 JSON。與其去加跨 process 的鎖(脆,而且要處理殘留鎖檔),不如讓每個 process 寫自己那份,檔名帶 pid,收工後再合併:</p>
+<pre><code class="language-ts">appendFileSync(`.visual/results/worker-${process.pid}.ndjson`,
+               JSON.stringify(row) + &#39;\n&#39;)
+</code></pre>
+<p>NDJSON 一行一筆、append-only,壞一行不影響其他行,合併就是把所有檔的行讀進來排序而已。多個寫入者的場景,「一人一檔 + 事後 merge」幾乎永遠比搶鎖省事。</p>
+<p>還有個小決定:在哪一刻截圖。<code>afterTest</code> 每案自動截最省事,但測案結束的當下,畫面常常停在轉場中、鍵盤還沒收、或彈窗殘留——截出來語意糊,又容易誤報。我改成掛在 page object 本來就有的那幾個「已到達某畫面」的 helper 上,它們本來就是在等畫面穩定,加一行就好,全部 spec 自動涵蓋,而且每張都對應一個真的穩定的畫面。</p>
+<h2>差點交出一份全綠的假報告</h2>
+<p>比對跑完:300 多張、0 fail。漂亮得可疑。一個從沒跑過視覺回歸的專案,第一次接就全過?</p>
+<p>翻設定,看到 <code>autoSaveBaseline: true</code>。這行的語意是:baseline 不存在時,自動把當前畫面存成 baseline,然後回你 0% 差異、pass。</p>
+<pre><code class="language-ts">if (!baselineExists(tag)) {
+  saveBaseline(tag)
+  return { mismatch: 0, pass: true }   // 根本沒得比,直接綠
+}
+</code></pre>
+<p>第一次建基準時這很方便,但常駐著它就變成:每一張還沒有 baseline 的畫面,第一次跑都是「自動建檔 + 綠燈」。我那份「300 張 0 fail」根本不是比對結果,是 300 次自動存檔。真正經過比對的,只有「baseline 已經在、而且差異超過容差」那一種,其餘全是假綠。</p>
+<p>更陰的是它會自我修復:哪天誰誤刪一張 baseline,下次跑自動補回、照樣 pass,你永遠不會知道那張畫面曾經沒在測。</p>
+<p>改法很小,就是把「自動建檔」從預設行為降級成一個要明講的動作:</p>
+<pre><code class="language-ts">autoSaveBaseline: process.env.UPDATE_BASELINE === &#39;1&#39;,
+</code></pre>
+<p>平常關著,缺 baseline 就讓它現形成 missing,而不是偷偷補一張綠的。工具願意「找不到基準就當你過」的時候,得提防它把「沒測到」講成「測過了」。</p>
+<h2>build 卡在一個跟測試碼無關的地方</h2>
+<p>要建 baseline 得先能把 app build 出來,結果卡在一個八竿子打不著的地方:某個第三方 SDK 的 Run Script phase 說找不到檔案。</p>
+<pre><code>.../DerivedData/&lt;App&gt;/SourcePackages/checkouts/&lt;sdk&gt;/run: No such file or directory
+</code></pre>
+<p>那個 <code>run</code> 檔是真的不在。build 腳本為了省時間,會挑一份現成的 DerivedData 當 SPM 快取共用,偏偏挑中的那份 checkout 不完整。行,那我把套件目錄指到一份完整的:</p>
+<pre><code class="language-bash">xcodebuild ... -clonedSourcePackagesDirPath /good/SourcePackages
+</code></pre>
+<p>一模一樣的錯。</p>
+<p>這裡愣了一下——flag 設了、目標路徑也確定在,為什麼還是去找舊那條?翻那個 script phase 才看懂:它的路徑是拿 <code>BUILD_DIR</code> 自己拼出來的,寫死指向 <code>DerivedData/&lt;App&gt;/SourcePackages</code>,<code>-clonedSourcePackagesDirPath</code> 對它根本不存在。那個 flag 只有 xcodebuild 自己的依賴解析吃得到,build 中途 spawn 出來的 shell script 看的是它自己的環境變數。</p>
+<p>既然它非那條路不可,那就別跟它凹,把那條路接到對的地方去:</p>
+<pre><code class="language-bash">ln -s /good/SourcePackages &quot;$DERIVED_DATA/&lt;App&gt;/SourcePackages&quot;
+xcodebuild ...   # 這次不帶 flag
+</code></pre>
+<p>過了。CLI flag 明明設了卻沒生效的時候,先問一句:這個值到底是誰在讀——xcodebuild 讀的,和它 spawn 出來的 script phase 讀的,是兩個世界。</p>
+</div>
+<a class="back" href="/blog/">← 回部落格</a>
+</article></div>
+<script src="/nav.js"></script>
+</body>
+</html>
