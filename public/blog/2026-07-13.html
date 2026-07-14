@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>開發日誌 · 2026-07-13 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">開發日誌 · 2026-07-13</h1>
+<div class="meta"><span>2026-07-13</span><span class="tag">#e2e-testing</span><span class="tag">#ios-simulator</span><span class="tag">#test-parallelism</span><span class="tag">#appium</span></div>
+<div class="body"><h2>一次開多台,只有幾支掛</h2>
+<p>之前試過一次開多台模擬器一起跑 E2E,想把總時間壓下來。結果不是整批爆——是某幾支測案掛,其他照過。</p>
+<p>當下第一個反應不是「怎麼會掛」,是「為什麼只有這幾支掛」。這件事本身就是線索。整批全倒,通常是環境沒起來、連線爆掉那種;只掛幾支,幾乎都是某個共享資源被平行的行程互相踩,踩到的才掛,沒碰到的照跑。</p>
+<p>所以我沒先去看斷言細節,先去找那幾支掛的共通點。翻出來一看,清一色都是「複製一段字串到剪貼簿,再讀回來精確斷言」的案子。</p>
+<pre><code class="language-js">// 示意:複製再讀回來斷言
+await copyButton.click()
+expect(await clipboardText()).toBe(&#39;9876543210&#39;)
+</code></pre>
+<p>剪貼簿。方向對了。</p>
+<p>我腦裡原本的印象是「模擬器跟 Mac 共用一份剪貼簿」。查下去才知道這句話是錯的:每台模擬器其實各自有獨立的 pasteboard。真正把它們綁在一起的,是 Simulator.app 一個預設開著的設定——Edit → Automatically Sync Pasteboard。開著的時候,每台 sim 的剪貼簿會雙向同步到 host Mac 那一份。大家都鏡射到 Mac 的同一份,於是「實質上」所有 sim 共用一份。</p>
+<p>競態就浮出來了:</p>
+<p>行程 A 在它的 sim 複製了 X,同步上 Mac,又被同步進行程 B 的 sim。A 回頭讀自己剛複製的東西,讀到的卻可能是 B 在這半秒內蓋上去的值。斷言當然掛。而完全不碰剪貼簿的案子,一支都不受影響——跟「只有那幾支掛」對得剛剛好。</p>
+<p>解法有兩條:把 auto-sync 關掉,每台 sim 立刻回到各自獨立;或者根本不透過 Mac 那份,用帶 UDID 的 CLI 直接對某一台讀寫。</p>
+<pre><code class="language-bash">xcrun simctl pbcopy  &lt;UDID&gt;   # 寫進「這一台」的剪貼簿
+xcrun simctl pbpaste &lt;UDID&gt;   # 讀「這一台」的,不經 Mac
+</code></pre>
+<p>值得記的,其實是我一開始那句錯話。如果你相信「模擬器天生跟 Mac 共享剪貼簿」,這題會顯得無解——共享是天性,還能怎樣?但真相是「各自獨立,只是被預設同步鏡射在一起」,那就有兩個開關可以拆。錯的心智模型不會讓你的斷言掛,它讓你連哪裡有開關都找不到。</p>
+<h2>以為多開幾台就會更快</h2>
+<p>剪貼簿同步關掉、競態排除之後,回到本來的目標:用多台模擬器把總時間壓下來。</p>
+<p>直覺是靠框架。WebdriverIO 支援多 capability,你很自然會想:把四台 sim 塞進 capabilities 陣列,不就自動分擔了嗎?</p>
+<p>不會。這是我差點踩進去的坑。WDIO 多 capability 的語意是「矩陣」——同一批 spec,在每一台裝置上各跑一遍。那是設計給你做跨裝置、跨瀏覽器驗證用的,不是拿來分片加速的。你放四台,等於同樣的 spec 跑了四遍,只會更慢。</p>
+<p>要真的分片,得自己來:把不相交的 spec 子集,手動塞進每台 capability 的 <code>specs</code>。而且單一 Appium server 同時驅動多個 XCUITest session,WDA 的 port、derivedDataPath 這些很容易互相打架。愈想在框架裡硬做,愈脆。</p>
+<p>所以我沒走框架原生那條,改成一層薄薄的多進程 wrapper:偵測機器規格算出一個安全的並行度 N,把 spec 依檔案輪流切成 N 片,起 N 個各自獨立的行程,每個行程一台自己的 sim、一個自己的 Appium server、自己的 port。隔離最乾淨,也最不容易互踩——上一段那種踩法我已經受夠了。</p>
+<p>N 這個數字,不能只看 CPU 核數。每開一台 sim,要養一個 node worker、一個 WDA、還有模擬器本體,吃 CPU 也吃 RAM。只照核數配,RAM 會先爆。所以我讓兩個天花板同時夾,取小的那個:</p>
+<pre><code>N = max(1, min(
+  floor(cores / 2),       // 每台 sim ≈ worker + WDA + 模擬器本體
+  floor(freeRamGB / 4),   // 每台約抓 4GB,保守估
+  parallelSpecCount,      // 沒那麼多片,就別開那麼多台
+  HARD_CAP,               // 硬上限,再高階也別把機器操死
+))
+</code></pre>
+<p>行程之間就靠不同的 env 撐開,各綁各的:</p>
+<pre><code class="language-bash">SIM_UDID=&lt;各自&gt;  APPIUM_PORT=4723+i  WDA_LOCAL_PORT=8100+i  wdio run --spec &lt;該片&gt;
+</code></pre>
+<p>(至於平行寫結果檔會不會互相蓋——那層前陣子就改成各寫各的了,檔名帶 pid,收工再合併,這次白撿,不重講。)</p>
+<p>真正的關鍵判斷是第一步:看穿「多 capability」不是加速鍵。認清這點,後面才會往「多進程、各自隔離」的方向走。沒認清,就會在框架裡愈疊愈複雜,最後 spec 跑了四遍,還以為自己在平行。</p>
+</div>
+<a class="back" href="/blog/">← 回部落格</a>
+</article></div>
+<script src="/nav.js"></script>
+</body>
+</html>

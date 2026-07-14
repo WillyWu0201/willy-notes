@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>開發日誌 · 2026-07-14 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">開發日誌 · 2026-07-14</h1>
+<div class="meta"><span>2026-07-14</span><span class="tag">#test-reporting</span><span class="tag">#junit</span><span class="tag">#ios-automation</span><span class="tag">#appium</span></div>
+<div class="body"><h2>報告是綠的,名字卻不見了</h2>
+<p>我們的 E2E 測案名字是用中文寫的。理由很單純:一排測案跑完,CI 上要一眼看出「喔這支是驗這個情境」,中文比一長串英文縮寫好認太多。</p>
+<p>問題是產出的 junit 報告裡,那些中文名字整排變成了空的、或被截成認不出的東西。報告本身還是綠的——所有測案都過——但你點進去想確認「到底跑了哪幾支」,名字全花了。這比紅燈還討厭:紅燈至少告訴你哪裡有事,一份「看起來很正常但名字都對不上」的報告,是會讓你在 CI 上白瞪半天的那種。</p>
+<p>根因是報告這一層,不是測試本身。很多 junit reporter 在把測案標題寫進 XML 的 <code>name</code> / <code>classname</code> 屬性之前,會先「清洗」一次。清洗的動機是合理的:XML 1.0 對某些控制字元本來就不合法,標題裡若有這些字元會讓整份報告 parse 不了。但有些清洗寫得太粗——直接一條規則把「非 ASCII」全部濾掉或換成底線,中文剛好整個落在被砍的範圍裡。</p>
+<p>大概是這個形狀的東西(示意):</p>
+<pre><code class="language-js">// 示意:太粗暴的清洗,順手把中文也吃了
+function sanitize(name) {
+  return name.replace(/[^\x20-\x7E]/g, &#39;&#39;)   // 只留可見 ASCII → 中文全沒了
+}
+</code></pre>
+<p>它沒有錯到讓報告壞掉,只是把「人要讀的那部分」清掉了。修法也不是關掉清洗——XML 該跳脫的還是得跳脫——而是把「XML 合法性」和「可讀性」分開:只處理 XML 真正不接受的字元,其餘原樣保留。</p>
+<pre><code class="language-js">// 示意:只擋 XML 真正不合法的字元,中文原封不動
+function sanitize(name) {
+  return name.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, &#39;&#39;)
+}
+</code></pre>
+<p>值得記的是:這種 bug 不會讓任何測試變紅。它躲在「工具替你做好事」的那層裡,而且做的正是你沒去看的那部分。等你哪天真的有一支掛了、想從報告裡撈出是哪支的時候,才發現名字早就對不上了。所以我把它當成一個提醒——測試報告本身也是要驗的東西,別假設綠燈就代表報告是對的。</p>
+<h2>iOS 上,有些欄位不能用「打字」去填</h2>
+<p>另一件事:有幾支測案一直掛著 skip。不是功能壞掉,是「把值填進去」這個動作在 iOS 上不穩。</p>
+<p>一開始的寫法很直覺——點進欄位、然後把字串一個一個敲進去(等於驅動螢幕上那塊軟體鍵盤逐鍵送 key event)。在 Android 上這樣沒事,到了 iOS 模擬器就開始掉字、或順序被打亂。當下我還以為是 timing,加了等待,沒用。</p>
+<p>坑在鍵盤。iOS 模擬器的鍵盤輸入,對某些欄位特別脆:會即時重排字元的格式化欄位(打一個字就重新排版一次)、彈自訂鍵盤而不是你以為的那塊、或安全輸入欄位。逐鍵敲進去的過程中,欄位在你背後動,斷言要比對的值自然就對不上。</p>
+<p>解法是繞過鍵盤,直接把值設到元素上——不再模擬「人在打字」,而是「這個欄位的值就是這個」:</p>
+<pre><code class="language-js">// 示意:別逐鍵敲,直接把值塞給元素
+await field.setValue(&#39;...&#39;)   // 繞過螢幕鍵盤,不受逐鍵格式化干擾
+</code></pre>
+<p>換完那幾支原本 skip 的就過了。這裡真正的判斷不是「哪個 API 比較好」,而是想清楚:你到底是在測「使用者用鍵盤打字」這件事,還是只是需要「欄位裡有這個值」好往下走?如果是後者,模擬鍵盤只是在替你製造 flaky 的來源。真的要驗鍵盤行為的那一兩支,才留著逐鍵輸入;其餘的,把值直接塞進去就好。</p>
+</div>
+<a class="back" href="/blog/">← 回部落格</a>
+</article></div>
+<script src="/nav.js"></script>
+</body>
+</html>
