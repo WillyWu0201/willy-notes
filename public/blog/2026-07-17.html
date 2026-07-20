@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>開發日誌 · 2026-07-17 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">開發日誌 · 2026-07-17</h1>
+<div class="meta"><span>2026-07-17</span><span class="tag">#test-automation</span><span class="tag">#workflow-design</span><span class="tag">#walking-skeleton</span></div>
+<div class="body"><p>今天沒寫什麼 code,大半時間在幫一個「用 AI 產測試、自動接進 CI」的構想收邊界。聽起來是規劃會議的閒事,但中間被問到一句「這個 workflow 會不會做太大?」,逼我把一個平常講得很糊的東西講清楚,值得記一下。</p>
+<h2>「生測試 → 跑測試」不是閉環,回流那段才是</h2>
+<p>先講一個我自己以前也常混過去的區分:很多人講「自動化測試 pipeline」,腦裡的圖是一條<strong>直線</strong>——AI 從流程/規格生出一疊測試,丟進 CI 跑一遍,綠了就收工。這其實只是「生一次、跑一次」,不是閉環。</p>
+<p>閉環的價值全在<strong>失敗怎麼回流</strong>,不在生成有多快。把那條線畫完整會長這樣(示意):</p>
+<pre><code>生成(從流程/規格產測案 → 產可執行測試碼)
+   ↓
+驗證(接進 CI 自動跑)
+   ↓
+拿到結果 → 失敗的案子先分兩種:
+   ├─ 測試本身寫錯 / locator 過期  → 回頭修測試,重跑
+   └─ 受測程式真的有 bug          → 開 issue、擋 PR,修完再跑
+   ↓
+綠了 → 這條測試留在回歸集,下次自動守
+</code></pre>
+<p>關鍵不是那幾個箭頭,是分岔的那一步:<strong>每次紅燈,你得先判斷是「測錯」還是「東西真的錯」</strong>。這個判斷是整條迴路裡最難自動、最需要人(或更會判斷的 AI)接手的一點——也正好是它比「一次性生成」值錢的地方。一個只會生測試、生完就不管紅燈怎麼回事的東西,跑一百次也只是把同一條直線走一百遍,不會變好。</p>
+<p>所以我後來跟對方說:別把驗收點放在「AI 能不能生出測試」,那太便宜了,現在什麼都能生。放在「<strong>至少完成過一次:紅燈 → 判斷 → 修正 → 重跑轉綠</strong>」。這條迴路真的轉過一圈,才算數。</p>
+<h2>「會不會太大」——差別在你想做一條線還是一個平台</h2>
+<p>被問「會不會太大」的當下我愣了一下,因為同一句話可以指兩個差一個數量級的東西。</p>
+<p>會爆掉的是這種野心:一次就想做成<strong>通用</strong>的——覆蓋所有流程、iOS 跟 Android 都要、E2E/單元/契約各種測試型別全包、最好還有一套漂亮的編排介面。那不是一個小任務,那是一整個平台工程,做半年還很容易變成 infra 空轉:框架蓋得很漂亮,實際跑通的流程是零條。</p>
+<p>不會太大的是另一種:先讓<strong>最薄的一條線</strong>從頭走到尾。這就是 walking skeleton 的老套路——</p>
+<ul>
+<li>只挑 <strong>1 條流程</strong></li>
+<li>把整條串起來:產測案 → 產可執行測試碼 → 進 CI → 拿結果 → 至少一次紅燈回流轉綠</li>
+<li>每一段都最陽春都沒關係,重點是<strong>整條能被重新觸發、自己跑完一圈</strong></li>
+</ul>
+<p>這條做出來,你手上就有一個實體的、可重跑的東西,而不是一份「我示範過這個概念」的投影片。要不要擴到五條、要不要納入更多測試型別,是下一步的事,不塞進同一條裡一起做。</p>
+<p>順著這個想通了另一件事:這種 walking skeleton 跟底下的 CI 基礎設施要刻意分開,別寫成同一件。CI 那層是<strong>跑道</strong>——pipeline 怎麼排、PR 什麼條件擋、綠燈率多少;walking skeleton 是<strong>第一台真的在跑道上跑完一圈的車</strong>。跑道可以先鋪得很基本,只要能讓那台車跑完;而那台車證明的也不是跑道多完整,是「這條產測→驗證的編排真的會動」。兩件事混在一起寫,最後常常是跑道鋪得很用力,車一台都沒開上去。</p>
+<p>被問「會不會太大」其實是個好問題。它逼你先回答:你這一輪要交的,是一條走得通的線,還是一張做不完的支票。</p>
+</div>
+<a class="back" href="/blog/">← 回部落格</a>
+</article></div>
+<script src="/nav.js"></script>
+</body>
+</html>
