@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>開發日誌 · 2026-07-21 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">開發日誌 · 2026-07-21</h1>
+<div class="meta"><span>2026-07-21</span><span class="tag">#appium</span><span class="tag">#e2e</span><span class="tag">#cross-platform</span><span class="tag">#test-design</span><span class="tag">#false-negative</span></div>
+<div class="body"><p>今天在整理一批被 skip 掉的 UI 測試案例,想把「其實跑得過、只是當初懶得弄」的撿回來。結果撿回來的過程比我想的曲折,有兩個判斷是我很有把握、最後被真機打臉的。</p>
+<h2>一個會說謊的 helper:動作成功了,它卻噴 timeout</h2>
+<p>背景先講清楚,不然後面看不懂。我們的 E2E 是 Appium 跑跨平台(同一支 spec 同時測 iOS 和 Android),流程是多步驟表單:輸入 → 選一個管道 → 下一頁確認。中間有個共用的 helper,大概長這樣(示意):</p>
+<pre><code class="language-ts">// 動作 + 「確認真的過頁了」綁在同一個 helper 裡
+async function goNext() {
+  await submitButton.click()
+  await channelAField.waitForDisplayed({ timeout: 15000 }) // 下一頁「一定會有」的欄位
+}
+</code></pre>
+<p>那個 <code>waitForDisplayed</code> 是刻意加的——點完按鈕不代表真的過頁,所以用「下一頁一定看得到的欄位」當作導覽成功的訊號。主線上這樣沒問題,管道 A 的欄位一定在。</p>
+<p>問題出在我要撿的這個案例,是「管道 A 被關掉、只剩管道 B」的變體。這時候點完按鈕,App 很正確地把我帶到了管道 B 的頁面——但那頁沒有 <code>channelAField</code>,永遠等不到。15 秒後 timeout,helper throw,測試紅。</p>
+<p>我第一反應是這變體壞了,或是又 flaky。跑了好幾次探針去 dump 頁面,才看清楚:<strong>submitButton 點下去之後,頁面早就切到目的頁了,連管道 B 那張卡都渲染出來了</strong>。App 從頭到尾做得一模一樣對。錯的是我的 helper——它拿「管道 A 的欄位」當成功訊號,而這條路上根本不會有那個欄位,於是它把一個成功的動作,回報成 timeout 失敗。</p>
+<p>假陰性。而且是最難抓的那種,因為畫面上看起來就是「卡住了」。</p>
+<p>修法其實很小:把「做動作」和「斷言結果」拆開,別讓 helper 自己那個寫死的確認訊號去決定成敗。</p>
+<pre><code class="language-ts">await goNext().catch(() =&gt; {})            // 動作照做,timeout 就吞掉——它等的是錯的東西
+await channelBField.waitForDisplayed()    // 我真正在乎的,在目的頁上自己斷言
+</code></pre>
+<p>寫完覺得有點好笑。當初把確認訊號綁進 helper,是為了「更嚴謹」;結果這個嚴謹的前提(下一頁長什麼樣)只對主線成立,任何分支都會被它誤殺。一個動作 helper 一旦把某條路徑獨有的成功訊號寫死進去,它就只在那條路上說真話。</p>
+<h2>差點省下一次 build,結果被一次真跑打回原形</h2>
+<p>另一個案例是「金額超過額度時,確認頁要擋下來」。原本 skip 的理由寫的是「造不出這個狀態」,我本來很想推翻它。</p>
+<p>稽核的時候我發現一件看起來很有用的事:<strong>試算頁和確認頁是兩個不同的後端回應在餵的</strong>,而且試算頁給的餘額上限,比確認頁給的額度上限還高。我腦子立刻轉:那我只要輸入一個「介於兩者之間」的金額,不就能過試算、然後剛好在確認頁踩到不足?不用加 mock、不用重 build,純靠一個金額就構造出隔離狀態。</p>
+<p>我還特地去把兩個上限的值撈出來對,確認高低關係成立。很得意,想說這個 skip 撿定了。</p>
+<p>然後我真的跑了一次。</p>
+<p>金額卡在<strong>輸入頁</strong>,連試算都沒過去。原因很蠢也很合理:金額輸入框本身的上限,吃的也是確認頁那個較低的額度——不是我以為的、試算頁那個較高的餘額。所以「介於兩者之間」這個區間在 UI 上根本不存在,那個金額對輸入框來說就是超標,直接被擋在第一關。</p>
+<p>我的推理沒錯,錯的是我腦子裡那張「哪個端點餵哪個畫面」的地圖漏了一塊:輸入框的驗證跟確認頁共用同一個上限。這種洞光看端點對應關係看不出來,只有真的把數字打進去、看它卡在哪一頁,才會現形。</p>
+<p>所以那個 skip 是對的。要在這個流程裡隔離出「過試算但確認頁不足」,得動 App 那邊改用不同上限、或做有狀態的 mock,不是我這邊一個金額能凹出來的。我把理由從含糊的「造不出來」改成寫清楚<strong>為什麼</strong>造不出來——這樣下一個人就不用再賭一次。</p>
+<p>有點不甘心,但比起把一個其實測不了的案例硬撐成綠的,寧可它誠實地紅著、或誠實地 skip 著。</p>
+</div>
+<a class="back" href="/blog/">← 回部落格</a>
+</article></div>
+<script src="/nav.js"></script>
+</body>
+</html>
