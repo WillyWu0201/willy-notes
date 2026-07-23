@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>開發日誌 · 2026-07-23 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">開發日誌 · 2026-07-23</h1>
+<div class="meta"><span>2026-07-23</span><span class="tag">#visual-regression</span><span class="tag">#snapshot-testing</span><span class="tag">#appium</span><span class="tag">#ios</span><span class="tag">#e2e-testing</span></div>
+<div class="body"><p>今天兩件事都不算大,但都是那種「現象跟根因差了十萬八千里」的坑。一個讓我一度以為畫面凍住了,一個讓每次跑測試都固定噴一排紅字。記下來。</p>
+<h2>一個畫面,十八張一模一樣的「正確答案」</h2>
+<p>先講 visual regression 怎麼運作,不然後面的荒謬感傳不出來:每個測試情境跑到某個畫面時會截一張圖,跟一張事先存好的基準圖(baseline)逐像素比對,不一樣就標紅、要人去看。基準圖的檔名是用「哪個畫面 × 哪個情境 × 哪個語系」三個維度組出來的。</p>
+<p>問題出在有個畫面,是登入後大家都會路過的一個中轉頁——十幾個彼此毫不相干的情境,流程上都會先經過它再各自散開。但這個畫面的內容<strong>不隨情境改變</strong>:上面那些會變動的欄位,來自一份所有情境共用的進場假資料。</p>
+<p>所以實際發生的事是:同一個畫面,被十幾個情境各自存了一張基準圖,而這十幾張<strong>幾乎一模一樣</strong>。更煩的是,只要這個畫面某次渲染有一點點位移、或某個會動的元素(跑馬燈那種)剛好停在不同位置,那一排十幾張就會<strong>同時各噴一個假 diff</strong>。每跑一次,固定一排紅,每張都得點開確認「喔又是它,沒事」。</p>
+<p>盯著那排紅看的時候我才意識到,錯的不是畫面,是我把基準圖 key 錯了維度。這個畫面根本不該用「情境」來分。它跟你在哪個測試裡剛好經過它,一點關係都沒有。</p>
+<p>修法是把它標成「情境無關」,整批收斂成一張(每個語系一張):</p>
+<pre><code class="language-js">// 示意:情境無關的畫面清單。key 在畫面本身,不 key 在「哪個情境跑到它」
+const SCENARIO_INVARIANT = new Set([
+  // ...先前已收斂的幾個畫面
+  &#39;home&#39;,   // 大家都路過、但內容不隨情境變 → 一張共用就夠
+])
+</code></pre>
+<p>但這裡有個不能偷懶的地方:<strong>不是所有共用畫面都情境無關</strong>。同一份程式碼裡的彈窗畫面就相反——不同情境彈出來的是不同的對話框,那是真的變體,每個情境就該各存各的。所以收斂的同時得留一份例外清單,把「看起來共用、其實是真變體」的畫面挑出來別動。這一步是判斷,不是機械套用。</p>
+<p>順帶清掉一批孤兒:之前有幾個畫面也被改成情境無關了,但當初留在版控裡、按舊命名存的一百多張基準圖沒人刪,程式碼早就不再參照它們。放著不會怎樣,但它們是純噪音,一併清掉。</p>
+<p>snapshot 這種東西,真正的設計決定就一個:<strong>你的基準圖該 key 在哪個維度上</strong>。key 在「真正會讓畫面不同」的維度,你得到乾淨的比對;key 在「你剛好在哪跑到它」,你會同時收到重複和假警報兩種病。</p>
+<h2>看起來卡住的那 15 秒,其實沒人在等</h2>
+<p>另一個是純自動化的坑,但騙人騙得很漂亮。</p>
+<p>有個數字輸入欄,填完值要先把鍵盤收掉,下一步的按鈕才點得到。原本收鍵盤就是呼叫框架通用的 <code>hideKeyboard()</code>,Android 上一直好好的。iOS 上開始有人反映「那一頁會卡住十幾秒」。</p>
+<p>去看那頁,真的就是停在那,什麼都不動,大概十五秒後才繼續。第一直覺當然是往「頁面是不是還沒載完/那顆按鈕是不是還沒 enable」去查——畢竟畫面就凍在那。查了一圈什麼都正常。</p>
+<p>根因跟畫面一點關係都沒有:那一頁的鍵盤是<strong>純數字鍵盤,沒有 Done 鍵</strong>。底層的 iOS 自動化(WDA)對這種鍵盤根本收不掉。而 <code>hideKeyboard()</code> 收不掉的時候不會馬上放棄——appium 會在你看不到的地方<strong>默默重試大約四次,每次逾時三到四秒</strong>,加起來就是那十五秒,最後才丟例外出來。</p>
+<p>也就是說,那十五秒裡<strong>沒有任何人在等任何東西</strong>。不是頁面慢,不是元素沒好,是自動化框架在自己跟自己重試一件注定失敗的事。畫面停著不動,是因為它早就好了,只是控制權還沒還回來。</p>
+<pre><code class="language-js">// 示意:iOS 的數字鍵盤沒有 Done 鍵,hideKeyboard 收不掉 → 內部重試 ~15s
+await field.setValue(value)
+if (driver.isIOS) {
+  await dismissKeyboardByTap()   // 改用點空白處/座標的方式收
+} else {
+  await driver.hideKeyboard?.().catch(() =&gt; {})  // Android 照舊
+}
+</code></pre>
+<p>會被咬到,是因為「逾時」這個詞太容易讓人聯想到「被測的東西很慢」。但逾時也可能是工具在一個你完全看不到的角落安靜地重試。這種空等最難抓,因為它長得跟真正的 app 卡頓一模一樣——畫面停著,什麼線索都不給你。</p>
+</div>
+<a class="back" href="/blog/">← 回部落格</a>
+</article></div>
+<script src="/nav.js"></script>
+</body>
+</html>
