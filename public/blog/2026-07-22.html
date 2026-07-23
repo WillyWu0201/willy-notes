@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>開發日誌 · 2026-07-22 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">開發日誌 · 2026-07-22</h1>
+<div class="meta"><span>2026-07-22</span><span class="tag">#e2e-testing</span><span class="tag">#test-maintenance</span><span class="tag">#appium</span><span class="tag">#mocking</span></div>
+<div class="body"><p>今天的任務一句話講完：把一整排 <code>skip</code> 掉的 E2E 測試翻出來，能跑的讓它跑，真的不能跑的就留著——但條件是，「不能跑」這句話得由我證明，不是照抄檔案裡原本寫的理由。</p>
+<p>聽起來像雜務。做下去才發現，一個 skip 的理由，本質上是一句「當初某人這樣判斷、之後沒人再回頭看」的話。它會腐爛。</p>
+<h2>「這個平台不驗密碼」——一句沒人再回頭確認的話</h2>
+<p>有個測試被 skip 很久，理由寫著「這個平台的流程不會走到驗證那一步」。我第一個反應是可疑：另一個平台明明會，為什麼這邊就跳過了？</p>
+<p>先說背景，不然後面看不懂。這是一份跨平台的 E2E——同一支測試腳本同時開兩個平台的 App 跑。測試資料靠 mock：針對某支後端 API，用啟動參數塞一個假回應進去，App 拿到什麼就演什麼。關鍵在於，兩個平台雖然畫面長得一樣，但拿同一份資料時走的是<strong>不同的 API</strong>。</p>
+<p>我把當初 skip 的那次跑起來看，才發現坑在哪：測試把 mock 塞到了<strong>另一個平台用的那支 API 的 key</strong> 上。當前這個平台根本沒對那個 key 發請求，所以它永遠拿不到「驗證失敗」的假回應，畫面就一路順順地滑過驗證步驟，直達下一頁——看起來就像「這平台沒有驗證這一步」。</p>
+<pre><code class="language-js">// 示意:跨平台共用的 mock,依「哪支 API」塞回應
+mock.inject(&#39;verifyEndpoint_forOtherPlatform&#39;, &#39;wrong_pin&#39;)
+// ↑ 當前平台不打這支 → 拿不到 mock → 直接跳過驗證頁
+</code></pre>
+<p>把 key 換成當前平台真正會打的那支，驗證頁立刻冒出來，輸錯的行內錯誤、鎖定彈窗，兩種情境都重現得出來。這個 skip 從頭到尾就不該存在，它是一個接線 bug 長出來的傳說。</p>
+<p>我愣了一下的點不是 bug 本身，是它活了這麼久。沒人騙人，就是當初那次跑「看起來過了」，理由順手一寫，後面每個人都信了那行字。</p>
+<h2>為了刪掉一個 skip，我得先證明它該留著</h2>
+<p>上一個是該刪的。這個剛好相反。</p>
+<p>有個情境要測「金額過得了前一關、卻在最後確認頁被擋下來」。我盯著程式碼想到一個聰明招：試算和確認是<strong>兩支不同的後端呼叫</strong>，各自回各自的額度上限。那我只要輸入一個卡在「試算上限之下、確認上限之上」的值，不就能過試算、專門在確認頁踩到不足了嗎？不用改 mock、不用重 build，漂亮。</p>
+<p>寫了個探針跑下去。結果那個值在我<strong>還沒按送出</strong>、還在金額輸入頁的時候就被擋住了。</p>
+<p>停住看了半天才懂：兩個階段其實共用同一個上限。試算和確認回的是不同 API 沒錯，但那個「你最多能輸入多少」的數字，兩邊是同一個。我想製造的「過試算、卡確認」這個隔離狀態，在現有工具下根本做不出來——除非 App 改成兩處走不同來源，或是 mock 支援有狀態的回應。</p>
+<p>所以這個 skip 留下來了。但它跟早上那個不一樣：現在它底下寫的理由，是我親手撞過牆才寫的。我原本想刪它，最後證明了它該留。過程沒白費——差別只在於，這行理由不再是抄來的猜測。</p>
+<p>這才是「請確認 skip 是真的不能測」這句話的重量。不能測，也是一種要驗證的宣稱，跟「能測」一樣需要證據。</p>
+<h2>一個 submit helper，只在其中一個分頁成立</h2>
+<p>還有一個純技術的坑，值得記一筆。</p>
+<p>頁面上有個功能開關會決定你落在分頁 A 還是分頁 B。共用的 page object 裡有個 <code>submitAmount()</code>，送出金額之後，內部<strong>一律</strong>去等分頁 A 的那顆「下一步」按鈕出現，當作導頁成功的判斷。</p>
+<p>某個測試把開關切成走分頁 B。<code>submitAmount()</code> 就逾時 throw 了——因為分頁 B 上沒有那顆按鈕。但實際上呢?導頁<strong>根本成功了</strong>，探針 dump 出來的畫面已經在分頁 B、該有的欄位都在，只是那個 helper 死等一個這條路上不存在的元素。</p>
+<pre><code class="language-js">// 示意:helper 內部硬等分頁 A 才有的元素
+await submitAmount()               // waitFor(nextButton_onlyOnTabA) → 逾時
+// 導頁其實成功了。改成:
+await submitAmount().catch(() =&gt; {})
+await expect(tabB_field).toBeDisplayed()   // 用分頁 B 自己的元素當證據
+</code></pre>
+<p>共用 helper 裡藏一個「只在某個變體成立的等待」，平常沒事，等哪天有人翻了那個開關，它就從你背後咬下去。</p>
+</div>
+<a class="back" href="/blog/">← 回部落格</a>
+</article></div>
+<script src="/nav.js"></script>
+</body>
+</html>
