@@ -5,6 +5,7 @@
     { href: "/", label: "首頁" },
     { href: "/blog/", label: "部落格" },
     { href: "/wwdc26/", label: "WWDC26" },
+    { href: "/digest/", label: "資訊摘要" },
   ];
   var path = location.pathname;
   function active(href) {

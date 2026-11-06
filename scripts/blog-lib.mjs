@@ -58,9 +58,9 @@ export function assertUniqueSlugs(posts) {
   }
 }
 
-const esc = (x) => String(x).replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c]));
+export const esc = (x) => String(x).replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c]));
 
-function layout(title, bodyHtml) {
+export function layout(title, bodyHtml) {
   return `<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>

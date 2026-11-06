@@ -1,0 +1,309 @@
+{
+  "date": "2026-11-06",
+  "generatedAt": "2026-11-06T06:01:52.006Z",
+  "items": [
+    {
+      "source": "Claude Blog",
+      "title": "New agents and products for security, productivity, and creative work on Claude Marketplace",
+      "url": "https://claude.com/resources/articles/new-agents-and-products-claude-marketplace",
+      "date": "2026-11-04",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "agent"
+      ]
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Make long-running agents faster with message threads",
+      "url": "https://claude.com/resources/articles/message-threads",
+      "date": "2026-11-02",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "agent"
+      ]
+    },
+    {
+      "source": "Fintech Brainfood",
+      "title": "payments new ads",
+      "url": "https://www.fintechbrainfood.com/p/payments-new-ads",
+      "date": "2026-11-04",
+      "groups": [
+        "金融"
+      ],
+      "keywords": [
+        "payment"
+      ]
+    },
+    {
+      "source": "金管會 新聞稿",
+      "title": "金管會修正「金融業申請業務試辦作業要點」－優化試辦機制、提升金融創新彈性",
+      "url": "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202611050002&toolsflag=Y&dtable=News",
+      "date": "2026-11-05",
+      "groups": [
+        "金融"
+      ],
+      "keywords": [
+        "金融科技"
+      ]
+    },
+    {
+      "source": "金管會 新聞稿",
+      "title": "金管會預告「穩定幣發行許可及管理辦法」草案及修正金融機構洗錢防制相關規定",
+      "url": "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202611030002&toolsflag=Y&dtable=News",
+      "date": "2026-11-03",
+      "groups": [
+        "虛擬資產"
+      ],
+      "keywords": [
+        "穩定幣",
+        "虛擬資產"
+      ]
+    },
+    {
+      "source": "金管會 新聞稿",
+      "title": "預告「虛擬資產服務法」有關虛擬資產服務商管理之8項授權法規命令草案",
+      "url": "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202611030001&toolsflag=Y&dtable=News",
+      "date": "2026-11-03",
+      "groups": [
+        "虛擬資產"
+      ],
+      "keywords": [
+        "虛擬資產"
+      ]
+    },
+    {
+      "source": "HKMA 新聞稿",
+      "title": "HKMA launches Project SAGE and establishes Expert Group for agentic finance",
+      "url": "https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/11/20261102-4/",
+      "date": "2026-11-02",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "agentic"
+      ]
+    },
+    {
+      "source": "HKMA 新聞稿",
+      "title": "Hong Kong FinTech Week 2026",
+      "url": "https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/11/20261102-3/",
+      "date": "2026-11-02",
+      "groups": [
+        "金融"
+      ],
+      "keywords": [
+        "fintech"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "Google擴大AI基礎設施投資，首度進駐懷俄明州建資料中心",
+      "url": "https://www.ithome.com.tw/news/180286",
+      "date": "2026-11-06",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "AI"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "OpenAI發表GPT-6 Cyber，找出Firefox 81個未知高風險漏洞",
+      "url": "https://www.ithome.com.tw/news/180285",
+      "date": "2026-11-06",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "AI"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "回應資料中心建設爭議，OpenAI提出用電、用水與資訊公開承諾",
+      "url": "https://www.ithome.com.tw/news/180271",
+      "date": "2026-11-06",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "AI"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "Anthropic推出Claude個人理財功能，可連結銀行帳戶分析收支",
+      "url": "https://www.ithome.com.tw/news/180268",
+      "date": "2026-11-06",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "AI"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "資料安全業者Sentra獲1.5億美元投資，擴大AI代理安全業務",
+      "url": "https://www.ithome.com.tw/news/180235",
+      "date": "2026-11-06",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "AI"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "英國NCSC預警2028年前AI惡意程式恐用於勒索軟體攻擊，威脅關鍵基礎設施",
+      "url": "https://www.ithome.com.tw/news/180196",
+      "date": "2026-11-06",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "AI"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "OpenAI揭露AI助理個人化瓶頸，模型仍難善用過往對話",
+      "url": "https://www.ithome.com.tw/news/180267",
+      "date": "2026-11-05",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "AI"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "公路局擬擴大推動無人機AI巡檢，結合3D建模、AI影像辨識提升橋梁與邊坡養護效率",
+      "url": "https://www.ithome.com.tw/news/180263",
+      "date": "2026-11-05",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [
+        "AI"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "【資安日報】11月5日，法國國家血液機構冷藏設備遭網路攻擊，3處設施溫度控制遭竄改",
+      "url": "https://www.ithome.com.tw/news/180260",
+      "date": "2026-11-05",
+      "groups": [
+        "iOS / Apple"
+      ],
+      "keywords": [
+        "iOS"
+      ]
+    },
+    {
+      "source": "iThome",
+      "title": "俄羅斯駭客APT29發動大規模水坑式攻擊，竊取iOS與Android裝置帳密及資料",
+      "url": "https://www.ithome.com.tw/news/180250",
+      "date": "2026-11-05",
+      "groups": [
+        "iOS / Apple"
+      ],
+      "keywords": [
+        "iOS"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "name": "Anthropic News",
+      "parsed": 19,
+      "fresh": 0,
+      "matched": 0,
+      "firstRun": true
+    },
+    {
+      "name": "Claude Blog",
+      "parsed": 12,
+      "fresh": 4,
+      "matched": 2,
+      "firstRun": true
+    },
+    {
+      "name": "AI Engineer (YouTube)",
+      "parsed": 30,
+      "fresh": 0,
+      "matched": 0,
+      "firstRun": true
+    },
+    {
+      "name": "Apple Developer (YouTube)",
+      "parsed": 30,
+      "fresh": 0,
+      "matched": 0,
+      "firstRun": true
+    },
+    {
+      "name": "Apple 安全性更新",
+      "parsed": 270,
+      "fresh": 0,
+      "matched": 0,
+      "firstRun": true
+    },
+    {
+      "name": "MAS 新聞稿",
+      "parsed": 1825,
+      "fresh": 0,
+      "matched": 0,
+      "firstRun": true
+    },
+    {
+      "name": "Fintech Brainfood",
+      "parsed": 358,
+      "fresh": 3,
+      "matched": 1,
+      "firstRun": true
+    },
+    {
+      "name": "Evident AI Insights",
+      "parsed": 6,
+      "fresh": 0,
+      "matched": 0,
+      "firstRun": true
+    },
+    {
+      "name": "中央銀行 新聞稿",
+      "parsed": 500,
+      "fresh": 6,
+      "matched": 0,
+      "firstRun": true
+    },
+    {
+      "name": "金管會 新聞稿",
+      "parsed": 604,
+      "fresh": 10,
+      "matched": 3,
+      "firstRun": true
+    },
+    {
+      "name": "HKMA 新聞稿",
+      "parsed": 429,
+      "fresh": 15,
+      "matched": 2,
+      "firstRun": true
+    },
+    {
+      "name": "iThome",
+      "parsed": 30,
+      "fresh": 30,
+      "matched": 10,
+      "firstRun": true
+    }
+  ]
+}
