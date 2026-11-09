@@ -102,17 +102,25 @@ node scripts/build-details.mjs
 
 - **閱讀器直接訂閱**:`automation/reader-feeds.opml`(33 個 RSS,匯入 Feedly / NetNewsWire 等即可),全收不篩選。
 - **腳本抓取 + 關鍵字篩選**:沒有 RSS 的網站(Anthropic、Claude Blog、YouTube 頻道、Apple 安全性更新、MAS、Fintech Brainfood、Evident),加上量大的官方 RSS(央行、金管會、HKMA、iThome)。來源與關鍵字都在 `automation/feeds.json`。
+- **AI 開發方式精選作者**:Addy Osmani、Simon Willison(長文)、Latent Space、Hamel Husain、Eugene Yan、Anthropic Engineering 設了 `"all": true`,全部收、不篩關鍵字;第一次執行往回抓 30 天(`firstRunDays`)。Martin Fowler 主題較雜,照常篩關鍵字。
+
+每天 09:00 由 Claude 桌面 App 的排程任務 `daily-digest`(「每日資訊摘要」)在主 checkout 自動跑完整流程:
 
 ```bash
-npm run digest   # 抓資料 → content/digests/{日期}.md 與 .json → 產生 public/digest/ 頁面
-npx wrangler pages deploy public --project-name willy-notes --branch main   # 部署到正式站
+npm run digest:collect   # 抓資料 → content/digests/{日期}.json → 準備素材包 .cache/digest/{日期}/items/
+# Claude 依 automation/digest-analysis-guide.md 寫 .cache/digest/{日期}/analysis/{i}.json
+npm run digest:publish   # 驗證合併分析 → 產生 public/digest/ → 部署前檢查 → commit → 部署
 ```
 
-- 只列「上次執行後新出現、且命中關鍵字」的文章;同一天跑多次會累加到同一份。
-- 已看過的網址記在 `automation/.cache/feed-seen.json`(不進 git)。某個來源第一次跑時只建立基準,只列出 7 天內、有日期的文章。
-- 摘要最後有「來源狀態」表;某來源顯示「解析不到資料」通常是網站改版,調整 `feeds.json` 的 `match` 或 `scripts/feed-digest.mjs` 的解析即可。
-- 網站上的 `/digest/` 由 `scripts/build-digest.mjs` 從 `content/digests/*.json` 產生,只放標題與原文連結(只收 http/https 網址)。
-- 部署一定要加 `--branch main`,否則只會建立預覽版本。
+- 頁面分成四個分頁籤:AI 開發方式、AI 產業動態、iOS / Apple、金融與虛擬資產。AI 開發方式每篇有深度分析卡(一句話、重點、反思問題、延伸閱讀),其他每篇一兩句摘要。分析不通過驗證的文章只顯示標題。
+- `digest:publish` 驗證規則見 `scripts/digest-merge.mjs`:分類必須是四類之一、延伸閱讀的連結必須出現在原文裡、只收 http/https。不通過的會印 `PROBLEM:`,不影響其他篇。
+- **部署前檢查**:目前分支不是 `main`、`public/` 有 `public/digest/` 以外未 commit 的變更、或 `public/blog/drafts/` 存在時,只產頁、不 commit 也不部署,印出 `SKIPPED:` 與原因。
+- 檢查通過時只 commit `content/digests` 與 `public/digest`(不 push),再部署到正式站(`--branch main`)。
+- 權限:`.claude/settings.json` 只允許 `npm run digest:publish` 不經核准執行。
+- 排程只在 App 開著、Mac 沒睡著時跑;錯過會在下次打開 App 時補跑。
+- 已看過的網址記在 `automation/.cache/feed-seen.json`(不進 git)。某個來源第一次跑時只建立基準,只列出 7 天內(精選作者 30 天)、有日期的文章。
+- 摘要 `.md` 最後有「來源狀態」表;某來源顯示「解析不到資料」通常是網站改版,調整 `feeds.json` 的 `match` 或 `scripts/feed-digest.mjs` 的解析即可。
+- 手動部署一定要加 `--branch main`,否則只會建立預覽版本。
 
 ## 二、建立 Google OAuth client
 

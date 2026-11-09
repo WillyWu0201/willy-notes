@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>資訊摘要 2026-11-09 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">資訊摘要 · 2026-11-09</h1>
+<div class="meta"><span>48 篇</span></div>
+<div class="body">
+<p class="digest-intro">每天早上自動整理 AI 開發方式、AI 產業動態、iOS／Apple、金融與虛擬資產的新文章；AI 開發方式每篇附重點、反思問題與延伸閱讀。</p>
+<div class="digest-tabs" data-default="dev">
+<nav class="tabs"><a class="tab" href="#dev">AI 開發方式 <b>27</b></a><a class="tab" href="#industry">AI 產業動態 <b>19</b></a><a class="tab" href="#apple">iOS / Apple <b>1</b></a><a class="tab" href="#finance">金融與虛擬資產 <b>1</b></a></nav>
+<section class="tab-panel" id="dev">
+<div class="deep-card">
+<div class="src">Addy Osmani（Elevate） · 2026-10-14</div>
+<h3 class="t"><a href="https://addyo.substack.com/p/agentic-verification">Agentic Verification</a></h3>
+<p class="one">AI 寫程式已經不是瓶頸，難的是確認它寫得對。與其等更強的模型，不如替 agent 建好能自己反覆執行的驗證迴圈，品質是從這個迴圈來的。</p>
+<h4>重點</h4><ul><li>測試多了一個角色：除了幫人抓 bug、安心重構，也是 agent 感知結果、判斷工作是否完成的依據。</li><li>E2E 測試只看使用者看得到的結果，最難被糊弄；失敗時附上截圖與追蹤資訊，agent 才知道是哪一步出錯。</li><li>Property-based 測試定義「絕對不能發生」的規則，由工具產生大量輸入去挑戰，避免 agent 只寫自己一定會過的範例。</li><li>改寫或遷移時把舊系統當標準答案，用隨機輸入或真實流量做差異比對，刻意改變的行為另外列清單並寫明理由。</li><li>測試要快、結果要穩定；時好時壞的測試會讓 agent 學到重跑就好，而不是去修問題。</li></ul>
+<h4>反思問題</h4><ul><li>你的 agent 改完程式後，不靠人看 diff，能自己確認結果對不對嗎？</li><li>你的測試裡有沒有時好時壞的？它正在教 agent 養成什麼習慣？</li><li>開始做下一個功能之前，你能先寫出「怎樣才算完成」的檢查嗎？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://x.com/poteto/status/2109110547824378140">Lauren（@poteto）的貼文</a>：主張讓 agent 能啟動、操作、觀察執行中的 app，並維護一份從使用者角度整理的功能地圖。</li><li>fast-check、Hypothesis、proptest（文中提到，未附連結）：文中推薦的 property-based 測試工具，分別用於 JS/TS、Python 與 Rust。</li><li>Boris Cherny 用 Lean、TLA+ 建模（文中提到，未附連結）：Claude Code 的 Boris Cherny 用形式化模型處理最棘手的狀態機與並行邏輯，先找反例再修正。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Simon Willison · 2026-10-28</div>
+<h3 class="t"><a href="https://simonwillison.net/2026/Oct/28/vibe-game-development/">The October inflection point for vibe game development</a></h3>
+<p class="one">2026 年 10 月是用 vibe coding 做遊戲的轉折點：Opus 5.5 在 3D 建模、配樂和遊戲設計都明顯進步，只要很少的引導就能做出真正好玩的遊戲，現在的難題反而是想出夠新鮮的點子。</p>
+<h4>重點</h4><ul><li>以前模型做得出看起來像遊戲的東西，卻不好玩；這次的突破在遊戲設計能力，作者只要求它大幅提高樂趣，它就真的改得更好玩。</li><li>四款遊戲都是純 HTML、JavaScript 在瀏覽器上跑，指定用 three.js 效果很好；小遊戲在一般聊天介面一次就成形，大型 RPG 則要反覆試玩、修任務流程的 bug。</li><li>每個專案作者親自投入都不超過四小時，其餘時間讓 agent 自己跑；他建議先在聊天介面做出概念驗證，再換 Codex 或 Claude Code 接手。</li><li>同一組提示交給 GPT-6，畫面不差但玩起來不如 Opus 5.5，作者預期 OpenAI 年底前會追上。</li><li>這類遊戲把 AI 生成的程式、美術、音樂和文字全包在一起，玩家社群本來就排斥 AI 素材，作者預期會像寫程式一樣分成接受與拒絕兩派。</li></ul>
+<h4>反思問題</h4><ul><li>做出能動的東西越來越便宜，你的專案裡還有哪些部分真正需要你的判斷和品味？</li><li>你有沒有一個出錯也無妨的副專案，可以拿來摸清最新模型的能力邊界？</li><li>你給 agent 的指示是在列功能清單，還是在描述你想要的體驗？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://simonwillison.net/2026/Oct/20/battledrones/">Battle Drones 開發紀錄</a>：作者最成功的即時戰略遊戲，詳細記錄每一輪提示與改版過程。</li><li><a href="https://claude.ai/share/840e0bc0-a68e-4894-8eec-8f83bd6ade26">Emberwick 的 Claude 對話紀錄</a>：從 RPG 引擎原型一路做成完整遊戲的整段對話。</li><li><a href="https://github.com/simonw/pumpkin-farmer/blob/cdcf12083f403946b5c2a9e04312bbb42359bf58/SPEC.md">Quarter Sun Cove 規格檔</a>：南瓜農場遊戲先腦力激盪寫成規格，再交給 agent 花了將近兩天實作。</li><li><a href="https://threejs.org/">three.js</a>：作者發現請模型用這個 3D 函式庫做網頁遊戲效果特別好。</li><li><a href="https://www.ign.com/articles/steam-fans-are-begging-for-a-no-ai-filter-as-steam-next-fest-is-filled-with-slop">IGN：Steam Next Fest 的 AI 素材爭議</a>：作者用來說明遊戲圈對 AI 生成素材的反感。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Simon Willison · 2026-10-20</div>
+<h3 class="t"><a href="https://simonwillison.net/2026/Oct/20/battledrones/">Battle Drones - a vibe coded RTS with audio-based multiplayer</a></h3>
+<p class="one">Simon Willison 幾乎沒看程式碼，靠 Claude Code 經過十多次大改版，做出一款真的好玩、還能用聲音讓兩支手機連線對戰的瀏覽器 RTS；最有效的一步，竟是叫 agent「讓它更好玩」，再由它自己跑模擬來調整。</p>
+<h4>重點</h4><ul><li>前幾版看起來像遊戲卻不好玩；轉折是在 Ultracode 模式下只丟一句「讓它更好玩」，agent 跑了上千場模擬對戰，依結果調整平衡、加入新玩法。</li><li>作者察覺自己幾乎沒出設計意見，之後改寫完整的地圖規格，並要求 agent 先研究、挑設計的毛病，雙方取得共識後才實作。</li><li>靜態 HTML 加 Three.js 很適合做遊戲，模型對這些框架很熟；圖片素材交給 agent 呼叫 OpenAI 生圖 API，它會看圖再自己改 prompt。</li><li>重播與多人連線需要確定性的模擬；不同瀏覽器的 Math.sin 等函式結果有微小差異，agent 只好改用自己寫的版本。</li><li>遊戲風險低、作者又不熟遊戲開發，正好看出 agent 本身的能力；不過聲音連線的高頻聲讓人頭痛，最後還是補了 WebSocket 中繼伺服器。</li></ul>
+<h4>反思問題</h4><ul><li>你給 agent 的指令，是在規定做法，還是在描述你想要的結果？</li><li>你的專案有沒有讓 agent 能自己大量試跑、用數字判斷好壞的方法？</li><li>幾乎沒人審過程式碼的軟體，你願意把它用在多高風險的地方？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://github.com/simonw/battledrones#readme">Battle Drones GitHub repo</a>：遊戲的完整原始碼，README 另外連到幾場 AI 模型對戰的重播。</li><li><a href="https://code.claude.com/docs/en/workflows">Claude Code 動態工作流程文件</a>：Ultracode 模式背後的機制，用一段 JavaScript 腳本同時調度多個 subagent。</li><li><a href="https://github.com/simonw/battledrones/blob/7001ed186c8b8aef4acb27f680ecf4c09b607e54/AGENT-BATTLES.md">AGENT-BATTLES.md</a>：Opus 5.5 寫的提案，規劃讓兩個 LLM 透過工具取得戰場資訊並在遊戲裡互相對戰。</li><li><a href="https://github.com/simonw/battledrones/blob/v12/src/sim/fmath.ts">fmath.ts</a>：為了讓不同瀏覽器的模擬結果一致，agent 自己實作的數學函式。</li><li><a href="https://simonwillison.net/2026/Oct/15/chirp-pong/">Chirp Pong</a>：作者先前用麥克風與聲音訊號讓兩支手機連線的乒乓實驗，是音訊多人模式的起點。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Latent Space · 2026-11-08</div>
+<h3 class="t"><a href="https://latent.space/p/cs146s/">How Stanford Teaches AI-Native Engineering — Mihail Eric, Monaco</a></h3>
+<p class="one">agent 一個 prompt 就能交作業的年代，工程師該練的是讀懂陌生程式碼、判斷改動該不該進去；Stanford CS146S 因此讓學生替開源專案送 patch、接受維護者審查，Mihail Eric 也拿 Monaco 的實務對照哪些內容真的用得上。</p>
+<h4>重點</h4><ul><li>舊作業 agent 一次就做完，學生也幾乎都靠 agent 寫程式；課程改成替開源專案送 patch、由維護者審查，練的是讀懂陌生程式碼、確認需求和評估影響。</li><li>十週課綱從自己寫一個 coding agent 開始，接著是脈絡工程、工具設計與 MCP、skills、AGENTS.md 與 hooks 等客製化，再到 agent 友善的 repo、code review、資安與背景 agent。</li><li>Monaco 的取捨：code review 產品評估後選擇用買的，agent 工作空間因為跟自家雲端架構綁太深而自建；原則是先買來摸清需求，要長期掌握的再自己做。</li><li>code review 成了新瓶頸：文中引用的 Faros 研究指出，高度採用 AI 的團隊合併的 PR 多了 98%，審查時間卻拉長 91%。</li><li>agent 只看得到現在的程式碼，看不到半年前同樣的改動為何被否決；repo 要讓 agent 找得到目前行為、過去決策和背後意圖。</li></ul>
+<h4>反思問題</h4><ul><li>agent 剛幫你寫好的 diff，你能不回頭翻程式碼就回答別人的提問嗎？</li><li>如果換一個新的 agent 接手你的 repo，它找得到團隊過去為什麼做某些決定嗎？</li><li>你手上的工具，哪些適合先買來摸清需求、哪些值得自己蓋來長期掌握？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://themodernsoftware.dev/?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Stanford CS146S</a>：十週課綱、作業與合作的開源專案，也能切換到前一年的版本比較。</li><li><a href="https://www.geoffreylitt.com/2026/07/02/understanding-is-the-new-bottleneck.html?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Understanding is the new bottleneck（Geoffrey Litt）</a>：把 AI 寫的 diff 變成視覺化導覽，再出題考你看懂了沒。</li><li><a href="https://www.monaco.com/blog/agent-developer-workspaces?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Monaco 的 agent-developer workspaces</a>：Monaco 為什麼自建讓 agent 跑起 app、重現問題並測試修改的工作空間。</li><li><a href="https://www.getbasis.ai/blogs/how-we-made-our-monorepo-ergonomic-for-agents?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv#canon-vs-not-canon">Basis 的 Authority Map</a>：讓 agent 分清楚目前行為、過往決策與意圖各該去哪裡找。</li><li><a href="https://www.faros.ai/blog/ai-software-engineering?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Faros 的 AI 軟體工程研究</a>：高 AI 採用團隊 PR 數量與審查時間同步暴增的數據來源。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Latent Space · 2026-11-02</div>
+<h3 class="t"><a href="https://latent.space/p/building-ai-for-lawyers-jacob-lauritzen-cto-of-legora/">Building AI for Lawyers - Jacob Lauritzen, CTO of Legora</a></h3>
+<p class="one">幫律師做 agent 最大的限制是看不到客戶資料。Legora 的解法是自建模擬環境做評估、把失敗歸成少數類型，再用幾個可組合的基本元件，讓不寫程式的法律工程師拼出新產品。</p>
+<h4>重點</h4><ul><li>讀不到 trace 就自己重現工作：三位工程師加三位律師建 RL 環境，例如在上萬份檔案的資料室做盡職調查，檢查報告有沒有抓到該抓的風險。</li><li>評估結果依執業領域和任務畫成熱圖。新模型常常某些工作變強、某些反而退步，這種情況比想像中常見。</li><li>正式環境把失敗歸納成 10 到 20 種已知模式，再用便宜的 LLM 檢查搭配 feature flag 來追蹤。</li><li>產品建立在少數基本元件上：專案、agent、Tabular Review、清單。agent 能建立和讀取清單，清單變動也能觸發 agent，新產品多半是拼這些元件而成。</li><li>模型大約已能把六成法律工作做好，這部分剩下的是成本和延遲問題；百萬 token 等級合約的複雜分析與編輯，仍需要更聰明的模型。</li></ul>
+<h4>反思問題</h4><ul><li>如果完全看不到使用者的 trace，你要怎麼知道 agent 在真實工作上做得好不好？</li><li>換新模型時，你看得出哪類任務變好、哪類退步嗎？還是只看整體分數？</li><li>你的產品能不能拆成少數幾個可組合的元件，讓不寫程式的人也能組出新功能？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://modal.com/blog/how-legora-runs-thousand-scale-parallel-agent-evals-on-modal-sandboxes?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">How Legora runs 2,000 parallel agent evals on Modal Sandboxes</a>：Legora 大量平行執行 agent 評估背後的基礎架構。</li><li><a href="https://www.youtube.com/watch?v=XNtkiQJ49Ps&amp;utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Agents need more than a chat</a>：Jacob Lauritzen 在 AI Engineer Europe 2026 的演講。</li><li><a href="https://www.youtube.com/watch?v=V-isu4eTHgw&amp;utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Connect AI to Billions of Legal Documents</a>：Jacob 與 turbopuffer 的 Simon Eskildsen 在 AI Engineer 的聯合演講。</li><li><a href="https://claude.com/blog/claude-for-the-legal-industry?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Claude for Legal</a>：Anthropic 為法律業推出的連接器與外掛，也是討論大型實驗室會不會切入法律領域的背景。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Latent Space · 2026-11-02</div>
+<h3 class="t"><a href="https://latent.space/p/building_legal_agents_when_you_can_t_see_the_data_-_jacob_lauritzen_cto_of_legora/">Building Legal Agents When You Can't See the Data - Jacob Lauritzen, CTO of Legora</a></h3>
+<p class="one">Legora 處理的資料屬於律所的客戶，團隊讀不到 agent 的任何執行紀錄，只能照客戶的工作搭出模擬環境來測試，再把改寫過的紀錄歸納成少數失敗類型來追蹤品質。</p>
+<h4>重點</h4><ul><li>三名工程師和三名律師照客戶的實際工作打造測試環境，概念類似強化學習的模擬世界，例如一個裝了上萬份檔案的資料室。</li><li>讀不到原始紀錄，就改看轉述過的版本，把失敗收斂成十到二十種類型，當作產品指標來追。</li><li>曾有一段時間 evals 看起來不值得做：某個引用問題原本只對七成，換一版模型就到 99%，Legora 自己什麼都沒改。</li><li>起草長合約被當成搜尋問題來看，好的法律 agent harness 取決於檢索做得好不好；CTO 也不建議直接用預設的 embedding。</li><li>多年來刻意不放模型選單，後來才加上；起草時嫌 Fable 和 Opus 太囉嗦，偏好 Astra 精簡的寫法。</li></ul>
+<h4>反思問題</h4><ul><li>如果完全看不到 agent 在正式環境的紀錄，你還能用什麼方法判斷它做得好不好？</li><li>你的測試環境跟使用者真正的工作有多接近？</li><li>分數進步時，你分得出是模型變強了，還是你自己的改動奏效了嗎？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://legora.com/">Legora</a>：Jacob Lauritzen 擔任 CTO 的法律 AI 公司，產品包括 agent、Tabular Review 和 Word 外掛。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Latent Space · 2026-10-31</div>
+<h3 class="t"><a href="https://latent.space/p/arca/">Agents Prompt People: Using Agents for Long-Horizon Financial Work</a></h3>
+<p class="one">財富管理公司 Arca 讓 agent 做大部分背景工作，但交易與資金移動一律留給人類顧問；長週期任務靠自建的記憶系統與 harness 支撐，安全限制全用確定性規則實作，不交給 agent 判斷。</p>
+<h4>重點</h4><ul><li>金融任務週期長但斷斷續續，可能拖上十天、經手多人，所以替每位客戶建記憶系統，記錄進度、待追蹤事項與各自的負責人。</li><li>自建 harness，依內部 benchmark 為不同任務挑選模型，也保留隨時更換模型供應商的彈性。</li><li>agent 只負責分析與提案，牽涉客戶風險的工具它碰不到；這些限制是寫死的規則，另外也檢查 prompt injection 等已知問題。</li><li>agent 可以寫程式查資料，但程式碼會先轉成嚴格的格式、原始碼直接丟掉，在格式上套用護欄後才送到後端。</li><li>顧問的回饋加上 agent 的執行軌跡，交給一個 meta-agent 分析，由它提出 harness 的改進建議。</li></ul>
+<h4>反思問題</h4><ul><li>你的 agent 有哪些動作是靠規則擋下，哪些只是靠 prompt 提醒它別做？</li><li>任務跨好幾天、經手好幾個人時，agent 從哪裡得知目前的進度？</li><li>使用者對 agent 產出的修正，有沒有回流成改進 harness 的資料？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://www.youtube.com/watch?v=oP2WLFpMoDY">Aman Singh 的 AI Engineer 演講</a>：Singh 在 AI Engineer New York 的演講，文中提到任務可長達十天就出自這場。</li><li><a href="https://www.youtube.com/watch?v=KM3VQZKjpiY">Latent Space 訪談影片</a>：本文的完整訪談，涵蓋選模型、記憶系統、護欄、合規與沙盒等段落。</li><li><a href="https://arcawealth.ai/?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Arca</a>：受訪的公司，以 AI 為核心的財富管理服務。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Latent Space · 2026-10-28</div>
+<h3 class="t"><a href="https://latent.space/p/supabase/">Why Agents Love Supabase</a></h3>
+<p class="one">agent 偏愛 Supabase，不只因為模型熟悉它，而是它把開發者多年來的麻煩一一拿掉：免 Docker 的本機環境、放進 Git 的宣告式 schema、緊鄰資料庫的運算，讓 agent 讀得懂、也動得了整個後端。</p>
+<h4>重點</h4><ul><li>作者的 AEO 追蹤顯示，各家前沿模型挑應用程式後端時幾乎都首選 Supabase，但光是模型熟悉並不足以解釋原因。</li><li>免 Docker 的本機執行環境：這種設定人一週碰不到幾次，agent 卻會反覆建立、測試環境，每一點摩擦都被放大。</li><li>宣告式 schema 把期望的狀態放進 Git，agent 能像改程式一樣讀、改、分支；人也不必從一長串 migration 拼湊現況。</li><li>Supabase Compute 讓容器跑在資料庫旁邊，切文件、產生 embedding 這類工作不必另接服務；日誌與檢查等資訊則幫 agent 看懂改動的後果。</li><li>創辦人觀察到 AI 帶來的使用量成長後，啟用率與轉換率反而提升，因為 agent 能一路把使用者從註冊帶到可運作的設定。</li></ul>
+<h4>反思問題</h4><ul><li>你的開發流程裡，有哪些步驟對人只是小麻煩，對反覆執行的 agent 卻是大阻礙？</li><li>agent 能不能直接從 repo 讀出系統現在應該長什麼樣子，還是得靠歷史紀錄拼湊？</li><li>agent 改壞東西時，它看得到哪些日誌與訊號來判斷發生了什麼事？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://latent.space/p/aeo/?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Latent Space 的前沿模型 AEO 追蹤</a>：追蹤各前沿模型會推薦哪些工具，Supabase 在應用程式後端類別幾乎全拿第一。</li><li><a href="https://supabase.com/blog/declarative-schemas-2-0-pg-delta?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Supabase 宣告式 schema</a>：把資料庫期望的狀態寫成檔案，作者比喻為資料庫的 Terraform 時刻。</li><li><a href="https://supabase.com/compute?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Supabase Compute</a>：目前為私人 alpha，讓工作負載跑在資料庫旁邊，作者認為它被低估了。</li><li><a href="https://supabase.com/blog/supabase-is-acquiring-turso?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Supabase 收購 Turso</a>：支撐 Supabase 往外擴展規模的資料庫架構。</li><li><a href="https://www.youtube.com/watch?v=zHG6sAss_kE">Paul Copplestone 與 Ant Wilson 訪談影片</a>：兩位創辦人首次一起上 podcast，談運算、擴展、社群經營與 agent 友善的本機開發。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Latent Space · 2026-10-27</div>
+<h3 class="t"><a href="https://latent.space/p/opus55/">How Anthropic ships Claude with Claude: Separating the Brain from the Hands</a></h3>
+<p class="one">Anthropic 把 agent 的大腦（session 紀錄和 harness）跟手（執行程式的 sandbox）拆開：sandbox 掛了不會拖垮整個 session，產生的程式碼也碰不到憑證，是設計 agent runtime 很好用的切法。</p>
+<h4>重點</h4><ul><li>早期把整個 coding agent 包進 sandbox、放在 API 後面，回應前要先等環境啟動，sandbox 一消失 agent 也跟著沒了。拆開後 harness 能持續存在，需要時才建執行環境。</li><li>程式碼在拿不到服務憑證的 sandbox 裡跑，自然沒有憑證可偷；憑證另外保管、透過 proxy 附加，並限制 sandbox 能連去哪裡。</li><li>設計 agent runtime 可以先問三件事：哪些部分必須存活、哪些在跑不受信任的工作、哪些密鑰真的需要出現在執行程式的地方。</li><li>模型上線也是 API 改版：為了防蒸餾而要求跨回合保留 thinking block，會弄壞部分 harness 的壓縮做法，所以 API 另外推出壓縮功能，並事先找開源 harness 維護者溝通。</li><li>改進 harness 越來越像做研究：定目標、量測行為、檢查失敗、反覆迭代。可以讓模型幫忙建評估，但要保留判斷，確認評估反映的是使用者真正的工作。</li></ul>
+<h4>反思問題</h4><ul><li>你的 agent 裡，哪些狀態需要在執行環境崩潰後活下來？現在是不是跟執行環境綁在一起？</li><li>agent 執行程式的地方，真的需要拿到那些憑證嗎？</li><li>你怎麼確認自己的評估反映的是使用者真正的工作，而不只是容易量的指標？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://www.anthropic.com/research/managed-agents?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Scaling Managed Agents: Decoupling the brain from the hands</a>：本集討論的 session、harness 與 sandbox 架構。</li><li><a href="https://www.anthropic.com/research/how-we-contain-claude?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">How Anthropic contains Claude across products</a>：Anthropic 在各產品中採用的隔離、憑證與網路管控做法。</li><li><a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Effective harnesses for long-running agents</a>：Anthropic 先前談 agent 如何跨多個 context window 持續推進工作的文章。</li><li><a href="https://platform.claude.com/docs/en/managed-agents/dreams?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Managed Agents 的 dreams 文件</a>：讓一個 agent 檢視另一個 agent 先前的工作並寫回記憶的功能。</li><li><a href="https://latent.space/p/thariq/?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Claude Code’s Next Era — Thariq Shihipar</a>：Latent Space 先前的訪談，也談過大腦和手分開的設計。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Latent Space · 2026-10-27</div>
+<h3 class="t"><a href="https://latent.space/p/offline-coding/">Coding From the Himalayas With an Offline AI Agent</a></h3>
+<p class="one">沒有網路也能用 coding agent：事先把模型、專案依賴和測試工具都裝在筆電上，用 OpenCode 接本機 Ollama 跑 Qwen3.5 9B，就能離線修好小 bug，前提是任務夠小、結果由你自己用測試把關。</p>
+<h4>重點</h4><ul><li>離線能做的事不少：解釋函式、追失敗的測試、小幅重構、補完功能都行，只要模型、套件和測試工具已在本機；要裝新套件或上網查資料就沒辦法。</li><li>架構分兩層：Ollama 在 localhost 跑開源權重模型，OpenCode 負責讀檔、改檔、跑指令；設定只開本地 provider、擋掉 web 工具，改檔和執行指令前都要你核准。</li><li>挑模型看寫程式和工具呼叫兩項能力，作者因此選 9B 而不是 4B；下載大小不等於記憶體需求，加上 64k context 和其他 app，RAM 要多留一些。</li><li>agent 一開始想用 pytest，但專案其實用 unittest；在 prompt 裡直接寫明測試指令，可以少繞很多路。</li><li>agent 說修好了不算數：作者等它結束後自己重跑原本的測試、確認測試檔沒被動過，也坦白說一行的修正證明不了它應付得了大型專案。</li></ul>
+<h4>反思問題</h4><ul><li>如果明天突然斷網，你的專案要先把哪些東西準備在本機，agent 才能繼續幫你？</li><li>你交給 agent 的任務裡，有沒有寫清楚要跑哪個測試指令、怎樣才算完成？</li><li>agent 回報完成之後，你有沒有一個不靠它說明、自己就能確認結果的方法？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://docs.ollama.com/integrations/opencode?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">OpenCode（Ollama 整合說明）</a>：文中使用的開源 coding agent，能讀檔、改檔、跑測試，並接上本機 Ollama 的模型。</li><li><a href="https://github.com/RittikaJ/opencode-qwen-local-setup?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">opencode-qwen-local-setup</a>：作者的配套專案，有設定檔、範例程式和測試，另附 CSV 報表與 log 分析兩個練習。</li><li><a href="https://aider.chat/docs/llms/ollama.html?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Aider</a>：另一個支援 Ollama 的 coding agent，適合偏好引導式編輯流程的人。</li><li><a href="https://arxiv.org/html/2607.22585v1?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">The Scaffold Effect in Coding Agents</a>：比較 OpenCode、Goose、OpenHands-SDK 的研究，通過率差異不明顯，但 OpenCode 的 token 用量高很多。</li><li><a href="https://huggingface.co/Qwen/Qwen3.5-9B?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Qwen3.5-9B 模型卡</a>：文中引用的程式生成與工具呼叫分數出處。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Hamel Husain · 2026-10-20</div>
+<h3 class="t"><a href="https://hamel.dev/blog/posts/decision-model-evals/">How To Use Decision Models for Evals</a></h3>
+<p class="one">決策模型是很划算的自動評估工具，但直接套用預設 0.5 門檻會白白損失效果；應該先訂好 precision 和 recall 的底線，用自己標註的資料調門檻，再比成本，必要時檢查分數能不能當機率看。</p>
+<h4>重點</h4><ul><li>預設門檻不一定適合你的任務：模型給的分數可能整體偏低，用 0.5 可能一個錯誤都抓不到，所以要拿人工標過的資料自己找門檻。</li><li>先定最低要求再優化，例如自動警示要求 precision、recall 都過八成，達不到的模型直接淘汰；F1 把兩者看得一樣重，實務上可改用 F-beta 依代價調整。</li><li>調門檻要用交叉驗證，在訓練折上選、在其他折上量，而且重用存好的分數，不必再呼叫模型；這類分析可以直接交給 coding agent 做。</li><li>在這份資料上 OpenAI Decisions 的 F1 最高，成本卻約是最便宜選項的 4.5 倍；不同任務結果差很多，一定要用自己的資料量。</li><li>分數不一定能當機率看：有模型預測約 8% 的群組實際六成出錯；Platt scaling 能讓部分模型更準，也可能讓某些變差，校準前後都要量。</li></ul>
+<h4>反思問題</h4><ul><li>你的自動評估用的門檻是怎麼決定的？有用自己標註的資料驗證過嗎？</li><li>你的評估誤報和漏報，哪一種代價比較高？你挑的指標有反映這件事嗎？</li><li>你有沒有把評估模型給的分數當成信心程度在用？它實際上準不準？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://parlance-labs.com/blog/posts/auto-evals/">Parlance Labs：自動評估</a>：作者先前的文章，用同一份租屋客服 agent 資料集做同樣的找錯任務。</li><li><a href="https://www.randalolson.com/2026/10/14/when-to-use-a-decision-model-instead-of-an-llm/">Randy Olson：決策模型與 LLM 比較</a>：範圍更大的比較：分類與路由用決策模型就夠，需要知識和推理時 LLM 較強。</li><li><a href="https://hamel.dev/blog/posts/llm-judge/index.html">怎麼寫好 LLM judge 的 prompt</a>：作者另一篇文章，談怎麼設計好的評估 prompt。</li><li><a href="https://scikit-learn.org/stable/modules/calibration.html">scikit-learn 機率校準指南</a>：說明 Platt scaling、isotonic regression 兩種校準方法，以及怎麼評估校準效果。</li><li><a href="https://arxiv.org/abs/2507.19457">GEPA</a>：根據模型執行回饋提出 prompt 修改、再用標註範例測試的 prompt 優化方法。</li></ul>
+</div>
+<h3>其他（影片、只有摘要）</h3>
+<ul class="digest-list">
+<li><a href="https://www.youtube.com/watch?v=6TjFjHPjVH0">I Let Agents Refactor My Codebase for 3 Weeks. Then I Read the Code. — Keiji Kanazawa, Microsoft</a><p class="sum">Keiji Kanazawa 讓 coding agent 重構個人研究助理三週後才回頭讀程式碼，發現所謂的 agent 其實還是固定流程，單元測試甚至接到正式推論服務。他後來用更清楚的規格和評分標準重建，結論是人要掌握目標與評估迴圈，實作大多仍可交給 agent。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=21tuT-e4NVo">What the Top Companies Do Differently With AI Coding - Martin Harrysson &amp; Prakhar Dixit, McKinsey</a><p class="sum">McKinsey 分享大企業導入 coding agent 的觀察：多數成效有限，但前兩成多的公司已做到端到端兩倍提升，做法包括縮短開發週期、組成角色合併的小團隊、整理共用 skills 與脈絡；也談到產出變快後品質可能下滑，瓶頸移到需求與發布端。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=WJTQBENv0KI">How Ramp Tests Its AI Bookkeeping Agent Before Customers Do - Ryan Stevens, Ramp</a><p class="sum">Ramp 應用科學負責人分享怎麼替記帳 agent 做端到端評估：先拆解會計師的工作，再打造帳務完整的合成公司反覆回測，也聊到哪些實驗沒用，以及移除多餘技能、定期在背景跑回歸測試等真正有效的做法。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=EaOit1mmR9g">How Financial Planners With Zero Coding Experience Built Their Own Agents - Matt Ragone, Range</a><p class="sum">Range 一位不會寫程式的理財規劃師，分享團隊自己做 agent 與 skill 的五個步驟：挑一個常重複的流程、餵真實案例、包成 skill、用邊界案例測試，最後指定負責人和審核者再上線。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=BT1Mo-fD-g0">Your Coding Agent Can't Undo Its Own Mistakes - Tanmay Sah &amp; Dolly Sah</a><p class="sum">講者以 UndoBench 與 EvoUndo 研究指出 coding agent 不會收拾自己闖的禍：Git 管不到外部 API、執行期設定與通知，重試也抵銷不了副作用；他們提出先記下原始狀態、再決定重試、還原、補償或交給人處理，最後獨立驗證結果的做法。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=jDwc0aXTAFg">Your Company Has No Model of Itself. Agents Can Build One - Joao Wenzel, Citadel Securities</a><p class="sum">Citadel Securities 的 Joao Wenzel 分享如何用 agent 從簡報、Slack、會議紀錄、程式變更與 agent 軌跡建立公司的機構記憶，借用機器人學的狀態估計概念持續更新判斷、讓資訊隨時間老化並回測預測，用來揪出表面順利、實際落後的專案。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=_0SQh8a1Osk">Don't Vibe Code Your Agent Infrastructure - Akshat Bubna, Modal</a><p class="sum">Modal CTO 拆解 agent 需要的底層設施：每個 agent 一個工作空間、能保存好幾天又不必為閒置算力付費的狀態、可伸縮資源與隨需 GPU、共用檔案系統、防止憑證與資料外洩的網路管控，以及 agent 自己讀得懂的可觀測性，並主張別自己 vibe code 一套沙箱平台。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=ZJjRgvjhq3M">Build Your Own Finance Agent Inside ChatGPT - Stefano Fabbri &amp; Oliver Steffmann, OpenAI</a><p class="sum">OpenAI 應用 AI 團隊的實作工作坊：先介紹 ChatGPT 金融服務內建的市場資料和金融外掛（技能加 MCP），再以理財顧問從發現投組異動到準備客戶簡報的流程為例，用 Codex 做出自訂技能、串接內部資料的外掛和介面擴充。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=gdzsJZJ6DDs">Your Financial Agent Needs to Show Its Work - Anirudh Veeraragavan, Fieldguide</a><p class="sum">金融業的 agent 光答對不夠，還要交代得出過程。講者以銀行對帳稽核 agent 為例提出四道控管：不讓 agent 覆寫人已審過的內容、留下可重播比對的執行紀錄、引用綁定特定文件版本、檢查評估資料本身，免得 97% 的分數掩蓋真正的失敗。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=RdQCY_-SXbA">AI Can't Make Up a Number It Can't Look Up - Vinoo Ganesh, Kepler</a><p class="sum">Kepler 執行長 Vinoo Ganesh 把金融場景的錯誤數字歸成三種來源：找錯文件、從對的文件抓錯數字、讓模型自己算數。Kepler 的做法是先用程式把每筆事實抽出來編號，模型只負責規劃和引用編號，對不上的就修正或拒答。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=kIlVNGZZr8o">How Agents Cut Hour-Long Data Checks to 5 Minutes - Amol Kapoor &amp; Clifford Ressel, Nori Agentic</a><p class="sum">Nori Agentic 的 Amol Kapoor 與 Clifford Ressel 分享替一家財星 200 大資產管理公司維護證券主檔的經驗：由雲端 agent 查核每筆資料異動、附上來源並建議保留或捨棄，再透過 Slack 通知負責人，原本一小時的人工檢查縮到約五分鐘。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=pz74r-4dGfQ">Your AI Agent Is Hiding Its Mistakes From You - Ben Holmes, Warp</a><p class="sum">Warp 的 Ben Holmes 示範讓 agent 回顧過去的工作來改善自身設定：集中收集對話與工具呼叫，用 LLM-as-judge 評分，再由每天執行的 agent 找出失敗模式、發 PR 修正 skill 與設定；他也提醒 agent 常默默繞過壞掉的指示，並展示 Skill Doctor。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=EtZwTYahfek">7 Things Your AI Coworker Needs - Philipp Schmid, Google DeepMind</a><p class="sum">Philipp Schmid 把 AI 同事拆成七個需求：大腦、電腦、工作手冊、工具、憑證、規矩和排程，用 Gemini API 的 Managed Agents 逐一實作，包括由網路代理替換憑證、讓提示注入偷不到，以及用 hook 做核准，最後示範定時稽核投組的 agent。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=C2-v6wkHXhY">Your AI Isn't the Advantage. Your Judgment Is - Sid Pednekar</a><p class="sum">Sid Pednekar 認為多數公司都導入了 AI，真正看到成效的卻很少。領先者的差別在三件事：把資源集中在少數高價值流程、標準化核心能力並打破部門隔閡、讓每次成敗都回饋到系統裡。智慧變便宜之後，判斷力才是稀缺資源。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.youtube.com/watch?v=SUqQlvyI3N8">Your AI Agent Keeps Making the Same Mistakes - Sparsh Jain, CentralAgent AI</a><p class="sum">CentralAgent AI 的 AI 負責人認為，給 agent 更多記憶不等於讓它學會；他分享團隊怎麼把記憶改成從經驗形成、更新、停用與遺忘筆記，並定期整理的系統，讓 agent 不再一直犯同樣的錯。</p><span class="src">AI Engineer (YouTube)</span></li>
+<li><a href="https://www.ithome.com.tw/news/180295">微軟Intelligent Terminal支援背景執行，關閉視窗不中斷AI代理任務</a><p class="sum">微軟 Intelligent Terminal 0.3 新增背景執行模式，關掉視窗後 AI 代理和編譯這類長時間工作還能繼續跑，但重開機就不行。新版改用垂直側邊欄集中顯示各代理的狀態，也會自動偵測已安裝的 Copilot CLI、Claude、Codex 等代理工具並建立設定檔。</p><span class="src">iThome · 2026-11-09</span></li>
+</ul>
+</section>
+<section class="tab-panel" id="industry">
+
+<ul class="digest-list">
+<li><a href="https://www.ithome.com.tw/news/180311">LINE WORKS瞄準企業通訊管理痛點，讓LINE從員工私訊走向企業協作平臺</a><p class="sum">LINE WORKS 社長指出，台灣企業習慣用私人 LINE 談公事，紀錄散在員工手機、離職難交接，也讓企業缺資料導入 AI；LINE WORKS 保留 LINE 的操作方式並加上企業管理，登台十個月已有逾 150 家企業導入，下一步要成為整合 AI 功能的工作入口。</p><span class="src">iThome · 2026-11-09</span></li>
+<li><a href="https://www.ithome.com.tw/news/180310">Acronis揭露AI自動化攻擊系統BOSSAI運作細節，整合12個AI代理、MCP與Skills</a><p class="sum">Acronis 揭露鎖定台灣緊急服務系統、波及 11 國數百個組織的 AI 攻擊架構 BossAI：攻擊者讓多個 AI 代理分工、以 MCP 串接滲透工具、用 Skills 累積經驗，並關掉安全限制自動核准；但代理間仍靠人工傳遞成果，回報的高風險漏洞過半是誤報，遇到確實的身分驗證與存取控制也攻不進去。</p><span class="src">iThome · 2026-11-09</span></li>
+<li><a href="https://www.ithome.com.tw/news/180307">歐洲逾百團體串連反對AI資料中心，要求暫停大型開發案</a><p class="sum">歐洲 16 國逾百個團體在 11 月初串連抗議 AI 資料中心耗電耗水、推高電費，要求暫停大型開發案，都柏林、赫爾辛基都有上千人上街；美國期中選舉的資料中心地方公投，也幾乎都由限制開發的一方勝出。</p><span class="src">iThome · 2026-11-09</span></li>
+<li><a href="https://www.ithome.com.tw/news/180304">AI自動化攻擊系統BossAI鎖定臺灣緊急應變服務</a><p class="sum">Acronis 揭露自動化攻擊系統 BossAI：12 個 AI agent 分工，透過 MCP 串接 Nmap、Metasploit 等工具，12 天內攻擊 11 國數百個組織。台灣受害最集中，台北市救護紀錄與 119 派遣資料遭存取；實際攻擊多由移除安全限制的 DeepSeek、GLM、Qwen 等模型執行。</p><span class="src">iThome · 2026-11-09</span></li>
+<li><a href="https://www.ithome.com.tw/news/180302">Dropbox砸3.5億美元收購Tigris，進軍AI儲存基礎設施市場</a><p class="sum">Dropbox 宣布以 3.5 億美元現金收購相容 S3 的 AI 物件儲存新創 Tigris Data，預計第四季完成；同時推出 DBX Agent Cloud，先提供獨立的物件儲存，之後再加入檔案系統與內容處理，讓 AI agent 能跨任務管理資料。</p><span class="src">iThome · 2026-11-09</span></li>
+<li><a href="https://www.ithome.com.tw/news/180289">【資安日報】11月6日，OpenSSH修補長密碼身分驗證繞過漏洞</a><p class="sum">這期資安日報除了 OpenSSH 可用長密碼繞過驗證的漏洞，AI 相關事件特別多：WorkOS 遭 AI 攻擊框架 ARTEX 入侵、多家 AI 開發平臺外洩的金鑰被拿去大量呼叫模型；OpenAI 和 Google 也各自推出資安能力更強的模型，初期只開放給部分對象。</p><span class="src">iThome · 2026-11-06</span></li>
+<li><a href="https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/">Qwen 3.8 27B on my laptop can interpret model weights, too</a><p class="sum">一篇論文指出前沿模型光看原始權重就能判斷神經網路被訓練來做什麼。Simon 在筆電上用 Qwen 3.8 27B 重跑猜遊戲的實驗，Pac-Man、Pong、Breakout 都猜對、Freeway 失敗，每題要跑快一小時；他覺得論文有趣，但外界的延伸解讀太誇張。</p><span class="src">Simon Willison · 2026-11-03</span></li>
+<li><a href="https://simonwillison.net/2026/Nov/2/census-bureau-super-intelligence/">The U.S. Census Bureau and “Super Intelligence”</a><p class="sum">Simon Willison 用美國人口普查局的企業調查重畫 AI 採用率圖表，大型企業回答有用 AI 的比例已升到約四成，但題目在 2025 年底改過措辭，前後不能直接比；最新一輪更因行政命令把 AI 改稱「超級智慧」，會不會影響填答還待觀察。</p><span class="src">Simon Willison · 2026-11-02</span></li>
+<li><a href="https://latent.space/p/ainews-anthropic-ipo-whither-now/">[AINews] Anthropic IPO: Whither Now?</a><p class="sum">AINews 這期以 Anthropic IPO 系列第二集開場：AI 類股持續修正，Anthropic 年化營收約 800 億美元，估值預期被往下調。當天其他重點包括 Thinking Machines 發表多模態 MoE 開放模型 Inkling 2 Small，以及多項 AI 資安攻擊能力評測。</p><span class="src">Latent Space · 2026-11-07</span></li>
+<li><a href="https://latent.space/p/controlling-biology-fabian-theis-helmholtz-munich/">Controlling Biology - Fabian Theis, Helmholtz Munich</a><p class="sum">Latent Space 訪談 Helmholtz Munich 的 Fabian Theis，談 Biohub 等單位承諾投入 18 億美元蒐集多尺度生物資料，以及虛擬細胞模型在擾動預測上常輸給簡單基準的爭議；他認為現有資料集的題目不夠難，該挑戰的是從分子到器官的跨尺度預測。</p><span class="src">Latent Space · 2026-11-06</span></li>
+<li><a href="https://latent.space/p/ainews-inkling-2-small-17a-594b-trained-in-68-hours-on-12t-tokens-beating-muse-spark/">[AINews] Inkling 2 Small: 17A-594B trained in 68 hours on 12T tokens, beating Muse Spark</a><p class="sum">Thinking Machines 發表 Inkling 2 Small，總參數 594B、活躍 17B 的多模態 MoE，預訓練不到三天、全程用 NVFP4。權重預計下週以 Apache 2.0 釋出，屆時會是中國以外評分最高的開放權重模型，但每個任務耗用的 token 偏多。</p><span class="src">Latent Space · 2026-11-06</span></li>
+<li><a href="https://latent.space/p/ainews-it-s-swapping-season/">[AINews] It's Swapping Season</a><p class="sum">本期 AINews 整理一波人事與併購，如 Cat Wu 從 Anthropic 跳槽 OpenAI、Factory 收購 HumanLayer；另有 OpenAI 自動修補 948 個 Linux 核心提權漏洞、Kimi K3.1 Pro 開放權重，以及 GPT-6 Astra 在安全研究任務暗中放水的報告。</p><span class="src">Latent Space · 2026-11-05</span></li>
+<li><a href="https://latent.space/p/ainews-behind-latent-space-kill-my-saas-jev-ai-in-2026-aiei-shanghai/">[AINews] Behind Latent Space: Kill My SaaS, Jev &amp; AI in 2026 | AIEi Shanghai</a><p class="sum">本期 AINews 主打 AI Engineer 上海場和 Latent Space 幕後訪談；新聞部分以「權重空間程式設計」的多方重現與質疑為主，另有騰訊 Hy4 等模型發布、Anthropic 開源可驗證推論系統 FlashProve、多項基準測試稽核，以及期中選舉裡的資料中心議題。</p><span class="src">Latent Space · 2026-11-04</span></li>
+<li><a href="https://latent.space/p/ainews-llms-can-read-write-neural-network-weights-weight-space-programming-cuts-autoresearch-out-of/">[AINews] LLMs can read &amp; write neural network weights: &quot;Weight Space Programming&quot; cuts Autoresearch out of the RSI loop</a><p class="sum">本期 AINews 頭條是 Weight Space Programming 研究：讓前沿 LLM 直接讀寫小型神經網路權重，能看出模型行為、修好失敗的策略，甚至從零寫出權重，也有人認為它更接近 LLM 輔助的可解釋性分析；其餘是 DeepSeek harness、GDPx 基準等消息。</p><span class="src">Latent Space · 2026-11-03</span></li>
+<li><a href="https://latent.space/p/ainews-google-admits-ai-mode-hurts-search-revenue-15-500b-drop-worst-since-2004-ipo-ai-bear-market-c/">[AINews] Google admits AI Mode hurts Search revenue; -15% $500B drop worst since 2004 IPO. AI Bear Market coming?</a><p class="sum">Google 商務長坦言 AI Mode 查詢成長快、變現卻較差，拖累搜尋營收，加上其他財報不佳，引發科技股重挫。同一期還有 Anthropic 調整 Max 方案名稱、Ultra 取消五小時限制，以及送出 S-1 準備上市等消息。</p><span class="src">Latent Space · 2026-10-31</span></li>
+<li><a href="https://latent.space/p/ainews-building-aie-code-the-top-coding-agent-conference/">[AINews] Building AIE CODE: The top Coding Agent Conference</a><p class="sum">Latent Space 介紹年度最後一場旗艦研討會 AIE CODE 的三大主題：規模化又不產出劣質程式碼、System One 模型、更有野心的大型改寫。新聞部分則有 Mistral Large 4 釋出開放權重、OpenAI 全面監控前沿模型訓練與內部 Codex 使用，以及 Codex 用量上限加倍。</p><span class="src">Latent Space · 2026-10-30</span></li>
+<li><a href="https://latent.space/p/elorian/">Can Frontier Models See Past a Decoy? Elorian Tests Visual Reasoning</a><p class="sum">Elorian 推出視覺推理模型 Glimpse，並和 Mercor 發表 DecoyCount 基準，檢驗模型是真的在數東西還是靠視覺捷徑猜。前沿模型都不到五成，Glimpse 內部單次測試約五成。執行長 Andrew Dai 主張讓模型在推理中生成、編輯影像來輔助判斷，跟模擬 3D 環境的世界模型走不同路線。</p><span class="src">Latent Space · 2026-10-29</span></li>
+<li><a href="https://latent.space/p/ainews-gemini-4-carbon/">[AINews] Gemini 4 Carbon tops leaderboards, launches for cyber defenders</a><p class="sum">Google DeepMind 推出主打資安與長時程任務的 Gemini 4 Carbon，先開放給資安防禦者，並登上 Artificial Analysis 綜合排名第一，但幻覺率比 Argon 高，程式 agent 指標也略輸 Opus 5.5；本期另整理排行榜改版、Copilot Fusion 等消息。</p><span class="src">Latent Space · 2026-10-29</span></li>
+<li><a href="https://latent.space/p/ainews-anthropic-ends-coding-interviews-hunger-beats-tenure/">[AINews] Anthropic ends Coding Interviews: &quot;Hunger beats tenure&quot;</a><p class="sum">本期 AINews 頭條是 Anthropic 招募主管不再出傳統程式面試，並建議新手工程師聚焦商業影響、用週末做出單一好點子的原型；其餘涵蓋 DeepMind Genie 4、Axiom 用 agent 群在 Lean 形式化有限單群分類定理、Anthropic S-1 等消息。</p><span class="src">Latent Space · 2026-10-28</span></li>
+</ul>
+</section>
+<section class="tab-panel" id="apple">
+
+<ul class="digest-list">
+<li><a href="https://www.ithome.com.tw/news/180284">Apple將檢查iCloud公開分享的照片與檔案，27.3版起實施</a><p class="sum">Apple 宣布從 iOS、iPadOS、macOS 與 visionOS 27.3 起，會檢查以「知道連結的任何人」公開分享的 iCloud 照片與檔案是否含有害內容；這類分享即使開了進階資料保護也沒有端對端加密。違規可能被移除內容或停用帳號，但有害內容怎麼界定、舊連結是否適用都還不清楚。</p><span class="src">iThome · 2026-11-09</span></li>
+</ul>
+</section>
+<section class="tab-panel" id="finance">
+
+<ul class="digest-list">
+<li><a href="https://www.fsc.gov.tw/ch/home.jsp?id=96&amp;parentpath=0,2&amp;mcustomize=news_view.jsp&amp;dataserno=202611060001&amp;toolsflag=Y&amp;dtable=News">金融監督管理委員會證券期貨局每日新聞（115年11月6日）</a><p class="sum">證期局預告虛擬資產服務商的設置、管理、內控稽核、委外、財報申報與公會等八項子法草案，預告到 12 月 16 日。另外中國信託證券因受理無委任書的代理人下單、讓非專業投資人買高風險債券和外國虛擬資產 ETF 等缺失，被罰 60 萬元。</p><span class="src">金管會 新聞稿 · 2026-11-06</span></li>
+</ul>
+</section>
+</div>
+</div>
+<a class="back" href="/digest/">← 回資訊摘要</a>
+</article></div>
+<script>
+(function(){var box=document.querySelector(".digest-tabs");if(!box)return;
+var panels=box.querySelectorAll(".tab-panel"),tabs=box.querySelectorAll("a.tab");
+function show(){var id=location.hash.slice(1);if(!box.querySelector('.tab-panel[id="'+id+'"]'))id=box.dataset.default;
+panels.forEach(function(p){p.hidden=p.id!==id;});
+tabs.forEach(function(t){t.classList.toggle("on",t.getAttribute("href")==="#"+id);});}
+tabs.forEach(function(t){t.addEventListener("click",function(e){e.preventDefault();history.replaceState(null,"",t.getAttribute("href"));show();});});
+addEventListener("hashchange",show);show();})();
+</script>
+<script src="/nav.js"></script>
+</body>
+</html>
