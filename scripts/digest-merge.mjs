@@ -60,7 +60,9 @@ export function mergeDay(day, entries, analyses) {
   for (const [index, a] of [...analyses].sort(([x], [y]) => x - y)) {
     const item = out.items[index];
     const entry = entries.get(index);
-    const error = !item || !entry ? "找不到對應的文章或素材檔" : validateAnalysis(a, entry);
+    const error = !item || !entry ? "找不到對應的文章或素材檔"
+      : item.url !== entry.url ? `素材檔的 url 跟這個位置的文章不一致：${entry.url}`
+      : validateAnalysis(a, entry);
     if (error) {
       problems.push({ index, url: a?.url ?? item?.url ?? null, error });
       continue;
@@ -98,6 +100,37 @@ export function mergeFiles(date) {
   return { merged: result.merged, problems: [...readProblems, ...result.problems] };
 }
 
+// An analysis file exists for an item that has not been merged yet.
+export function needsMerge(day, analysisIndexes) {
+  return analysisIndexes.some((i) => day.items[i] && !day.items[i].summary && !day.items[i].drop);
+}
+
+const RECENT_DAYS = 7;
+
+// Today plus any recent cached date still waiting for a merge — a run whose collect and
+// publish fell on different dates (late start, interrupted run) is picked up the next time.
+export function mergePending(today) {
+  const cutoff = new Date(`${today}T00:00:00Z`);
+  cutoff.setUTCDate(cutoff.getUTCDate() - RECENT_DAYS);
+  const since = cutoff.toISOString().slice(0, 10);
+  const cached = existsSync(".cache/digest") ? readdirSync(".cache/digest").filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)) : [];
+  const dates = cached.filter((d) => d >= since && d !== today && pendingOnDisk(d)).sort();
+  const results = [...dates, today].map((d) => ({ date: d, ...mergeFiles(d) }));
+  return {
+    dates: results.filter((r) => r.merged).map((r) => r.date),
+    merged: results.reduce((n, r) => n + r.merged, 0),
+    problems: results.flatMap((r) => r.problems.map((p) => ({ ...p, date: r.date }))),
+  };
+}
+
+function pendingOnDisk(date) {
+  const dayPath = join("content/digests", `${date}.json`);
+  const dir = join(".cache/digest", date, "analysis");
+  if (!existsSync(dayPath) || !existsSync(dir)) return false;
+  const indexes = readdirSync(dir).filter((f) => /^\d+\.json$/.test(f)).map((f) => Number(f.slice(0, -5)));
+  return needsMerge(JSON.parse(readFileSync(dayPath, "utf8")), indexes);
+}
+
 function todayLocal() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -110,7 +143,7 @@ export function dateFromArgs(argv) {
 
 export function printMerge({ merged, problems }) {
   console.log(`MERGED: ${merged}`);
-  for (const p of problems) console.log(`PROBLEM: ${p.index} ${p.url ?? "-"} ${p.error}`);
+  for (const p of problems) console.log(`PROBLEM: ${p.date ? `${p.date} ` : ""}${p.index} ${p.url ?? "-"} ${p.error}`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) printMerge(mergeFiles(dateFromArgs(process.argv)));

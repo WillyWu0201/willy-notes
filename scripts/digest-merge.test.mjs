@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { validateAnalysis, mergeDay, mergeFiles, LIMITS } from "./digest-merge.mjs";
+import { validateAnalysis, mergeDay, mergeFiles, needsMerge, LIMITS } from "./digest-merge.mjs";
 
 const entry = { index: 0, url: "https://a.test/p", deep: true, links: ["https://x.test/cited"] };
 const good = {
@@ -67,4 +67,17 @@ test("mergeDay reports an analysis whose item or bundle entry is missing", () =>
 });
 test("mergeFiles is a no-op on a day without a digest file", () => {
   assert.deepEqual(mergeFiles("1999-01-01"), { merged: 0, problems: [] });
+});
+test("mergeDay rejects a cached bundle entry that no longer matches the item at that index", () => {
+  const day = { date: "d", items: [{ url: "https://a.test/B", title: "B" }] };
+  const out = mergeDay(day, new Map([[0, entry]]), new Map([[0, good]]));
+  assert.equal(out.merged, 0);
+  assert.equal(out.day.items[0].summary, undefined);
+  assert.match(out.problems[0].error, /url/);
+});
+test("needsMerge is true only when an analysis exists for an item that has none yet", () => {
+  const day = { items: [{ url: "a", summary: "done" }, { url: "b" }, { url: "c", drop: true }] };
+  assert.equal(needsMerge(day, [0, 2]), false);
+  assert.equal(needsMerge(day, [1]), true);
+  assert.equal(needsMerge(day, [7]), false);
 });

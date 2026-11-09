@@ -166,7 +166,7 @@ AI 產業新聞（新模型發表等）、iOS / Apple、金融與虛擬資產，
 
 **步驟：**
 
-1. **部署前檢查：** 目前分支必須是 `main`；`public/` 底下除了 `public/digest/` 之外，不能有未 commit 的變更；`public/blog/drafts/` 不能存在。任何一項不符合就**不 commit、不部署**，照樣產生摘要檔，並回報原因。
+1. **部署前檢查：** 目前分支必須是 `main`；會被一起部署的檔案（`public/`、`functions/`、`lib/`、`wrangler.toml`，以及產頁腳本），除了 `public/digest/` 之外，不能有未 commit 的變更，未追蹤的新檔案也算；`public/blog/drafts/` 不能存在。（整體審查時補上：`wrangler pages deploy` 也會帶上 Functions 和設定檔。）任何一項不符合就**不 commit、不部署**，照樣產生摘要檔，並回報原因。
 2. 依序執行：抓取 → 準備 → Claude 寫分析 → 驗證合併 → 產頁。
 3. **只 commit 摘要相關路徑**：`git commit -- content/digests public/digest`，不碰使用者其他已暫存或未暫存的檔案，也不 push。（使用者已同意每天自動 commit。理由：這樣從其他 checkout 部署時，`public/digest/` 才會是完整的，正式站的舊摘要不會被蓋掉。）
 4. 部署：`npx wrangler pages deploy public --project-name willy-notes --branch main`。

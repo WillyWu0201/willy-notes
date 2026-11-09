@@ -114,7 +114,8 @@ npm run digest:publish   # 驗證合併分析 → 產生 public/digest/ → 部�
 
 - 頁面分成四個分頁籤:AI 開發方式、AI 產業動態、iOS / Apple、金融與虛擬資產。AI 開發方式每篇有深度分析卡(一句話、重點、反思問題、延伸閱讀),其他每篇一兩句摘要。分析不通過驗證的文章只顯示標題。
 - `digest:publish` 驗證規則見 `scripts/digest-merge.mjs`:分類必須是四類之一、延伸閱讀的連結必須出現在原文裡、只收 http/https。不通過的會印 `PROBLEM:`,不影響其他篇。
-- **部署前檢查**:目前分支不是 `main`、`public/` 有 `public/digest/` 以外未 commit 的變更、或 `public/blog/drafts/` 存在時,只產頁、不 commit 也不部署,印出 `SKIPPED:` 與原因。
+- **部署前檢查**:目前分支不是 `main`、會一起部署的檔案(`public/`、`functions/`、`lib/`、`wrangler.toml`,以及產頁用的 `scripts/build-digest.mjs`、`blog-lib.mjs`、`digest-lib.mjs`)有 `public/digest/` 以外未 commit 的變更、或 `public/blog/drafts/` 存在時,只產頁、不 commit 也不部署,印出 `SKIPPED:` 與原因。
+- `digest:publish` 除了今天,也會合併最近 7 天內還沒合併的分析(例如收集和發佈跨過午夜、或中途被打斷),不會遺失。
 - 檢查通過時只 commit `content/digests` 與 `public/digest`(不 push),再部署到正式站(`--branch main`)。
 - 權限:`.claude/settings.json` 只允許 `npm run digest:publish` 不經核准執行。
 - 排程只在 App 開著、Mac 沒睡著時跑;錯過會在下次打開 App 時補跑。
