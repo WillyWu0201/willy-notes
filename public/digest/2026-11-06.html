@@ -14,8 +14,14 @@
 <h1 class="title">資訊摘要 · 2026-11-06</h1>
 <div class="meta"><span>18 篇</span></div>
 <div class="body">
-<p class="digest-intro">每天自動追蹤 AI、iOS／Apple、金融與虛擬資產相關來源，只列出命中關鍵字的新文章，標題連到原文。</p>
-<h2>AI</h2>
+<p class="digest-intro">每天早上自動整理 AI 開發方式、AI 產業動態、iOS／Apple、金融與虛擬資產的新文章；AI 開發方式每篇附重點、反思問題與延伸閱讀。</p>
+<div class="digest-tabs" data-default="industry">
+<nav class="tabs"><span class="tab off">AI 開發方式 <b>0</b></span><a class="tab" href="#industry">AI 產業動態 <b>11</b></a><a class="tab" href="#apple">iOS / Apple <b>2</b></a><a class="tab" href="#finance">金融與虛擬資產 <b>5</b></a></nav>
+<section class="tab-panel" id="dev">
+<p class="empty">今天沒有</p>
+</section>
+<section class="tab-panel" id="industry">
+
 <ul class="digest-list">
 <li><a href="https://claude.com/resources/articles/new-agents-and-products-claude-marketplace">New agents and products for security, productivity, and creative work on Claude Marketplace</a><span class="src">Claude Blog · 2026-11-04</span></li>
 <li><a href="https://claude.com/resources/articles/message-threads">Make long-running agents faster with message threads</a><span class="src">Claude Blog · 2026-11-02</span></li>
@@ -29,25 +35,37 @@
 <li><a href="https://www.ithome.com.tw/news/180267">OpenAI揭露AI助理個人化瓶頸，模型仍難善用過往對話</a><span class="src">iThome · 2026-11-05</span></li>
 <li><a href="https://www.ithome.com.tw/news/180263">公路局擬擴大推動無人機AI巡檢，結合3D建模、AI影像辨識提升橋梁與邊坡養護效率</a><span class="src">iThome · 2026-11-05</span></li>
 </ul>
-<h2>iOS / Apple</h2>
+</section>
+<section class="tab-panel" id="apple">
+
 <ul class="digest-list">
 <li><a href="https://www.ithome.com.tw/news/180260">【資安日報】11月5日，法國國家血液機構冷藏設備遭網路攻擊，3處設施溫度控制遭竄改</a><span class="src">iThome · 2026-11-05</span></li>
 <li><a href="https://www.ithome.com.tw/news/180250">俄羅斯駭客APT29發動大規模水坑式攻擊，竊取iOS與Android裝置帳密及資料</a><span class="src">iThome · 2026-11-05</span></li>
 </ul>
-<h2>金融</h2>
+</section>
+<section class="tab-panel" id="finance">
+
 <ul class="digest-list">
 <li><a href="https://www.fintechbrainfood.com/p/payments-new-ads">payments new ads</a><span class="src">Fintech Brainfood · 2026-11-04</span></li>
 <li><a href="https://www.fsc.gov.tw/ch/home.jsp?id=96&amp;parentpath=0,2&amp;mcustomize=news_view.jsp&amp;dataserno=202611050002&amp;toolsflag=Y&amp;dtable=News">金管會修正「金融業申請業務試辦作業要點」－優化試辦機制、提升金融創新彈性</a><span class="src">金管會 新聞稿 · 2026-11-05</span></li>
-<li><a href="https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/11/20261102-3/">Hong Kong FinTech Week 2026</a><span class="src">HKMA 新聞稿 · 2026-11-02</span></li>
-</ul>
-<h2>虛擬資產</h2>
-<ul class="digest-list">
 <li><a href="https://www.fsc.gov.tw/ch/home.jsp?id=96&amp;parentpath=0,2&amp;mcustomize=news_view.jsp&amp;dataserno=202611030002&amp;toolsflag=Y&amp;dtable=News">金管會預告「穩定幣發行許可及管理辦法」草案及修正金融機構洗錢防制相關規定</a><span class="src">金管會 新聞稿 · 2026-11-03</span></li>
 <li><a href="https://www.fsc.gov.tw/ch/home.jsp?id=96&amp;parentpath=0,2&amp;mcustomize=news_view.jsp&amp;dataserno=202611030001&amp;toolsflag=Y&amp;dtable=News">預告「虛擬資產服務法」有關虛擬資產服務商管理之8項授權法規命令草案</a><span class="src">金管會 新聞稿 · 2026-11-03</span></li>
+<li><a href="https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/11/20261102-3/">Hong Kong FinTech Week 2026</a><span class="src">HKMA 新聞稿 · 2026-11-02</span></li>
 </ul>
+</section>
+</div>
 </div>
 <a class="back" href="/digest/">← 回資訊摘要</a>
 </article></div>
+<script>
+(function(){var box=document.querySelector(".digest-tabs");if(!box)return;
+var panels=box.querySelectorAll(".tab-panel"),tabs=box.querySelectorAll("a.tab");
+function show(){var id=location.hash.slice(1);if(!box.querySelector('.tab-panel[id="'+id+'"]'))id=box.dataset.default;
+panels.forEach(function(p){p.hidden=p.id!==id;});
+tabs.forEach(function(t){t.classList.toggle("on",t.getAttribute("href")==="#"+id);});}
+tabs.forEach(function(t){t.addEventListener("click",function(e){e.preventDefault();history.replaceState(null,"",t.getAttribute("href"));show();});});
+addEventListener("hashchange",show);show();})();
+</script>
 <script src="/nav.js"></script>
 </body>
 </html>

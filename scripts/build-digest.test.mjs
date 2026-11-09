@@ -1,43 +1,55 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { groupItems, renderDay, renderIndex } from "./build-digest.mjs";
+import { groupByCategory, defaultTab, renderDay, renderIndex } from "./build-digest.mjs";
 
-const order = ["AI", "iOS / Apple", "金融"];
-const day = {
-  date: "2026-11-06",
-  items: [
-    { source: "iThome", title: "金融 <新聞>", url: "https://x.test/a?b=1&c=2", date: "2026-11-06", groups: ["金融"] },
-    { source: "Claude Blog", title: "Agents", url: "https://x.test/b", date: null, groups: ["AI", "金融"] },
-  ],
-};
+const day = { date: "2026-11-09", items: [
+  { source: "Addy", title: "Agentic <Verification>", url: "https://a.test/v", date: "2026-10-14", curated: true, groups: ["AI"],
+    category: "dev", deep: true, summary: "瓶頸是驗證", points: ["p1", "p2", "p3"], questions: ["q1", "q2"],
+    further: [{ title: "Cited", url: "https://x.test/c", note: "n" }, { title: "Lean", note: "m" }] },
+  { source: "AI Engineer", title: "Talk", url: "https://www.youtube.com/watch?v=1", curated: true, groups: ["AI"], category: "dev", deep: false, summary: "影片摘要" },
+  { source: "iThome", title: "GPT-6", url: "https://i.test/1", groups: ["AI"], category: "industry", summary: "新模型" },
+  { source: "iThome", title: "資安日報", url: "https://i.test/2", groups: ["iOS / Apple"], category: "apple", drop: true, dropReason: "無關" },
+  { source: "FSC", title: "穩定幣", url: "https://f.test/1", groups: ["虛擬資產"] },
+  { source: "X", title: "Evil", url: "javascript:alert(1)", groups: ["AI"], category: "industry", summary: "x" },
+] };
 
-test("groupItems puts each item under its first group, in config order, dropping empty groups", () => {
-  const out = groupItems(day.items, order);
-  assert.deepEqual(out.map(([g, list]) => [g, list.map((i) => i.title)]), [["AI", ["Agents"]], ["金融", ["金融 <新聞>"]]]);
+test("groupByCategory uses analysed categories, falls back for old items, and skips dropped and non-http items", () => {
+  const g = Object.fromEntries(groupByCategory(day.items));
+  assert.deepEqual(Object.keys(g), ["dev", "industry", "apple", "finance"]);
+  assert.deepEqual(g.dev.deep.map((i) => i.title), ["Agentic <Verification>"]);
+  assert.deepEqual(g.dev.rows.map((i) => i.title), ["Talk"]);
+  assert.deepEqual(g.industry.rows.map((i) => i.title), ["GPT-6"]);
+  assert.equal(g.apple.rows.length, 0);
+  assert.deepEqual(g.finance.rows.map((i) => i.title), ["穩定幣"]);
 });
-
-test("renderDay renders escaped links with source and date, grouped by topic", () => {
-  const html = renderDay(day, order);
-  assert.match(html, /<h1 class="title">資訊摘要 · 2026-11-06<\/h1>/);
-  assert.match(html, /<h2>AI<\/h2>[\s\S]*<h2>金融<\/h2>/);
-  assert.match(html, /<a href="https:\/\/x\.test\/a\?b=1&amp;c=2">金融 &lt;新聞&gt;<\/a><span class="src">iThome · 2026-11-06<\/span>/);
-  assert.match(html, /<span class="src">Claude Blog<\/span>/);
-  assert.doesNotMatch(html, /iOS \/ Apple/);
+test("defaultTab is dev when it has items, else the first non-empty tab", () => {
+  assert.equal(defaultTab(groupByCategory(day.items)), "dev");
+  assert.equal(defaultTab(groupByCategory(day.items.slice(2))), "industry");
 });
-
-test("renderIndex lists days with total and per-topic counts", () => {
-  const html = renderIndex([day], order);
-  assert.match(html, /<a class="t" href="\/digest\/2026-11-06">資訊摘要 · 2026-11-06<\/a>/);
-  assert.match(html, /<div class="d">2 篇<\/div>/);
-  assert.match(html, /<div class="s">AI 1、金融 1<\/div>/);
+test("renderDay renders tabs with counts, a disabled empty tab and the deep card sections", () => {
+  const html = renderDay(day);
+  assert.match(html, /data-default="dev"/);
+  assert.match(html, /<a class="tab" href="#dev">AI 開發方式 <b>2<\/b><\/a>/);
+  assert.match(html, /<span class="tab off">iOS \/ Apple <b>0<\/b><\/span>/);
+  assert.match(html, /<div class="deep-card">[\s\S]*Agentic &lt;Verification&gt;[\s\S]*<p class="one">瓶頸是驗證<\/p>[\s\S]*<h4>重點<\/h4>[\s\S]*<h4>反思問題<\/h4>[\s\S]*<h4>延伸閱讀<\/h4>/);
+  assert.match(html, /<a href="https:\/\/x\.test\/c">Cited<\/a>/);
+  assert.match(html, /Lean[^<]*（文中提到，未附連結）/);
+  assert.match(html, /<h3>其他（影片、只有摘要）<\/h3>[\s\S]*Talk[\s\S]*影片摘要/);
+  assert.match(html, /<p class="empty">今天沒有<\/p>/);
+  assert.match(html, /<span>4 篇<\/span>/);
 });
-test("non-http(s) URLs are never published and are not counted", () => {
-  const bad = { ...day, items: [...day.items, { source: "X", title: "Evil", url: "javascript:alert(1)", date: null, groups: ["AI"] }] };
-  const html = renderDay(bad, order);
-  assert.doesNotMatch(html, /javascript:|Evil/);
-  assert.match(html, /<span>2 篇<\/span>/);
-  assert.match(renderIndex([bad], order), /<div class="d">2 篇<\/div>/);
+test("renderDay never publishes non-http links or dropped items", () => {
+  const html = renderDay(day);
+  assert.doesNotMatch(html, /javascript:|Evil|資安日報/);
 });
-test("renderIndex shows a placeholder when there are no days", () => {
-  assert.match(renderIndex([], order), /尚無摘要/);
+test("renderDay never publishes a non-http further link", () => {
+  const bad = { ...day, items: [{ ...day.items[0], further: [{ title: "Bad", url: "javascript:alert(2)", note: "n" }] }] };
+  assert.doesNotMatch(renderDay(bad), /javascript:/);
+});
+test("renderIndex lists days with per-tab counts", () => {
+  const html = renderIndex([day]);
+  assert.match(html, /<a class="t" href="\/digest\/2026-11-09">資訊摘要 · 2026-11-09<\/a>/);
+  assert.match(html, /<div class="d">4 篇<\/div>/);
+  assert.match(html, /<div class="s">AI 開發方式 2、AI 產業動態 1、金融與虛擬資產 1<\/div>/);
+  assert.match(renderIndex([]), /尚無摘要/);
 });
