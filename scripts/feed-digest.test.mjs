@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   buildMatcher, parseFeed, extractLinks, parseSitemap, extractYouTube,
-  parseAppleSecurity, parseLooseDate, selectNew, renderDigest,
+  parseAppleSecurity, parseLooseDate, selectNew, renderDigest, pickHits,
 } from "./feed-digest.mjs";
 
 const match = buildMatcher({
@@ -112,4 +112,14 @@ test("renderDigest says so when nothing matched", () => {
   const md = renderDigest("2026-11-06", [], [{ name: "A", parsed: 3, fresh: 0, matched: 0, firstRun: true }]);
   assert.match(md, /今天沒有命中關鍵字的新文章/);
   assert.match(md, /首次執行，已建立基準/);
+});
+
+test("pickHits keeps every item from an `all` source and marks it curated", () => {
+  const out = pickHits([{ title: "The Code Nobody Reads", url: "u1", date: null, text: "The Code Nobody Reads" }], { all: true }, match);
+  assert.deepEqual(out.map((i) => [i.url, i.groups, i.curated]), [["u1", ["AI"], true]]);
+});
+test("pickHits keeps only keyword hits for normal sources", () => {
+  const out = pickHits([{ url: "a", text: "New AI model" }, { url: "b", text: "Gardening tips" }], {}, match);
+  assert.deepEqual(out.map((i) => i.url), ["a"]);
+  assert.equal(out[0].curated, undefined);
 });

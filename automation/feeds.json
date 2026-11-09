@@ -19,6 +19,13 @@
     { "id": "cbc-press", "name": "中央銀行 新聞稿", "type": "rss", "url": "https://www.cbc.gov.tw/tw/rss-302-1.xml" },
     { "id": "fsc-press", "name": "金管會 新聞稿", "type": "rss", "url": "https://www.fsc.gov.tw/RSS/Messages?serno=201202290009&language=chinese" },
     { "id": "hkma-press", "name": "HKMA 新聞稿", "type": "rss", "url": "https://www.hkma.gov.hk/eng/other-information/rss/rss_press-release.xml" },
-    { "id": "ithome", "name": "iThome", "type": "rss", "url": "https://www.ithome.com.tw/rss" }
+    { "id": "ithome", "name": "iThome", "type": "rss", "url": "https://www.ithome.com.tw/rss" },
+    { "id": "addy-osmani", "name": "Addy Osmani（Elevate）", "type": "rss", "url": "https://addyo.substack.com/feed", "all": true, "firstRunDays": 30 },
+    { "id": "simon-willison", "name": "Simon Willison", "type": "rss", "url": "https://simonwillison.net/atom/entries/", "all": true, "firstRunDays": 30 },
+    { "id": "latent-space", "name": "Latent Space", "type": "rss", "url": "https://latent.space/feed", "all": true, "firstRunDays": 30 },
+    { "id": "hamel", "name": "Hamel Husain", "type": "rss", "url": "https://hamel.dev/index.xml", "all": true, "firstRunDays": 30 },
+    { "id": "eugene-yan", "name": "Eugene Yan", "type": "rss", "url": "https://eugeneyan.com/rss/", "all": true, "firstRunDays": 30 },
+    { "id": "anthropic-engineering", "name": "Anthropic Engineering", "type": "links", "url": "https://www.anthropic.com/engineering", "match": "^https://www\\.anthropic\\.com/research/[A-Za-z0-9-]+$", "all": true, "firstRunDays": 30 },
+    { "id": "martin-fowler", "name": "Martin Fowler", "type": "rss", "url": "https://martinfowler.com/feed.atom" }
   ]
 }

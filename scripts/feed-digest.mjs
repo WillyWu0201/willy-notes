@@ -160,6 +160,13 @@ export function selectNew(items, prevSeen, today, days = 7) {
   return { fresh, seen: [...seen].slice(-5000), firstRun };
 }
 
+// Curated sources (`all`) are kept whole and marked curated; others must hit a keyword.
+export function pickHits(fresh, src, match) {
+  const hits = fresh.map((i) => ({ ...i, ...match(i.text) }));
+  if (!src.all) return hits.filter((i) => i.groups.length);
+  return hits.map((i) => ({ ...i, groups: i.groups.length ? i.groups : ["AI"], curated: true }));
+}
+
 function statusText(s) {
   if (s.error) return `失敗：${s.error}`;
   if (s.parsed === 0) return "⚠ 解析不到資料（可能網站改版）";
@@ -209,7 +216,7 @@ function todayLocal() {
   return ymd(d.getFullYear(), d.getMonth() + 1, d.getDate());
 }
 
-async function fetchText(url) {
+export async function fetchText(url) {
   const res = await fetch(url, {
     headers: { "User-Agent": UA, "Accept-Language": "en-US,en;q=0.9,zh-TW;q=0.8" },
     signal: AbortSignal.timeout(30000),
@@ -237,12 +244,15 @@ async function main() {
   const results = await Promise.all(cfg.sources.map(async (src) => {
     try {
       const items = await load(src);
-      const { fresh, seen, firstRun } = selectNew(items, state[src.id], date);
+      const { fresh, seen, firstRun } = selectNew(items, state[src.id], date, src.firstRunDays ?? 7);
       if (items.length) state[src.id] = seen; // a broken parser must not wipe the baseline
-      const hits = fresh.map((i) => ({ ...i, ...match(i.text) })).filter((i) => i.groups.length);
+      const hits = pickHits(fresh, src, match);
       return {
         status: { name: src.name, parsed: items.length, fresh: fresh.length, matched: hits.length, firstRun },
-        hits: hits.map((h) => ({ source: src.name, title: h.title, url: h.url, date: h.date, groups: h.groups, keywords: h.keywords })),
+        hits: hits.map((h) => ({
+          source: src.name, title: h.title, url: h.url, date: h.date, groups: h.groups, keywords: h.keywords,
+          ...(h.curated ? { curated: true } : {}),
+        })),
       };
     } catch (e) {
       return { status: { name: src.name, parsed: 0, fresh: 0, matched: 0, error: e.message }, hits: [] };
