@@ -15,7 +15,9 @@
     "publish": "node scripts/publish.mjs",
     "gather": "node scripts/daily-gather.mjs",
     "digest": "node scripts/feed-digest.mjs && node scripts/build-digest.mjs",
-    "build:digest": "node scripts/build-digest.mjs"
+    "build:digest": "node scripts/build-digest.mjs",
+    "digest:collect": "node scripts/feed-digest.mjs && node scripts/digest-prep.mjs",
+    "digest:publish": "node scripts/digest-publish.mjs"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240909.0",
