@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>資訊摘要 2026-11-13 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">資訊摘要 · 2026-11-13</h1>
+<div class="meta"><span>16 篇</span></div>
+<div class="body">
+<p class="digest-intro">每天早上自動整理 AI 開發方式、AI 產業動態、iOS／Apple、金融與虛擬資產的新文章；AI 開發方式每篇附重點、反思問題與延伸閱讀。</p>
+<div class="digest-tabs" data-default="dev">
+<nav class="tabs"><a class="tab" href="#dev">AI 開發方式 <b>4</b></a><a class="tab" href="#industry">AI 產業動態 <b>10</b></a><span class="tab off">iOS / Apple <b>0</b></span><a class="tab" href="#finance">金融與虛擬資產 <b>2</b></a></nav>
+<section class="tab-panel" id="dev">
+<div class="deep-card">
+<div class="src">Claude Blog · 2026-11-12</div>
+<h3 class="t"><a href="https://claude.com/resources/articles/self-hosted-claude-managed-agents">Operate Claude Managed Agents inside your security perimeter</a></h3>
+<p class="one">Claude Managed Agents 開放整套自架（私人測試版），而且不論誰託管，無人看管的 agent 安全都要靠架構先劃好界線，不能靠人逐步檢查。</p>
+<h4>重點</h4><ul><li>自架版把 harness、沙箱、憑證與對話紀錄都放進自己的雲端或機房，模型請求可以直接送 Anthropic、雲端供應商或自家閘道，API 跟託管版一樣。</li><li>「大腦」與「手」分開：agent 迴圈、紀錄與密鑰留在沙箱外，程式只在沙箱裡跑，沙箱需要時才啟動，掛掉也不影響整個任務。</li><li>憑證不進沙箱：由沙箱外的代理程式在呼叫 MCP 工具或 API 時才補上憑證，自架時也能改用自己的密鑰管理服務。</li><li>每個環境可以只允許特定主機連線，例如修 build 的 agent 只需要 git 主機和套件庫，其他一律擋掉。</li><li>每一步工具呼叫與回傳都留下完整紀錄，並可透過 OpenTelemetry 匯出到既有的監控系統。</li></ul>
+<h4>反思問題</h4><ul><li>你的 agent 在沙箱裡跑時，碰得到哪些密鑰？真的需要碰到嗎？</li><li>如果只能開放三個網域給 agent 連線，你會選哪三個？</li><li>agent 半夜自己跑完一個任務，隔天你能完整還原它做了什麼嗎？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://platform.claude.com/docs/en/managed-agents/self-hosted">Self-hosted Managed Agents 文件</a>：自架整套服務的說明。</li><li><a href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes">Self-hosted sandboxes</a>：先前推出、只自架沙箱的做法。</li><li><a href="https://platform.claude.com/docs/en/managed-agents/vaults">Vaults</a>：讓憑證留在沙箱外的機制。</li><li><a href="https://platform.claude.com/docs/en/managed-agents/secure-deployment">Secure deployment</a>：限制網路連線等安全部署設定。</li><li><a href="https://www.anthropic.com/engineering/managed-agents">Anthropic Engineering：Managed Agents</a>：工程團隊對 Managed Agents 架構的說明。</li></ul>
+</div>
+<div class="deep-card">
+<div class="src">Latent Space · 2026-11-12</div>
+<h3 class="t"><a href="https://latent.space/p/jev-revolution/">The Jev Revolution: What Engineers Are Already Building with System One Models</a></h3>
+<p class="one">System One 模型（只回傳選項、分數或機率的非生成式模型）又快又便宜又穩定，應該像函式一樣大量嵌進應用程式碼裡，而不是把所有判斷都丟給 LLM。</p>
+<h4>重點</h4><ul><li>TypeSafe AI 的 Almeida 認為 LLM 當軟體核心的問題在可靠度：大多時候很聰明、偶爾很離譜，又分不出哪次是哪種，就很難自動化。</li><li>主張把決策模型的呼叫直接寫進程式碼，取代拼接字串再祈禱 LLM 回對的做法。</li><li>Glean 把 Jev 和 LLM、其他分類器混用，看中它不必重新微調就能應付分類項目變動；使用者不需要知道背後用的是哪種模型。</li><li>UiPath 用「淘汰賽」方式讓 Jev 分組挑出最相關的文件片段，上千次呼叫不到一秒；單次不聰明，靠組合策略變聰明。</li><li>Workday 的原型在使用者還在打字時就開始填請假卡，示範快速判斷能改變軟體本身的行為。</li></ul>
+<h4>反思問題</h4><ul><li>你的系統裡有哪些 LLM 呼叫，其實只是在做分類或打分？</li><li>如果每次判斷只要幾十毫秒、幾乎不用錢，你會在哪些地方多加一次判斷？</li><li>你怎麼知道模型這次的答案可不可信？有沒有信心分數可以用？</li></ul>
+<h4>延伸閱讀</h4><ul><li><a href="https://ai.engineer/code/2026/?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">AI Engineer Code Summit</a>：本文報導的研討會。</li><li><a href="https://latent.space/p/jev/?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Latent Space 的 Jev 發表訪談</a>：Almeida 解釋為何 LLM 當軟體核心有可靠度問題。</li><li><a href="https://latent.space/p/glean-model-routing/?utm_source=latent.space&amp;utm_medium=ainews&amp;utm_campaign=lsbeehiiv">Glean 的模型路由</a>：Glean 混用 Jev 與 LLM 的相關內容。</li></ul>
+</div>
+<h3>其他（影片、只有摘要）</h3>
+<ul class="digest-list">
+<li><a href="https://www.ithome.com.tw/news/180398">Linux基金會調查揭軟體交付速度超過資安審查能力，近6成團隊跟不上</a><p class="sum">Linux 基金會調查 308 位從業人員：58% 說交付速度已超過資安審查能量，60% 說用 AI 寫程式後相依套件變多，但只有約一半會檢查間接相依套件。</p><span class="src">iThome · 2026-11-13</span></li>
+<li><a href="https://www.ithome.com.tw/news/180444">AWS推出完全由AI代理人開發的雲端模擬器AWS Emulator</a><p class="sum">AWS 推出完全由 AI 代理人寫成的本機雲端模擬器 AWS Emulator：一組代理產生並在真 AWS 驗證測試、一組找差異、一組修程式，全部通過自動合併關卡，人沒有審程式碼。</p><span class="src">iThome · 2026-11-12</span></li>
+</ul>
+</section>
+<section class="tab-panel" id="industry">
+
+<ul class="digest-list">
+<li><a href="https://www.ithome.com.tw/news/180473">Google攜三星推出AI智慧眼鏡，挑戰市場龍頭Meta</a><p class="sum">Google 與三星、Gentle Monster、Warby Parker 推出搭載 Gemini 的 AI 智慧眼鏡，12 月 10 日先在美國與南韓上市、售價約 395 至 489 美元，挑戰 Meta 主導的市場。</p><span class="src">iThome · 2026-11-13</span></li>
+<li><a href="https://www.ithome.com.tw/news/180448">RSAC預測2027年資安趨勢：AI代理增加漏洞處理壓力，企業須強化GRC與事件應變</a><p class="sum">RSAC 預測 2027 年 AI 代理會找出並修補更多漏洞，資安主管將回頭重視 GRC，第一線則加強事件應變；MCP 工具鏈、模型投毒與幻覺套件名稱也被列為新風險。</p><span class="src">iThome · 2026-11-13</span></li>
+<li><a href="https://www.ithome.com.tw/news/180433">NIST發布對抗式機器學習攻擊分類草案，示警MCP工具供應鏈風險</a><p class="sum">NIST 發布對抗式機器學習攻擊分類草案，點名 MCP 工具中毒、rug pull、代理記憶中毒等風險，建議以簽章與固定版本驗證工具定義並用沙箱隔離，徵詢意見到 12 月 18 日。</p><span class="src">iThome · 2026-11-13</span></li>
+<li><a href="https://www.ithome.com.tw/news/180465">駭客濫用AI代理滲透測試平臺AntiFox，發動AWS雲端憑證竊取攻擊</a><p class="sum">Arctic Wolf 揭露攻擊者濫用開源 AI 代理滲透測試平臺 AntiFox，從外露的 IIS 伺服器一路探索 AWS 環境，最後取得部分正式環境金鑰。</p><span class="src">iThome · 2026-11-12</span></li>
+<li><a href="https://www.ithome.com.tw/news/180461">大型VLM看得懂圖片還不夠，中研院以Taiwan GBA與G-YOLO強化AI理解世界的能力</a><p class="sum">中研院表示不打算從頭做大型通用模型，而是開發能搭配大型語言模型的行為理解與邊緣運算模組，例如 Taiwan GBA 與 G-YOLO，以居家照護的跌倒偵測為應用情境。</p><span class="src">iThome · 2026-11-12</span></li>
+<li><a href="https://www.ithome.com.tw/news/180453">Google發布生成式介面協定A2UI 1.0，代理可跨平臺產生互動介面</a><p class="sum">Google 推出 A2UI 1.0，讓 AI 代理用結構化訊息描述介面、交給應用程式用核准過的元件繪製，新增代理與介面雙向函式呼叫，並支援 React、Flutter、SwiftUI 等平臺。</p><span class="src">iThome · 2026-11-12</span></li>
+<li><a href="https://www.ithome.com.tw/news/180460">Fortinet揭露10月底修補的100個資安漏洞</a><p class="sum">Fortinet 公布 10 月底修補的 100 個漏洞，這批漏洞由 AI 找出，涵蓋 FortiManager、FortiAnalyzer 等產品，其中 19 個屬重大風險。</p><span class="src">iThome · 2026-11-12</span></li>
+<li><a href="https://www.ithome.com.tw/news/180441">OpenAI招募AI旅遊規畫平臺Odessia創辦人</a><p class="sum">OpenAI 以收購僱用方式延攬 AI 旅遊規畫新創 Odessia 的創辦人 Francis Davidson，外界推測與其建立代理人商務生態有關，OpenAI 未說明計畫。</p><span class="src">iThome · 2026-11-12</span></li>
+<li><a href="https://www.ithome.com.tw/news/180434">聯合航空封鎖未授權AI代理人，限制查詢航班與訂票</a><p class="sum">聯合航空將禁止未經授權的第三方 AI 代理人查詢航班與訂票，理由是個資、誤購與報到程序需旅客本人確認等法規風險，做法比其他美國航空公司更嚴格。</p><span class="src">iThome · 2026-11-12</span></li>
+<li><a href="https://latent.space/p/ainews-d-day-decision-models-day/">[AINews] D-Day (Decision Models Day)</a><p class="sum">AINews 整理 AIE CODE「System One」日：Google 推出單次評分的 Gemini Decision 1，獨立評測結果褒貶不一；另含 Fable 5.2 登上 Agent Arena 第一、DeepMind 形式化驗證 Signal 等消息。</p><span class="src">Latent Space · 2026-11-12</span></li>
+</ul>
+</section>
+<section class="tab-panel" id="apple">
+<p class="empty">今天沒有</p>
+</section>
+<section class="tab-panel" id="finance">
+
+<ul class="digest-list">
+<li><a href="https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/11/20261112-3/">HKMA and SFC co-host seminar to advance tokenisation in Hong Kong and promote collaborative opportunities within Project Ensemble</a><p class="sum">香港金管局與證監會合辦研討會，約 200 位業界人士交流代幣化實務，配合 Ensemble TX 支援代幣化存款 24 小時銀行間結算的新進展，推動 Project Ensemble 合作。</p><span class="src">HKMA 新聞稿 · 2026-11-12</span></li>
+<li><a href="https://www.ithome.com.tw/news/180440">OKX攜手紐約證交所母公司ICE，本月推出24小時代幣化證券交易</a><p class="sum">OKX 與 ICE 合資的 OKXICE 將於 11 月 23 日在美國推出全天候代幣化美股與 ETF 交易，依 SEC 創新豁免運作，採 Uniswap v4 AMM 與 X Layer，但尚未獲 SEC 核准。</p><span class="src">iThome · 2026-11-12</span></li>
+</ul>
+</section>
+</div>
+</div>
+<a class="back" href="/digest/">← 回資訊摘要</a>
+</article></div>
+<script>
+(function(){var box=document.querySelector(".digest-tabs");if(!box)return;
+var panels=box.querySelectorAll(".tab-panel"),tabs=box.querySelectorAll("a.tab");
+function show(){var id=location.hash.slice(1);if(!box.querySelector('.tab-panel[id="'+id+'"]'))id=box.dataset.default;
+panels.forEach(function(p){p.hidden=p.id!==id;});
+tabs.forEach(function(t){t.classList.toggle("on",t.getAttribute("href")==="#"+id);});}
+tabs.forEach(function(t){t.addEventListener("click",function(e){e.preventDefault();history.replaceState(null,"",t.getAttribute("href"));show();});});
+addEventListener("hashchange",show);show();})();
+</script>
+<script src="/nav.js"></script>
+</body>
+</html>
