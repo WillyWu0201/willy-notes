@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>資訊摘要 2026-11-14 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">資訊摘要 · 2026-11-14</h1>
+<div class="meta"><span>9 篇</span></div>
+<div class="body">
+<p class="digest-intro">每天早上自動整理 AI 開發方式、AI 產業動態、iOS／Apple、金融與虛擬資產的新文章；AI 開發方式每篇附重點、反思問題與延伸閱讀。</p>
+<div class="digest-tabs" data-default="dev">
+<nav class="tabs"><a class="tab" href="#dev">AI 開發方式 <b>3</b></a><a class="tab" href="#industry">AI 產業動態 <b>6</b></a><span class="tab off">iOS / Apple <b>0</b></span><span class="tab off">金融與虛擬資產 <b>0</b></span></nav>
+<section class="tab-panel" id="dev">
+
+<h3>其他（影片、只有摘要）</h3>
+<ul class="digest-list">
+<li><a href="https://latent.space/p/ainews-jensen-huang-resigns-after-33-years-leading-nvidia/">[AINews] Jensen Huang resigns after 33 years leading NVIDIA</a><span class="src">Latent Space · 2026-11-13</span></li>
+<li><a href="https://latent.space/p/artcraft/">AI Ambition: ArtCraft Cloned Photoshop and Now Wants to &quot;Rebuild Everything&quot;</a><span class="src">Latent Space · 2026-11-13</span></li>
+<li><a href="https://www.anthropic.com/research/building-strong-safety-evaluations">Building strong safety evaluations</a><span class="src">Anthropic Engineering</span></li>
+</ul>
+</section>
+<section class="tab-panel" id="industry">
+
+<ul class="digest-list">
+<li><a href="https://claude.com/resources/articles/building-always-on-agents">Building always-on agents</a><span class="src">Claude Blog · 2026-11-13</span></li>
+<li><a href="https://www.fsc.gov.tw/ch/home.jsp?id=96&amp;parentpath=0,2&amp;mcustomize=news_view.jsp&amp;dataserno=202611130001&amp;toolsflag=Y&amp;dtable=News">金管會資安長會議聚焦AI攻擊與代理AI安全，籲金融業強化防禦及應變</a><span class="src">金管會 新聞稿 · 2026-11-13</span></li>
+<li><a href="https://www.ithome.com.tw/news/180503">AWS擴充AgentCore執行環境，支援大型程式編譯與本地模型載入</a><span class="src">iThome · 2026-11-13</span></li>
+<li><a href="https://www.ithome.com.tw/news/180496">GovTech月報第58期：國網中心擬擴充TAIWAN AI RAP模型微調服務；歐洲央行將在2027年試點驗證數位歐元的實境支付能力</a><span class="src">iThome · 2026-11-13</span></li>
+<li><a href="https://www.ithome.com.tw/news/180485">憂AI助長網攻及生物武器風險，美國非營利組織控告OpenAI等5家業者</a><span class="src">iThome · 2026-11-13</span></li>
+<li><a href="https://www.ithome.com.tw/news/180481">AI讓攻擊進入自動化時代，Google：企業更要管好Agent權限</a><span class="src">iThome · 2026-11-13</span></li>
+</ul>
+</section>
+<section class="tab-panel" id="apple">
+<p class="empty">今天沒有</p>
+</section>
+<section class="tab-panel" id="finance">
+<p class="empty">今天沒有</p>
+</section>
+</div>
+</div>
+<a class="back" href="/digest/">← 回資訊摘要</a>
+</article></div>
+<script>
+(function(){var box=document.querySelector(".digest-tabs");if(!box)return;
+var panels=box.querySelectorAll(".tab-panel"),tabs=box.querySelectorAll("a.tab");
+function show(){var id=location.hash.slice(1);if(!box.querySelector('.tab-panel[id="'+id+'"]'))id=box.dataset.default;
+panels.forEach(function(p){p.hidden=p.id!==id;});
+tabs.forEach(function(t){t.classList.toggle("on",t.getAttribute("href")==="#"+id);});}
+tabs.forEach(function(t){t.addEventListener("click",function(e){e.preventDefault();history.replaceState(null,"",t.getAttribute("href"));show();});});
+addEventListener("hashchange",show);show();})();
+</script>
+<script src="/nav.js"></script>
+</body>
+</html>

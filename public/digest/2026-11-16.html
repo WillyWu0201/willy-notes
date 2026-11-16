@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>資訊摘要 2026-11-16 · willy-notes</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/blog/blog.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<div class="wrap"><article>
+<h1 class="title">資訊摘要 · 2026-11-16</h1>
+<div class="meta"><span>2 篇</span></div>
+<div class="body">
+<p class="digest-intro">每天早上自動整理 AI 開發方式、AI 產業動態、iOS／Apple、金融與虛擬資產的新文章；AI 開發方式每篇附重點、反思問題與延伸閱讀。</p>
+<div class="digest-tabs" data-default="dev">
+<nav class="tabs"><a class="tab" href="#dev">AI 開發方式 <b>1</b></a><a class="tab" href="#industry">AI 產業動態 <b>1</b></a><span class="tab off">iOS / Apple <b>0</b></span><span class="tab off">金融與虛擬資產 <b>0</b></span></nav>
+<section class="tab-panel" id="dev">
+
+<h3>其他（影片、只有摘要）</h3>
+<ul class="digest-list">
+<li><a href="https://www.youtube.com/watch?v=Cyt3LU8TyNc">I love you so jevving much — Diogo Almeida, TypeSafe AI</a><p class="sum">TypeSafe AI 共同創辦人在 CODE Summit 2026 的演講：認為 RLHF 讓模型擅長輔助人類、卻不夠可靠於自動化，主張改走以機器為主的路線（Jev），並談到 agent 可靠性、KV cache 限制、共享記憶、語意型別與即時安全。</p><span class="src">AI Engineer (YouTube)</span></li>
+</ul>
+</section>
+<section class="tab-panel" id="industry">
+
+<ul class="digest-list">
+<li><a href="https://www.ithome.com.tw/news/180508">FBI警告駭客利用AI工具ARTEX加速入侵，部分事件不到3小時取得系統高權限</a><p class="sum">FBI 發布警示，多個駭客組織利用開源 AI 代理滲透測試框架 ARTEX 自動找漏洞入侵企業，部分事件不到 3 小時就取得高權限；臺灣 91APP 遭駭事件也發現其使用痕跡。FBI 建議檢查對外服務、雲端 OAuth 授權並監控異常 API 請求。</p><span class="src">iThome · 2026-11-16</span></li>
+</ul>
+</section>
+<section class="tab-panel" id="apple">
+<p class="empty">今天沒有</p>
+</section>
+<section class="tab-panel" id="finance">
+<p class="empty">今天沒有</p>
+</section>
+</div>
+</div>
+<a class="back" href="/digest/">← 回資訊摘要</a>
+</article></div>
+<script>
+(function(){var box=document.querySelector(".digest-tabs");if(!box)return;
+var panels=box.querySelectorAll(".tab-panel"),tabs=box.querySelectorAll("a.tab");
+function show(){var id=location.hash.slice(1);if(!box.querySelector('.tab-panel[id="'+id+'"]'))id=box.dataset.default;
+panels.forEach(function(p){p.hidden=p.id!==id;});
+tabs.forEach(function(t){t.classList.toggle("on",t.getAttribute("href")==="#"+id);});}
+tabs.forEach(function(t){t.addEventListener("click",function(e){e.preventDefault();history.replaceState(null,"",t.getAttribute("href"));show();});});
+addEventListener("hashchange",show);show();})();
+</script>
+<script src="/nav.js"></script>
+</body>
+</html>
