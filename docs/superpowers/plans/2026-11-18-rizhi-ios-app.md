@@ -314,7 +314,7 @@ git commit -m "Add the 日知 privacy and support pages"
 - `enum AppTab: Hashable { case today, past, bookmarks, settings }`；`@MainActor @Observable final class AppRouter { var tab: AppTab = .today }`（Task 16、17 會加深層連結）。
 - `@MainActor @Observable final class SafariPresenter { var url: URL?; func open(_ url: URL) }`，在 `RootView` 用 `.fullScreenCover` 顯示 `SafariView`，並把環境的 `\.openURL` 換成 `OpenURLAction { presenter.open($0); return .handled }`，讓 `Link` 和 `Text` 裡的連結也走 App 內 Safari。
 - `struct SafariView: UIViewControllerRepresentable { let url: URL; let readerMode: Bool; static func configuration(readerMode: Bool) -> SFSafariViewController.Configuration }`（`entersReaderIfAvailable = readerMode`，`barCollapsingEnabled = true`）。按「完成」時清掉 `presenter.url`。`readerMode` 讀 `@AppStorage("readerMode")`，預設 `true`。
-- `@MainActor @Observable final class DayNavigation { var category: String?; var path: [ItemRoute] = []; var scrolledItemID: String? }`；`struct ItemRoute: Hashable { let date: String; let itemID: String }`。每個分頁自己持有一個（放在 `TodayTab` 的 `@State`），切換版面時狀態不會掉（Task 18 會用到）。
+- `@MainActor @Observable final class DayNavigation { var category: String?; var path: [ItemRoute] = []; var scrolledItemID: String? }`；`struct ItemRoute: Hashable { let date: String; let itemID: String }`。每個分頁自己持有一個（放在 `TodayTab` 的 `@State`），切換版面時狀態不會掉（Task 19 會用到）。
 - `struct DayScreen: View { let date: String; let title: String; @Bindable var navigation: DayNavigation }`：
   - 標題用系統大標題；副標題 `.navigationSubtitle("11月18日 星期三 · 15 篇 · 09:01 更新")`。過去某一天的標題用 `TaipeiCalendar.monthDay`，副標題同格式。
   - `List`（`insetGrouped`），第一個區塊放狀態提示（Task 13）和 `CategoryChips`，之後每篇文章一個 `Section`（「每篇一塊圓角區塊」）。`dev` 有 deep 時加區塊標題「深度分析」「其他」。
@@ -353,7 +353,7 @@ git commit -m "Add the 日知 privacy and support pages"
 - `struct ItemDetailScreen: View { let date: String; let item: DigestItem; var onSelectNext: ((DigestItem) -> Void)? }`：
   - 內容依序（R3、R19）：「AI 開發方式 · 深度分析」（類別 · 種類）、標題（襯線）、來源、「2026 年 11 月 17 日 · simonwillison.net」、「一句話摘要」區塊（淡藍底，`Color.accentColor.opacity(0.08)`）、「重點 5」用 01–05 編號、「想一想」加小字「反思問題 · 3 題」，淡黃底區塊，Q1–Q3 編號、「延伸閱讀 5」：有網址的是按鈕，點了用 App 內 Safari 開；沒網址的後面加「文中提到，未附連結」。
   - 文末「下一篇 · AI 開發方式」卡片（`DayGrouping.nextItem`），點了換成那一篇（deep／video 換內容，article 用 Safari 開）。最後一篇不顯示。
-  - 一般文章（Task 18 兩欄時用、闔上時接續用）：類別、標題、來源 · 日期、「摘要」區塊、底部「閱讀原文」。
+  - 一般文章（Task 19 兩欄時用、闔上時接續用）：類別、標題、來源 · 日期、「摘要」區塊、底部「閱讀原文」。
   - 底部工具列：「閱讀原文」（`.borderedProminent`，`accessibilityIdentifier("detail.readOriginal")`）。影片的按鈕在 Task 15 加。
   - 導覽列右邊：`TextSizeMenu`（Aa）、收藏、分享（收藏和分享在 Task 11 接上；這個任務先放 `ShareLink(item: item.url)`）。
   - 導覽列下方閱讀進度條：`ProgressView(value:)`，值由 `onScrollGeometryChange` 算（`contentOffset.y / (contentSize.height - containerSize.height)`，限制在 0…1）。
@@ -432,7 +432,7 @@ git commit -m "Add the 日知 privacy and support pages"
 - 滑動（R17、D21）：往右（leading，`allowsFullSwipe: true`）一個按鈕「標為已讀」／「標為未讀」；往左（trailing，`allowsFullSwipe: true`）「收藏」／「取消收藏」在前、「分享」在後。分享用 `ShareLink`。
 - 長按：`contextMenu` 有收藏（或取消收藏）、分享、標為已讀（或標為未讀）。
 - 無障礙動作：`accessibilityActions` 放同樣三個。
-- 打開詳情頁或用 Safari 開原文時自動標為已讀（R7）。Duo 自動顯示的那篇例外（Task 18 處理）。
+- 打開詳情頁或用 Safari 開原文時自動標為已讀（R7）。Duo 自動顯示的那篇例外（Task 19 處理）。
 - 進度圓環（R18、D24）：`ToolbarItem(placement: .topBarTrailing)` 放 `Gauge(value: read, in: 0...total)`，`.gaugeStyle(.accessoryCircularCapacity)`，中間顯示已讀篇數；不能點。label「已讀 3 篇，共 15 篇」，`accessibilityIdentifier("gauge.progress")`。過去某一天顯示那一天的進度。
 - 詳情頁的收藏、分享按鈕接上 `Library`。
 - 「過去」點進某一天時，往右滑和系統返回手勢有沒有衝突要在模擬器上試（R17 最後一條）：從螢幕左邊緣開始往右拖是返回，從卡片中間開始往右拖是標為已讀。兩者都能用就保留；有衝突就照規格把那個畫面的已讀改放到往左滑。結果寫進決策紀錄。
