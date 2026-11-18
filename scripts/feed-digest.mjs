@@ -149,15 +149,30 @@ function shiftDate(date, days) {
   return d.toISOString().slice(0, 10);
 }
 
+// Sites sometimes reformat their links (doubled or trailing slashes, www., host case). Compare a
+// normalised form, or a reformatted feed makes every old post look new (Eugene Yan, 2026-11-15).
+export function seenKey(url) {
+  try {
+    const u = new URL(url);
+    const host = u.host.toLowerCase().replace(/^www\./, "");
+    const path = u.pathname.replace(/\/{2,}/g, "/").replace(/\/+$/, "");
+    return `${host}${path}${u.search}`;
+  } catch {
+    return url;
+  }
+}
+
 // First run for a source (no saved state): seed everything as seen and only surface items
-// dated within the last `days`, so the first digest isn't the whole archive.
+// dated within the last `days`, so the first digest isn't the whole archive. Later runs surface
+// unseen items, but still never ones dated before that window (undated items pass).
 export function selectNew(items, prevSeen, today, days = 7) {
   const firstRun = prevSeen === undefined;
-  const seen = new Set(prevSeen || []);
+  const known = new Set((prevSeen || []).map(seenKey));
   const cutoff = shiftDate(today, -days);
-  const fresh = items.filter((i) => (firstRun ? i.date && i.date >= cutoff : !seen.has(i.url)));
-  for (const i of items) seen.add(i.url);
-  return { fresh, seen: [...seen].slice(-5000), firstRun };
+  const fresh = items.filter((i) =>
+    firstRun ? i.date && i.date >= cutoff : !known.has(seenKey(i.url)) && (!i.date || i.date >= cutoff));
+  const seen = [...new Set([...(prevSeen || []), ...items.map((i) => i.url)])];
+  return { fresh, seen: seen.slice(-5000), firstRun };
 }
 
 // Curated sources (`all`) are kept whole and marked curated; others must hit a keyword.

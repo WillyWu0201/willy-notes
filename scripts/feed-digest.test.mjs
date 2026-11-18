@@ -95,6 +95,25 @@ test("selectNew on later runs returns only unseen items", () => {
   assert.deepEqual(fresh.map((i) => i.url), ["u4"]);
   assert.deepEqual(seen.sort(), ["u1", "u2", "u4"]);
 });
+test("selectNew treats a URL whose slashes or host case changed as already seen", () => {
+  const prev = ["https://eugeneyan.com//writing/secure-source-code/", "https://WWW.Example.com/a/b/"];
+  const items = [
+    { url: "https://eugeneyan.com/writing/secure-source-code", date: "2026-11-14" },
+    { url: "https://example.com/a/b", date: "2026-11-14" },
+  ];
+  const { fresh } = selectNew(items, prev, "2026-11-15", 30);
+  assert.deepEqual(fresh, []);
+});
+test("selectNew after the first run skips unseen items older than the window", () => {
+  const items = [
+    { url: "https://x.test/old", date: "2026-06-21" },
+    { url: "https://x.test/new", date: "2026-11-10" },
+    { url: "https://x.test/undated", date: null },
+  ];
+  const { fresh, seen } = selectNew(items, ["https://x.test/seen"], "2026-11-15", 30);
+  assert.deepEqual(fresh.map((i) => i.url), ["https://x.test/new", "https://x.test/undated"]);
+  assert.ok(seen.includes("https://x.test/old"), "old items are still remembered as seen");
+});
 
 test("renderDigest groups items by source and lists source status", () => {
   const md = renderDigest("2026-11-06", [
