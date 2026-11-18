@@ -64,7 +64,10 @@
         "AI",
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -75,7 +78,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -88,7 +94,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -101,7 +110,10 @@
       "keywords": [
         "AI"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -112,7 +124,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -125,7 +140,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -136,7 +154,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -149,7 +170,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -160,7 +184,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -176,7 +203,10 @@
         "LLM",
         "Foundation Models"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -187,7 +217,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -202,7 +235,10 @@
         "agentic",
         "MCP"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -216,7 +252,10 @@
         "AI",
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -227,7 +266,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -240,7 +282,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -253,7 +298,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -266,7 +314,10 @@
       "keywords": [
         "AI"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -277,7 +328,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -290,7 +344,10 @@
       "keywords": [
         "AI"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -301,7 +358,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -312,7 +372,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -323,7 +386,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -334,7 +400,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -347,7 +416,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -360,7 +432,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -371,7 +446,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -384,7 +462,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -397,7 +478,10 @@
       "keywords": [
         "AI"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -411,7 +495,10 @@
         "AI",
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -424,7 +511,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -435,7 +525,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -448,7 +541,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -462,7 +558,10 @@
         "AI",
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -475,7 +574,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -486,7 +588,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -497,7 +602,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -508,7 +616,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -519,7 +630,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -530,7 +644,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -541,7 +658,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -554,7 +674,10 @@
       "keywords": [
         "AI"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -568,7 +691,10 @@
         "AI",
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -579,7 +705,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -592,7 +721,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -605,7 +737,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -616,7 +751,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -627,7 +765,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -640,7 +781,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -653,7 +797,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -664,7 +811,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -677,7 +827,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -690,7 +843,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -703,7 +859,10 @@
       "keywords": [
         "LLM"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -714,7 +873,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -725,7 +887,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -736,7 +901,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -747,7 +915,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -758,7 +929,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -769,7 +943,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -780,7 +957,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -791,7 +971,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -802,7 +985,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -813,7 +999,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -824,7 +1013,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -835,7 +1027,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -846,7 +1041,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -857,7 +1055,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -868,7 +1069,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -879,7 +1083,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -890,7 +1097,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -901,7 +1111,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -912,7 +1125,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -923,7 +1139,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -934,7 +1153,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -945,7 +1167,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -956,7 +1181,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -967,7 +1195,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -978,7 +1209,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -989,7 +1223,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1000,7 +1237,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1011,7 +1251,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1022,7 +1265,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1033,7 +1279,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1044,7 +1293,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1055,7 +1307,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1066,7 +1321,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1077,7 +1335,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1088,7 +1349,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1099,7 +1363,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1110,7 +1377,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1121,7 +1391,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1132,7 +1405,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1143,7 +1419,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1154,7 +1433,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1165,7 +1447,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1176,7 +1461,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1187,7 +1475,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1198,7 +1489,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1209,7 +1503,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1220,7 +1517,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1231,7 +1531,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1242,7 +1545,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1253,7 +1559,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1264,7 +1573,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1275,7 +1587,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1286,7 +1601,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1297,7 +1615,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1308,7 +1629,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1319,7 +1643,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1330,7 +1657,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1341,7 +1671,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1352,7 +1685,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1363,7 +1699,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1374,7 +1713,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1385,7 +1727,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1396,7 +1741,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1407,7 +1755,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1418,7 +1769,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1429,7 +1783,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1440,7 +1797,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1451,7 +1811,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1462,7 +1825,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1473,7 +1839,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1484,7 +1853,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1495,7 +1867,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1506,7 +1881,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1517,7 +1895,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1528,7 +1909,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1539,7 +1923,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1550,7 +1937,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1561,7 +1951,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1572,7 +1965,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1583,7 +1979,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1594,7 +1993,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1605,7 +2007,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1616,7 +2021,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1627,7 +2035,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1638,7 +2049,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1649,7 +2063,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1660,7 +2077,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1671,7 +2091,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1682,7 +2105,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1693,7 +2119,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1704,7 +2133,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1715,7 +2147,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1726,7 +2161,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1737,7 +2175,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1748,7 +2189,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1759,7 +2203,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1770,7 +2217,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1781,7 +2231,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1792,7 +2245,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1805,7 +2261,10 @@
       "keywords": [
         "AI"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1818,7 +2277,10 @@
       "keywords": [
         "AI"
       ],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1829,7 +2291,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1840,7 +2305,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1851,7 +2319,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1862,7 +2333,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1873,7 +2347,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1884,7 +2361,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1895,7 +2375,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1906,7 +2389,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1917,7 +2403,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1928,7 +2417,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1939,7 +2431,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1950,7 +2445,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1961,7 +2459,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1972,7 +2473,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1983,7 +2487,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -1994,7 +2501,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2005,7 +2515,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2016,7 +2529,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2027,7 +2543,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2038,7 +2557,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2049,7 +2571,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2060,7 +2585,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2071,7 +2599,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2082,7 +2613,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2093,7 +2627,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2104,7 +2641,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2115,7 +2655,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2126,7 +2669,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2137,7 +2683,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2148,7 +2697,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2159,7 +2711,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2170,7 +2725,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2181,7 +2739,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2192,7 +2753,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2203,7 +2767,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2214,7 +2781,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2225,7 +2795,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2236,7 +2809,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2247,7 +2823,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2258,7 +2837,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2269,7 +2851,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2280,7 +2865,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2291,7 +2879,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2302,7 +2893,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2313,7 +2907,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2324,7 +2921,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2335,7 +2935,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2346,7 +2949,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2357,7 +2963,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2368,7 +2977,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2379,7 +2991,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2390,7 +3005,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2401,7 +3019,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2412,7 +3033,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2423,7 +3047,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2434,7 +3061,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2445,7 +3075,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2456,7 +3089,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2467,7 +3103,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     },
     {
       "source": "Eugene Yan",
@@ -2478,7 +3117,10 @@
         "AI"
       ],
       "keywords": [],
-      "curated": true
+      "curated": true,
+      "category": "dev",
+      "drop": true,
+      "dropReason": "來源網址格式改變，舊文被重複列出，不是新文章"
     }
   ],
   "sources": [
