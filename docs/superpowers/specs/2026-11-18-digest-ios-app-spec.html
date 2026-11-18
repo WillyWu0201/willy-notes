@@ -1,0 +1,1858 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>日知 App 規格書</title>
+<style>
+/* Layout: 左側固定目錄，右側是規格內文；畫面稿和流程圖用整個內文欄寬，文字段落限制在好讀的行長 */
+:root{
+  --bg:#FAFAF7;--surface:#FFFFFF;--ink:#18181B;--muted:#6B6B74;--faint:#A1A1AA;--line:#E4E4DE;
+  --accent:#3B5BDB;--accent-soft:#EEF1FC;--on-accent:#FFFFFF;
+  --ok:#1B7F4B;--bad:#B4232C;
+  --ios-bg:#F2F2F7;--ios-card:#FFFFFF;--ios-label:#111113;--ios-2:#6E6E73;--ios-sep:#DEDEE3;--ios-fill:#E6E6EB;
+  --ios-green:#34C759;--ios-red:#E5383B;--knob:#FFFFFF;
+  --glass:rgba(255,255,255,.84);--bezel:#1D1D21;--island:#000000;--shadow:rgba(24,24,27,.35);
+  --video:#0B0B0D;--on-video:#F5F5F7;--video-btn:rgba(255,255,255,.18);
+  --n-bg:#F7F7F4;--n-card:#FFFFFF;--n-paper:#FFFFFF;--n-well:#F7F7F4;--n-ink:#18181B;--n-ink2:#3F3F46;--n-muted:#5C5C66;--n-faint:#6B6B74;--n-line:#EFEFEA;--n-border:#E1E1DA;--n-dash:#C9C9C0;--n-fill:#F1F1EE;--n-seg:#ECECE7;
+  --n-accent:#3B5BDB;--n-accent-ink:#2F4AB8;--n-accent-soft:#EEF1FC;--n-on-accent:#FFFFFF;--n-tldr:#F4F6FE;--n-reflect:#FFF9E0;--n-reflect-ink:#6A5A1A;--n-reflect-no:#8A6D00;
+  --n-chip-on:#18181B;--n-chip-on-fg:#FFFFFF;--n-glass:rgba(255,255,255,.86);--n-glass-line:rgba(24,24,27,.07);--n-shadow:rgba(24,24,27,.12);--n-scrim:rgba(24,24,27,.2);--n-menu:#FFFFFF;
+  --n-thumb:#1B1B1F;--n-on-thumb:#FFFFFF;--n-player-cap:#C7C7CC;--n-player:#0B0B0D;--n-c1:#1E3A8A;--n-c2:#5B7BE8;--n-c3:#B3C2F7;--n-c4:#F2B705;
+  --n-green:#34C759;--n-switch-off:#D9D9DE;--n-knob:#FFFFFF;--n-red:#C62A2F;--n-orange:#C2410C;--n-gray:#6B6B74;--n-on-act:#FFFFFF;
+  --serif:"New York",ui-serif,Georgia,"PingFang TC","Noto Sans TC","Microsoft JhengHei",serif;
+  --ios-orange:#F59F00;--icon-bg:#3B5BDB;--icon-fg:#FFFFFF;--icon-hi:#FFD43B;
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E0E10;--surface:#191A1D;--ink:#ECECEE;--muted:#9A9AA2;--faint:#5E5E66;--line:#2A2A2F;
+  --accent:#8AA0F2;--accent-soft:#1C2138;--on-accent:#0E1020;
+  --ok:#6FD39A;--bad:#FF8A8A;
+  --ios-bg:#000000;--ios-card:#1C1C1E;--ios-label:#F5F5F7;--ios-2:#98989F;--ios-sep:#38383A;--ios-fill:#2C2C2E;
+  --ios-green:#30D158;--ios-red:#FF453A;--knob:#FFFFFF;
+  --glass:rgba(44,44,48,.84);--bezel:#34343A;--island:#000000;--shadow:rgba(0,0,0,.6);
+  --video:#0B0B0D;--on-video:#F5F5F7;--video-btn:rgba(255,255,255,.18);
+  --n-bg:#0B0B0D;--n-card:#1C1C1F;--n-paper:#0B0B0D;--n-well:#1C1C1F;--n-ink:#F2F2F4;--n-ink2:#D4D4D8;--n-muted:#A1A1AA;--n-faint:#8E8E96;--n-line:#2A2A2E;--n-border:#3A3A3F;--n-dash:#56565D;--n-fill:#2A2A2E;--n-seg:#232326;
+  --n-accent:#8AA0F2;--n-accent-ink:#B4C3F8;--n-accent-soft:#1F2645;--n-on-accent:#0E1020;--n-tldr:#161C33;--n-reflect:#2B2510;--n-reflect-ink:#E5D08A;--n-reflect-no:#F0C94A;
+  --n-chip-on:#F2F2F4;--n-chip-on-fg:#0B0B0D;--n-glass:rgba(44,44,48,.86);--n-glass-line:rgba(255,255,255,.08);--n-shadow:rgba(0,0,0,.5);--n-scrim:rgba(0,0,0,.5);--n-menu:#2A2A2E;
+  --n-thumb:#2C2C30;--n-on-thumb:#FFFFFF;--n-player-cap:#C7C7CC;--n-player:#232327;--n-c1:#DCE3FF;--n-c2:#8AA0F2;--n-c3:#4B5EAE;--n-c4:#F2B705;
+  --n-green:#30D158;--n-switch-off:#39393D;--n-knob:#FFFFFF;--n-red:#C62A2F;--n-orange:#C2410C;--n-gray:#636366;--n-on-act:#FFFFFF;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E0E10;--surface:#191A1D;--ink:#ECECEE;--muted:#9A9AA2;--faint:#5E5E66;--line:#2A2A2F;
+  --accent:#8AA0F2;--accent-soft:#1C2138;--on-accent:#0E1020;
+  --ok:#6FD39A;--bad:#FF8A8A;
+  --ios-bg:#000000;--ios-card:#1C1C1E;--ios-label:#F5F5F7;--ios-2:#98989F;--ios-sep:#38383A;--ios-fill:#2C2C2E;
+  --ios-green:#30D158;--ios-red:#FF453A;--knob:#FFFFFF;
+  --glass:rgba(44,44,48,.84);--bezel:#34343A;--island:#000000;--shadow:rgba(0,0,0,.6);
+  --video:#0B0B0D;--on-video:#F5F5F7;--video-btn:rgba(255,255,255,.18);
+  --n-bg:#0B0B0D;--n-card:#1C1C1F;--n-paper:#0B0B0D;--n-well:#1C1C1F;--n-ink:#F2F2F4;--n-ink2:#D4D4D8;--n-muted:#A1A1AA;--n-faint:#8E8E96;--n-line:#2A2A2E;--n-border:#3A3A3F;--n-dash:#56565D;--n-fill:#2A2A2E;--n-seg:#232326;
+  --n-accent:#8AA0F2;--n-accent-ink:#B4C3F8;--n-accent-soft:#1F2645;--n-on-accent:#0E1020;--n-tldr:#161C33;--n-reflect:#2B2510;--n-reflect-ink:#E5D08A;--n-reflect-no:#F0C94A;
+  --n-chip-on:#F2F2F4;--n-chip-on-fg:#0B0B0D;--n-glass:rgba(44,44,48,.86);--n-glass-line:rgba(255,255,255,.08);--n-shadow:rgba(0,0,0,.5);--n-scrim:rgba(0,0,0,.5);--n-menu:#2A2A2E;
+  --n-thumb:#2C2C30;--n-on-thumb:#FFFFFF;--n-player-cap:#C7C7CC;--n-player:#232327;--n-c1:#DCE3FF;--n-c2:#8AA0F2;--n-c3:#4B5EAE;--n-c4:#F2B705;
+  --n-green:#30D158;--n-switch-off:#39393D;--n-knob:#FFFFFF;--n-red:#C62A2F;--n-orange:#C2410C;--n-gray:#636366;--n-on-act:#FFFFFF;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 var(--ui);-webkit-text-size-adjust:100%}
+.page{max-width:1240px;margin:0 auto;padding-block:44px 96px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3{text-wrap:balance;line-height:1.3;margin:0}
+p{margin:0}
+code{font-family:var(--mono);font-size:.88em;background:var(--accent-soft);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}
+pre{margin:0;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow-x:auto;font:13px/1.6 var(--mono)}
+pre code{background:none;padding:0;font-size:inherit;overflow-wrap:normal}
+.id{display:inline-block;font:600 12px/1.5 var(--mono);color:var(--accent);background:var(--accent-soft);padding:1px 7px;border-radius:6px;white-space:nowrap}
+
+/* 頁首 */
+.eyebrow{font:600 12.5px/1.5 var(--mono);color:var(--muted);letter-spacing:.05em;margin-bottom:10px}
+h1{font-size:clamp(30px,5vw,42px);font-weight:800;letter-spacing:.01em}
+.lead{font-size:18px;max-width:42rem;margin-top:14px}
+.review{margin-top:28px;background:var(--accent-soft);border-radius:16px;padding:20px 24px;max-width:58rem}
+.review h2{font-size:16px;font-weight:700;margin-bottom:8px}
+.review ol{margin:0;padding-left:1.3em}
+.review li{margin:4px 0}
+
+/* 版面 */
+.layout{display:grid;gap:40px;margin-top:44px}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 18px;font-size:14px}
+.toc a{display:flex;gap:8px;color:var(--muted)}
+.toc a span{font:500 12px/2 var(--mono);color:var(--faint);min-width:1.5em}
+@media (min-width:1040px){
+  .layout{grid-template-columns:176px minmax(0,1fr)}
+  .toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start}
+  .toc ol{flex-direction:column;flex-wrap:nowrap;gap:5px}
+}
+main{min-width:0;display:flex;flex-direction:column;gap:72px}
+.sec{display:flex;flex-direction:column;gap:18px;min-width:0}
+.sec>h2{font-size:26px;font-weight:800;display:flex;gap:12px;align-items:baseline;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.sec>h2 .no{font:600 14px var(--mono);color:var(--accent)}
+.sec>h3{font-size:18px;margin-top:12px}
+.sec>p,.sec>ul,.sec>ol{max-width:46rem}
+.sec>ul,.sec>ol{margin:0;padding-left:1.3em}
+.sec li{margin:4px 0}
+.note{font-size:14.5px;color:var(--muted)}
+
+/* 概述 */
+.facts{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.facts div{background:var(--surface);padding:14px 16px;min-width:0}
+.facts dt{font-size:12.5px;color:var(--muted);font-weight:600}
+.facts dd{margin:2px 0 0;font-weight:600}
+.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:20px}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;min-width:0}
+.col h3{font-size:15px;margin-bottom:8px}
+.col.yes h3{color:var(--ok)}
+.col.no h3{color:var(--muted)}
+.col.fail h3{color:var(--bad)}
+.col ul{margin:0;padding-left:1.2em;font-size:15px;line-height:1.65}
+
+/* 表格 */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14.5px;line-height:1.6}
+th,td{padding:11px 14px;text-align:left;vertical-align:top;border-top:1px solid var(--line)}
+thead th{border-top:0;font-size:12.5px;color:var(--muted);font-weight:600;white-space:nowrap}
+td:first-child{white-space:nowrap;font-weight:600}
+
+/* 逐條規則、決定 */
+.rows{border-bottom:1px solid var(--line)}
+.rule{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr);gap:6px 28px;padding:18px 0;border-top:1px solid var(--line)}
+@media (max-width:720px){.rule{grid-template-columns:minmax(0,1fr)}}
+.rule h3{font-size:16px;display:flex;gap:10px;align-items:baseline}
+.rule h3 .id{flex:none}
+.rule .see{font-size:12.5px;color:var(--muted);margin-top:6px}
+.rule ul{margin:0;padding-left:1.2em;max-width:44rem}
+.rule .body{display:flex;flex-direction:column;gap:6px;max-width:44rem;min-width:0}
+.rule .body b{font-size:12.5px;color:var(--muted);margin-right:8px;white-space:nowrap}
+
+.check{list-style:none;padding:0;margin:0;display:grid;gap:8px;max-width:48rem}
+.sec>.check{padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;margin:0}
+.check li::before{content:"";flex:none;width:16px;height:16px;margin-top:6px;border:1.5px solid var(--faint);border-radius:4px}
+.steps{list-style:none;counter-reset:st;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:12px}
+.sec>.steps{padding-left:0;max-width:none}
+.steps li{counter-increment:st;margin:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14.5px;line-height:1.6;min-width:0}
+.steps li::before{content:counter(st);display:block;font:600 12px var(--mono);color:var(--accent);margin-bottom:4px}
+.steps b{display:block}
+
+/* 流程圖 */
+.fig{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;min-width:0}
+.fig .scroll{overflow-x:auto}
+.fig figcaption{margin-top:12px;font-size:14.5px;color:var(--muted);max-width:52rem}
+.fig figcaption .id{margin-right:8px}
+.dg{display:block;width:100%;min-width:740px;height:auto;font-family:var(--ui)}
+.dg .b{fill:var(--bg);stroke:var(--faint);stroke-width:1.2}
+.dg .ba{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.4}
+.dg .bg{fill:none;stroke:var(--faint);stroke-width:1.1;stroke-dasharray:5 4}
+.dg .dm{fill:var(--surface);stroke:var(--faint);stroke-width:1.2}
+.dg .t{fill:var(--ink);font-size:13px;font-weight:600;text-anchor:middle}
+.dg .s{fill:var(--muted);font-size:11px;text-anchor:middle}
+.dg .l{fill:var(--muted);font-size:11.5px}
+.dg .l.m{text-anchor:middle}
+.dg .l.e{text-anchor:end}
+.dg .g{fill:var(--muted);font-size:12px;font-weight:600;letter-spacing:.03em}
+.dg .ln{fill:none;stroke:var(--muted);stroke-width:1.4}
+.dg .lna{fill:none;stroke:var(--accent);stroke-width:1.6}
+.dg .ah{fill:var(--muted)}
+.dg .aha{fill:var(--accent)}
+
+/* 畫面稿 */
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:44px 24px;align-items:start}
+.shots.wide{grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
+.shot{margin:0;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
+.shot figcaption{width:100%;max-width:360px}
+.shot .cap{font-weight:700;font-size:15px;display:flex;gap:8px;align-items:baseline;margin-bottom:6px}
+.shot figcaption ul{margin:0;padding-left:1.2em;color:var(--muted);font-size:14px;line-height:1.65}
+.phone{width:300px;max-width:100%;padding:9px;border-radius:46px;background:var(--bezel);box-shadow:0 26px 46px -30px var(--shadow)}
+.scr{position:relative;height:612px;border-radius:38px;overflow:hidden;background:var(--ios-bg);color:var(--ios-label);font-size:12.5px;line-height:1.38;text-align:left}
+.phone.long .scr{height:auto}
+.sb{display:flex;justify-content:space-between;align-items:center;height:40px;padding:6px 24px 0;font-size:12px;font-weight:600}
+.isl{position:absolute;top:10px;left:50%;width:82px;height:22px;margin-left:-41px;border-radius:12px;background:var(--island)}
+.sbr{display:flex;gap:4px;align-items:center}
+.sbr i{display:block;height:8px;border-radius:2px;background:currentColor;opacity:.9}
+.sbr i:nth-child(1){width:13px}
+.sbr i:nth-child(2){width:11px;border-radius:6px 6px 2px 2px}
+.sbr i:nth-child(3){width:20px;height:9px;border-radius:3px}
+.ic{width:19px;height:19px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lt{padding:4px 18px 10px}
+.lt small{display:block;font-size:10.5px;color:var(--ios-2);font-weight:600}
+.ltt{font-size:26px;line-height:1.15;font-weight:700}
+.chips{position:relative;display:flex;gap:6px;padding:0 16px 10px;overflow:hidden;white-space:nowrap}
+.chips::after{content:"";position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(90deg,transparent,var(--ios-bg))}
+.chip{flex:none;padding:5px 10px;border-radius:999px;background:var(--ios-fill);font-size:11px;font-weight:600}
+.chip b{margin-left:4px;opacity:.65}
+.chip.on{background:var(--accent);color:var(--on-accent)}
+.chip.zero{color:var(--ios-2)}
+.sh{padding:8px 22px 5px;font-size:10.5px;color:var(--ios-2);font-weight:600;letter-spacing:.02em}
+.card{margin:0 12px 10px;background:var(--ios-card);border-radius:16px;padding:12px 14px}
+.group{margin:0 12px 10px;background:var(--ios-card);border-radius:16px;overflow:hidden}
+.row{padding:10px 14px;border-top:1px solid var(--ios-sep)}
+.row:first-child{border-top:0}
+.r{display:flex;gap:8px;align-items:flex-start}
+.r>div{min-width:0;flex:1}
+.dot{flex:none;width:7px;height:7px;margin-top:5px;border-radius:50%;background:var(--accent)}
+.dot.off{background:transparent}
+.t{font-weight:600;font-size:12.5px;line-height:1.35}
+.read .t{color:var(--ios-2);font-weight:500}
+.m{margin-top:2px;font-size:10px;color:var(--ios-2)}
+.s{margin-top:4px;font-size:11px;color:var(--ios-2);line-height:1.45}
+.c2,.c3{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.c2{-webkit-line-clamp:2}
+.c3{-webkit-line-clamp:3}
+.tags{display:flex;gap:5px;margin-top:8px}
+.tags span{font-size:9.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:2px 7px;border-radius:999px}
+.vid{color:var(--accent);font-weight:600}
+.tabbar{position:absolute;left:16px;right:16px;bottom:14px;height:52px;display:flex;align-items:center;justify-content:space-around;border-radius:28px;background:var(--glass);border:1px solid var(--ios-sep);box-shadow:0 8px 20px -10px var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);font-size:8.5px;font-weight:600;color:var(--ios-2)}
+.tabbar span{display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 12px;border-radius:20px}
+.tabbar .on{color:var(--accent);background:var(--ios-fill)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:2px 12px 10px}
+.gbtn{display:flex;align-items:center;gap:12px;height:32px;padding:0 8px;border-radius:16px;background:var(--ios-card);border:1px solid var(--ios-sep);font-size:11.5px;font-weight:600}
+.det{padding:2px 18px 0}
+.dtt{font-size:17px;font-weight:700;line-height:1.28}
+.one{margin-top:12px;background:var(--accent-soft);border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.5}
+.dh{margin-top:16px;font-size:10.5px;font-weight:700;color:var(--accent);letter-spacing:.05em}
+.scr ul{margin:4px 0 0;padding-left:16px}
+.scr li{margin:5px 0;font-size:11.5px;line-height:1.5}
+.scr li a{font-weight:600}
+.scr li span{color:var(--ios-2)}
+.cta{margin:18px 14px 16px;background:var(--accent);color:var(--on-accent);border-radius:14px;text-align:center;padding:11px;font-weight:600;font-size:13px}
+.cta.fix{position:absolute;left:0;right:0;bottom:6px}
+.player{margin:0 12px 14px;aspect-ratio:16/9;border-radius:14px;background:var(--video);color:var(--on-video);display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;font-size:10px}
+.pbtn{width:46px;height:46px;border-radius:50%;background:var(--video-btn);display:flex;align-items:center;justify-content:center}
+.sf-top{display:flex;align-items:center;gap:10px;padding:2px 14px 10px;font-size:12px}
+.sf-done{color:var(--accent);font-weight:600}
+.sf-url{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;height:30px;border-radius:10px;background:var(--ios-fill);font-size:11.5px}
+.sf-url .ic,.sf-top>.ic{width:15px;height:15px}
+.sf-page{background:var(--ios-card);padding:16px 20px;height:100%}
+.sf-tag{display:inline-block;font-size:9.5px;font-weight:600;color:var(--ios-2);border:1px solid var(--ios-sep);border-radius:999px;padding:1px 8px;margin-bottom:10px}
+.ph{height:7px;border-radius:4px;background:var(--ios-fill);margin:10px 0}
+.sf-bar{position:absolute;left:0;right:0;bottom:0;height:56px;display:flex;justify-content:space-around;align-items:flex-start;padding-top:12px;background:var(--glass);border-top:1px solid var(--ios-sep);color:var(--accent)}
+.sf-tip{position:absolute;right:10px;bottom:62px;background:var(--ios-label);color:var(--ios-bg);font-size:10px;font-weight:600;padding:4px 9px;border-radius:9px}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.kv>div{min-width:0}
+.chev{flex:none;color:var(--ios-2);font-size:11px;white-space:nowrap}
+.pill{display:inline-block;margin-left:6px;font-size:9px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:1px 6px;border-radius:999px;vertical-align:1px}
+.row.swipe{padding:0;display:flex}
+.row.swipe .r{flex:1;min-width:0;padding:10px 14px;margin-left:-58px}
+.del{flex:none;width:62px;background:var(--ios-red);color:var(--knob);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600}
+.tg{flex:none;width:36px;height:22px;border-radius:11px;background:var(--ios-green);padding:2px;display:flex;justify-content:flex-end}
+.tg::after{content:"";width:18px;height:18px;border-radius:50%;background:var(--knob)}
+.gf{margin-top:-4px;padding:0 26px 10px;font-size:9.5px;line-height:1.5;color:var(--ios-2)}
+.dim{opacity:.28;filter:blur(1.5px)}
+.cmw{position:absolute;left:16px;right:16px;top:150px}
+.cmp{background:var(--ios-card);border-radius:16px;padding:12px 14px;box-shadow:0 14px 32px -14px var(--shadow)}
+.cm{margin-top:8px;width:196px;background:var(--ios-card);border:1px solid var(--ios-sep);border-radius:14px;overflow:hidden;box-shadow:0 14px 32px -14px var(--shadow)}
+.cm div{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;font-size:12.5px;border-top:1px solid var(--ios-sep)}
+.cm div:first-child{border-top:0}
+.cm .ic{width:16px;height:16px}
+.empty{position:absolute;left:0;right:0;top:0;bottom:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:0 40px}
+.empty .ic{width:42px;height:42px;color:var(--ios-2);stroke-width:1.4}
+.empty b{font-size:15px}
+.empty span{font-size:11.5px;color:var(--ios-2)}
+.btn{margin-top:8px;background:var(--accent);color:var(--on-accent);border-radius:999px;padding:7px 22px;font-weight:600;font-size:12.5px}
+.panel{width:100%;max-width:360px;display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:26px;background:var(--ios-bg);border:1px solid var(--line);color:var(--ios-label);font-size:12.5px;line-height:1.4}
+.ban{display:flex;gap:8px;align-items:center;padding:9px 12px;border-radius:12px;background:var(--ios-card);font-size:11.5px}
+.ban i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--ios-2)}
+.ban.up{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.ban.up i{background:var(--accent)}
+.home{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:14px;background:var(--ios-fill)}
+.wg{border-radius:24px;background:var(--ios-card);padding:14px;box-shadow:0 10px 24px -16px var(--shadow);overflow:hidden}
+.wg.sm{width:148px;height:148px}
+.wg.md{width:100%;height:148px}
+.wg .wh{font-size:10px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.wg .wr{display:flex;justify-content:space-between;font-size:11px;padding:3px 0}
+.wg .wr b{font-variant-numeric:tabular-nums}
+.noti{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:20px;background:var(--ios-card)}
+.appi{flex:none;width:36px;height:36px;border-radius:9px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center}
+.noti .m{margin-top:0}
+.bm{width:16px;height:16px;margin-top:1px;color:var(--ios-2)}
+.bm.on{color:var(--accent);fill:currentColor}
+.swp{display:flex;margin:0 12px 10px;border-radius:16px;overflow:hidden;background:var(--ios-card)}
+.swp .card{flex:none;width:258px;margin:0;border-radius:0}
+.swp.l2 .card{margin-left:-128px}
+.swp.l1 .card{margin-left:-64px}
+.act{flex:none;width:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:600;color:var(--knob)}
+.act.a-read{width:84px;background:var(--accent);color:var(--on-accent)}
+.act.a-save{background:var(--ios-orange)}
+.act.a-share{background:var(--ios-2)}
+.act.a-del{background:var(--ios-red)}
+.brand{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.appicon{flex:none;width:60px;height:60px}
+.appicon.sm{width:36px;height:36px}
+
+/* iPhone Duo */
+.dg .fd{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
+.duoshots{display:flex;flex-direction:column;gap:48px}
+.shot.full{align-items:stretch}
+.shot.full .scroll{display:flex;overflow-x:auto;padding-bottom:10px}
+.shot.full figcaption{max-width:46rem}
+.duo{flex:none;margin:0 auto;padding:9px;border-radius:36px;background:var(--bezel);box-shadow:0 26px 46px -30px var(--shadow)}
+.duo .scr{display:flex;border-radius:28px}
+.duo.closed .scr{width:336px;height:488px}
+.duo.open .scr{width:685px;height:482px}
+.pane{position:relative;flex:1;min-width:0;height:100%;overflow:hidden;padding-top:14px}
+.pane.l{flex:none;width:342px}
+.sys{flex:none;width:40px;display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 0 12px;font-size:9.5px;font-weight:600}
+.duo.open .sys{width:60px}
+.sys .cam{width:14px;height:46px;border-radius:8px;background:var(--island)}
+.sys .bat{width:9px;height:18px;border-radius:3px;background:currentColor;opacity:.9}
+.sys .tb{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+.sys .tabs{margin-top:auto;display:flex;flex-direction:column;gap:6px;align-items:center;font-size:8px;color:var(--ios-2)}
+.sys .tabs span{display:flex;flex-direction:column;align-items:center;gap:1px;padding:4px 7px;border-radius:12px}
+.sys .tabs .on{color:var(--accent);background:var(--ios-fill)}
+.foldl{position:absolute;left:342px;top:0;bottom:0;width:0;border-left:1.5px dashed var(--ios-2);opacity:.55}
+.foldt{position:absolute;left:349px;top:4px;font-size:9px;color:var(--ios-2)}
+.row.sel{background:var(--accent-soft)}
+.card.sel{box-shadow:inset 0 0 0 1.5px var(--accent)}
+.ctab{position:absolute;left:0;right:0;bottom:0;padding-top:26px;background:linear-gradient(transparent,var(--ios-bg) 34%)}
+.ctab .cta{margin:0 14px 14px}
+.det .cta{margin:16px 0 0}
+
+/* 畫面稿：用網頁畫的示意圖，跟著這一頁切換淺色和深色 */
+.dcw{width:282px;overflow:hidden;border-radius:38px;background:var(--n-bg)}
+.duo .dcw{width:685px;border-radius:28px}
+.duo.closed .dcw{width:336px}
+.dc{zoom:.7231}
+.dc.wide{zoom:.7203}
+.dc.closed{zoom:.7211}
+.ok-tag{display:inline-block;font-size:11.5px;font-weight:600;color:var(--ok);border:1px solid var(--ok);border-radius:999px;padding:0 8px;white-space:nowrap;align-self:center}
+.nd{position:relative;overflow:hidden;background:var(--n-bg);color:var(--n-ink);font-family:var(--ui);font-size:16px;line-height:1.45;text-align:left;letter-spacing:normal}
+.nd.paper{background:var(--n-paper)}
+.nd.long{height:auto!important}
+.nd *,.nd *::before,.nd *::after{box-sizing:border-box}
+.nd :where(p,ul,ol,h1,h2,h3){margin:0;padding:0}
+.nd :where(ul,ol){list-style:none}
+.nd li{margin:0;padding:0}
+.nd :where(h1,h2,h3){line-height:1.3;text-wrap:wrap}
+.nd em{font-style:normal}
+.n-ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.n-ic.fill{fill:currentColor}
+.n-c1,.n-c2,.n-c3{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.n-c1{-webkit-line-clamp:1}
+.n-c2{-webkit-line-clamp:2}
+.n-c3{-webkit-line-clamp:3}
+.n-stb{height:54px;display:flex;align-items:center;justify-content:space-between;padding:8px 30px 0 44px;font-size:16px;font-weight:600}
+.n-sig{display:flex;gap:5px;align-items:center}
+.n-sig i{display:block;height:11px;border-radius:3px;background:currentColor}
+.n-sig i:nth-child(1){width:17px}
+.n-sig i:nth-child(2){width:15px;border-radius:8px 8px 3px 3px}
+.n-sig i:nth-child(3){width:26px;height:12px;border-radius:4px}
+.n-isl{position:absolute;top:11px;left:50%;width:122px;height:35px;margin-left:-61px;border-radius:18px;background:var(--island)}
+.n-nb{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.n-nb.bare{height:40px}
+.n-gl{display:flex;align-items:center;height:44px;border-radius:22px;background:var(--n-glass);border:1px solid var(--n-glass-line);box-shadow:0 6px 16px var(--n-shadow);color:var(--n-ink)}
+.n-gl.c{width:44px;justify-content:center}
+.n-gl.caps{padding:0 2px}
+.n-gl .b{width:42px;height:44px;display:flex;align-items:center;justify-content:center}
+.n-aa{font:700 17px var(--serif)}
+.n-gauge{position:relative}
+.n-gauge svg{display:block}
+.n-gauge .trk{fill:none;stroke:var(--n-border);stroke-width:3.5}
+.n-gauge .val{fill:none;stroke:var(--n-accent);stroke-width:3.5;stroke-linecap:round}
+.n-gauge b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.n-lgt{padding:0 20px}
+.n-lgt h1{font-size:34px;font-weight:700;line-height:1.2;letter-spacing:.01em}
+.n-lgt p{margin-top:3px;font-size:15px;color:var(--n-muted)}
+.n-chips{display:flex;gap:8px;padding:0 20px;margin-top:12px;overflow:hidden;white-space:nowrap}
+.n-chip{flex:none;height:40px;padding:0 14px;border-radius:20px;border:1px solid var(--n-border);background:var(--n-card);color:var(--n-ink);font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px}
+.n-chip b{font-size:12px;font-weight:700;color:var(--n-muted)}
+.n-chip.on{background:var(--n-chip-on);border-color:var(--n-chip-on);color:var(--n-chip-on-fg)}
+.n-chip.on b{color:inherit;opacity:.75}
+.n-chip.zero{border-style:dashed;border-color:var(--n-dash);background:transparent;color:var(--n-faint)}
+.n-chip.zero b{color:inherit}
+.n-feed{padding:14px 20px 0;display:flex;flex-direction:column;gap:12px}
+.n-lbl{margin-top:4px;font-size:13px;font-weight:700;color:var(--n-muted);letter-spacing:.08em}
+.n-hc,.n-ac,.n-vc{position:relative;background:var(--n-card);border-radius:20px}
+.n-hc{padding:18px 18px 16px;display:flex;flex-direction:column;gap:9px}
+.n-ac{padding:14px 16px 15px;display:flex;flex-direction:column;gap:5px}
+.n-vc{padding:14px;display:flex;flex-direction:column;gap:10px}
+.n-meta{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--n-muted);padding-right:36px}
+.n-dot{flex:none;width:8px;height:8px;border-radius:4px;background:var(--n-accent)}
+.n-hc .n-ttl{font-family:var(--serif);font-size:20px;line-height:1.4;font-weight:700}
+.n-ac .n-ttl{font-size:16px;line-height:1.45;font-weight:700;padding-right:26px}
+.n-sum{font-size:15px;line-height:1.7;color:var(--n-ink2)}
+.n-ac .n-sum,.n-vc .n-sum{font-size:14px;line-height:1.65}
+.n-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:3px}
+.n-tags span{font-size:12px;font-weight:500;color:var(--n-accent-ink);background:var(--n-accent-soft);border-radius:8px;padding:3px 8px}
+.n-bmk{position:absolute;top:4px;right:4px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--n-faint)}
+.n-bmk.on{color:var(--n-accent)}
+.read .n-ttl{color:var(--n-faint);font-weight:500}
+.n-hc.sel,.n-ac.sel,.n-vc.sel{background:var(--n-accent-soft);box-shadow:inset 0 0 0 2px var(--n-accent)}
+.n-vrow{display:flex;gap:14px;padding-right:28px}
+.n-thumb{flex:none;position:relative;width:112px;height:74px;border-radius:12px;background:var(--n-thumb);color:var(--n-on-thumb);display:flex;align-items:center;justify-content:center}
+.n-thumb .p{width:34px;height:34px;border-radius:17px;background:var(--video-btn);display:flex;align-items:center;justify-content:center}
+.n-thumb em{position:absolute;left:6px;bottom:6px;font-size:10px;font-weight:700;background:rgba(0,0,0,.55);border-radius:5px;padding:1px 5px}
+.n-thumb.sm{width:56px;height:40px;border-radius:8px}
+.n-thumb.sm .p{width:24px;height:24px}
+.n-vt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.n-vt .n-meta{font-size:12px;padding-right:0}
+.n-vc .n-ttl{font-size:15px;line-height:1.45;font-weight:700}
+.n-next{margin-top:2px;text-align:center;font-size:13px;color:var(--n-faint)}
+.n-next b{color:var(--n-accent);font-weight:600}
+.n-tab{position:absolute;left:20px;right:20px;bottom:26px;height:64px;border-radius:32px;background:var(--n-glass);border:1px solid var(--n-glass-line);box-shadow:0 10px 30px var(--n-shadow);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:6px;gap:4px}
+.n-tab.mini{left:72px;right:72px;bottom:18px}
+.n-ti{border-radius:26px;color:var(--n-muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:500}
+.n-ti.on{background:var(--n-accent-soft);color:var(--n-accent-ink);font-weight:700}
+.n-prog{height:3px;background:var(--n-line)}
+.n-prog i{display:block;height:3px;background:var(--n-accent);border-radius:0 2px 2px 0}
+.n-art{padding:20px 24px 0;display:flex;flex-direction:column}
+.n-art.v{padding-top:22px}
+.n-cat{font-size:13px;font-weight:700;color:var(--n-accent-ink);letter-spacing:.06em}
+.nd .n-h{margin-top:10px;font-family:var(--serif);font-size:27px;line-height:1.35;font-weight:700}
+.nd .n-h.v{margin-top:8px;font-size:24px}
+.nd .n-h.rt{margin-top:8px;font-size:24px;line-height:1.42}
+.n-src{margin-top:10px;font-size:14px;color:var(--n-muted)}
+.n-by{margin-top:16px;display:flex;align-items:center;gap:10px;font-size:14px;line-height:1.4;color:var(--n-muted)}
+.n-by b{color:var(--n-ink);font-weight:500}
+.n-av{flex:none;width:32px;height:32px;border-radius:16px;background:var(--n-accent-soft);color:var(--n-accent-ink);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.n-tldr{margin-top:22px;background:var(--n-tldr);border-radius:18px;padding:18px 18px 20px}
+.nd .n-tldr h2{margin-bottom:8px;font-size:13px;font-weight:700;color:var(--n-accent-ink);letter-spacing:.06em;display:flex;align-items:center;gap:6px}
+.n-tldr h2 i{width:14px;height:4px;border-radius:2px;background:var(--icon-hi)}
+.n-body{font-size:17px;line-height:1.85;color:var(--n-ink)}
+.n-sec{margin-top:34px}
+.nd .n-sec h2{margin-bottom:4px;font-size:20px;font-weight:700;display:flex;align-items:baseline;gap:8px}
+.n-sec h2 span{font-size:14px;font-weight:500;color:var(--n-faint)}
+.nd .n-pt{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:14px 0;border-bottom:1px solid var(--n-line)}
+.nd .n-pt:last-child{border-bottom:0}
+.n-no{font:700 15px/1.9 var(--serif);color:var(--n-accent)}
+.n-pt p,.n-q p{font-size:17px;line-height:1.85;color:var(--n-ink2)}
+.n-rq{margin-top:28px;background:var(--n-reflect);border-radius:18px;padding:20px 18px}
+.nd .n-rq h2{font-size:20px;font-weight:700}
+.n-rq .sub{margin:2px 0 4px;font-size:13px;color:var(--n-reflect-ink)}
+.nd .n-q{display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px;margin-top:12px}
+.n-q .n-no{font-size:14px;color:var(--n-reflect-no)}
+.nd .n-fr{display:grid;grid-template-columns:minmax(0,1fr) 20px;gap:12px;padding:14px 0;border-bottom:1px solid var(--n-line)}
+.nd .n-fr:last-child{border-bottom:0}
+.n-frt b{display:block;font-size:16px;color:var(--n-ink)}
+.n-frt .d{display:block;margin-top:3px;font-size:14px;line-height:1.6;color:var(--n-muted)}
+.n-frt small{display:block;margin-top:3px;font-size:12px;color:var(--n-faint)}
+.n-fr .n-ic{margin-top:4px;color:var(--n-faint)}
+.n-nextup{margin:28px 0 24px;border-top:1px solid var(--n-line);padding-top:22px}
+.nd .n-nextup h2{margin-bottom:10px;font-size:13px;font-weight:700;color:var(--n-muted);letter-spacing:.08em}
+.n-nx{display:flex;align-items:center;gap:12px;padding:12px;background:var(--n-well);border-radius:16px}
+.n-nx .n-ic{color:var(--n-faint)}
+.n-nxt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.n-nxt b{font-size:15px}
+.n-nxt small{font-size:12px;color:var(--n-muted)}
+.n-bot{position:absolute;left:0;right:0;bottom:0;display:flex;padding:12px 20px 34px;background:var(--n-glass);border-top:1px solid var(--n-line)}
+.nd.long .n-bot{position:static}
+.n-btn{flex:1;height:52px;border-radius:26px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700}
+.n-btn.pri{background:var(--n-accent);color:var(--n-on-accent)}
+.n-btn.alt{background:var(--n-fill);color:var(--n-ink)}
+.n-player{position:relative;margin:4px 16px 0;height:201px;border-radius:18px;background:var(--n-player);color:var(--on-video);display:flex;align-items:center;justify-content:center}
+.n-player .p{width:64px;height:64px;border-radius:32px;background:var(--video-btn);display:flex;align-items:center;justify-content:center}
+.n-player small{position:absolute;left:14px;bottom:12px;font-size:12px;color:var(--n-player-cap)}
+.n-player.rt{margin:2px 0 16px;height:186px}
+.n-note{margin-top:16px;font-size:13px;line-height:1.6;color:var(--n-faint)}
+.n-legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:12px 20px 0;font-size:12px;color:var(--n-muted)}
+.n-legend span{display:flex;align-items:center;gap:5px}
+.n-legend i{width:10px;height:10px;border-radius:3px}
+.n-days{padding:12px 16px 0;display:flex;flex-direction:column;gap:6px}
+.n-wk{margin:6px 4px 0;font-size:13px;font-weight:700;color:var(--n-muted);letter-spacing:.08em}
+.n-grp{background:var(--n-card);border-radius:20px;overflow:hidden}
+.nd .n-day{display:grid;grid-template-columns:44px minmax(0,1fr) 16px;gap:12px;align-items:center;padding:12px 14px;min-height:64px;border-top:1px solid var(--n-line)}
+.nd .n-day:first-child{border-top:0}
+.n-day > .n-ic{color:var(--n-faint)}
+.n-dn{display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.n-dn b{font:700 22px var(--serif)}
+.n-dn.today b{color:var(--n-accent)}
+.n-dn small{margin-top:3px;font-size:11px;color:var(--n-muted)}
+.n-dm{display:flex;flex-direction:column;gap:7px;min-width:0}
+.n-dt{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700}
+.n-pill{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px}
+.n-pill.today{color:var(--n-on-accent);background:var(--n-accent)}
+.n-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--n-line)}
+.n-bar i{display:block;height:100%}
+.n-dm small{font-size:12px;color:var(--n-muted)}
+.n-seg{margin:14px 20px 0;padding:3px;background:var(--n-seg);border-radius:12px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
+.n-seg span{height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--n-muted)}
+.n-seg span.on{background:var(--n-card);color:var(--n-ink);font-weight:700;box-shadow:0 1px 3px var(--n-shadow)}
+.n-sv{gap:7px}
+.n-sv .n-ttl{line-height:1.5}
+.n-kind{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--n-muted);padding-right:36px}
+.n-kind em{font-weight:700;border-radius:6px;padding:1px 7px}
+.n-kind em.deep{color:var(--n-accent-ink);background:var(--n-accent-soft)}
+.n-kind em.video{color:var(--n-on-thumb);background:var(--n-thumb)}
+.n-kind em.article{color:var(--n-ink2);background:var(--n-fill)}
+.n-off{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--n-muted)}
+.n-hint{text-align:center;font-size:12px;color:var(--n-faint)}
+.n-swp{display:flex;border-radius:20px;overflow:hidden;background:var(--n-card)}
+.n-swp > .n-ac{flex:none;width:350px;border-radius:0}
+.n-swp.trail > .n-ac{margin-left:-128px}
+.n-swp.trail1 > .n-ac{margin-left:-88px}
+.n-act{flex:none;width:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:600;color:var(--n-on-act)}
+.n-act.read{width:84px;background:var(--n-accent);color:var(--n-on-accent)}
+.n-act.save{background:var(--n-orange)}
+.n-act.share{background:var(--n-gray)}
+.n-act.rm{width:88px;background:var(--n-red)}
+.n-form{padding:14px 16px 0;display:flex;flex-direction:column;gap:22px}
+.nd .n-fs h2{margin:0 4px 6px;font-size:13px;font-weight:700;color:var(--n-muted);letter-spacing:.08em}
+.n-fg{background:var(--n-card);border-radius:20px;overflow:hidden}
+.n-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:0 16px;border-top:1px solid var(--n-line);font-size:16px}
+.n-row:first-child{border-top:0}
+.n-row .n-ic{color:var(--n-faint)}
+.n-row.is-off{color:var(--n-faint)}
+.n-time{font-size:15px;background:var(--n-fill);border-radius:8px;padding:4px 10px}
+.n-sw{flex:none;width:52px;height:32px;border-radius:16px;padding:2px;display:flex;align-items:center;background:var(--n-switch-off)}
+.n-sw.on{justify-content:flex-end;background:var(--n-green)}
+.n-sw i{width:28px;height:28px;border-radius:14px;background:var(--n-knob);box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.n-size{padding:16px 16px 14px;border-bottom:1px solid var(--n-line)}
+.n-size .top{display:flex;justify-content:space-between;align-items:baseline;font-size:16px}
+.n-size .v{font-size:14px;color:var(--n-muted)}
+.n-slider{display:flex;align-items:center;gap:12px;height:40px;margin-top:6px}
+.n-slider .a1{font-size:13px;font-weight:700;color:var(--n-muted)}
+.n-slider .a2{font-size:21px;font-weight:700;color:var(--n-muted)}
+.n-track{position:relative;flex:1;height:4px;border-radius:2px;background:var(--n-border)}
+.n-track i{position:absolute;left:0;top:0;bottom:0;width:33.3%;border-radius:2px;background:var(--n-accent)}
+.n-track b{position:absolute;left:33.3%;top:50%;width:28px;height:28px;margin:-14px 0 0 -14px;border-radius:14px;background:var(--n-knob);box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.n-preview{margin-top:8px;padding:12px 14px;background:var(--n-well);border-radius:12px;font-size:17px;line-height:1.8;color:var(--n-ink2)}
+.n-foot{margin:6px 6px 0;font-size:12px;line-height:1.6;color:var(--n-muted)}
+.n-bgblur{position:absolute;inset:0;filter:blur(3px)}
+.n-scrim{position:absolute;inset:0;background:var(--n-scrim)}
+.n-cm{position:absolute;left:20px;right:20px;top:330px}
+.n-cm .n-ac{box-shadow:0 18px 40px var(--n-shadow)}
+.n-menu{margin-top:10px;width:250px;background:var(--n-menu);border-radius:16px;overflow:hidden;box-shadow:0 18px 40px var(--n-shadow)}
+.n-menu div{display:flex;align-items:center;justify-content:space-between;height:46px;padding:0 16px;font-size:16px;border-top:1px solid var(--n-line)}
+.n-menu div:first-child{border-top:0}
+.n-empty{position:absolute;left:0;right:0;top:150px;bottom:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 48px;text-align:center}
+.n-empty > .n-ic{color:var(--n-faint)}
+.n-empty b{font-size:22px;font-weight:700}
+.n-empty span{font-size:15px;line-height:1.6;color:var(--n-muted)}
+.n-empty em{margin-top:12px;padding:8px 22px;border-radius:20px;font-size:15px;font-weight:600;color:var(--n-on-accent);background:var(--n-accent)}
+.nd.duo-c{display:flex}
+.nd.duo-o{display:grid;grid-template-columns:475px 1px minmax(0,1fr)}
+.n-pane{position:relative;flex:1;min-width:0;height:100%;padding-top:12px;overflow:hidden}
+.n-sys{flex:none;display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 0;font-size:13px;font-weight:600}
+.n-sys .cam{width:15px;height:46px;border-radius:8px;background:var(--island)}
+.n-sys .bat{width:10px;height:20px;border-radius:3px;background:currentColor}
+.n-fold{background:repeating-linear-gradient(to bottom,var(--n-dash) 0 6px,transparent 6px 12px)}
+.n-right{display:flex;min-width:0;background:var(--n-paper)}
+.n-rc{position:relative;flex:1;min-width:0;padding:12px 20px 0 32px;overflow:hidden}
+.n-rtb{display:flex;align-items:center;justify-content:flex-end;height:52px;margin-bottom:6px}
+.n-rc .n-prog{margin:0 -20px 14px -32px}
+.n-rbot{position:absolute;left:0;right:0;bottom:0;display:flex;padding:28px 20px 22px 32px;background:linear-gradient(transparent,var(--n-paper) 36%)}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-today" viewBox="0 0 24 24"><path d="M5 6h14v12H5zM8 10h8M8 14h5"/></symbol>
+<symbol id="i-past" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
+<symbol id="i-mark" viewBox="0 0 24 24"><path d="M7 4h10v16l-5-4-5 4z"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4M6 12v7h12v-7"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></symbol>
+<symbol id="i-fwd" viewBox="0 0 24 24"><path d="M10 6l6 6-6 6"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M9 7l8 5-8 5z" fill="currentColor"/></symbol>
+<symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M15 9l-2 4-4 2 2-4z"/></symbol>
+<symbol id="i-reload" viewBox="0 0 24 24"><path d="M18 12a6 6 0 1 1-2-4.5M18 5v3h-3"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></symbol>
+<symbol id="i-off" viewBox="0 0 24 24"><path d="M4 9c4.5-4 11.5-4 16 0M7 12.5c3-2.6 7-2.6 10 0M10 16c1.2-1 2.8-1 4 0M4 4l16 16"/></symbol>
+<symbol id="i-reader" viewBox="0 0 24 24"><path d="M5 7h14M5 11h14M5 15h9"/></symbol>
+</defs></svg>
+
+<div class="page">
+
+<header>
+  <p class="eyebrow">規格書 · 草稿 v0.10 · 2026-11-18 · 等你審核</p>
+  <div class="brand"><svg class="appicon" viewBox="0 0 120 120" role="img" aria-label="日知的圖示"><rect width="120" height="120" rx="27" style="fill:var(--icon-bg)"/><line x1="34" y1="60" x2="86" y2="60" style="stroke:var(--icon-hi);stroke-width:9"/><rect x="34" y="26" width="52" height="68" rx="12" style="fill:none;stroke:var(--icon-fg);stroke-width:9"/></svg><h1>日知 iOS App</h1></div>
+  <p class="lead">把 willy-notes 每天早上的資訊摘要做成原生 iPhone App，公開上架 App Store。這份文件說明 App 長什麼樣子、怎麼運作、上架要準備什麼。程式還沒開始寫。</p>
+  <div class="review">
+    <h2>怎麼審核</h2>
+    <ol>
+      <li>每個項目都有編號：畫面 <span class="id">S</span>、流程 <span class="id">F</span>、規則 <span class="id">R</span>、決定 <span class="id">D</span>、要準備的事 <span class="id">P</span>。回覆時講編號和想改的地方就可以，例如「D2 先不做 Widget」。</li>
+      <li>最需要你看的三件事：畫面和流程是不是你要的（<a href="#screens">§4</a>、<a href="#flows">§5</a>）；29 個決定（你已經全部確認）（<a href="#decisions">§14</a>）；只有你能準備或決定的 9 件事（<a href="#release">§10</a>）。</li>
+      <li>v0.3 新增 <a href="#duo">iPhone Duo</a>：各種姿態的版面 <span class="id">F6</span>、畫面 <span class="id">S14</span>–<span class="id">S17</span>、開闔時的接續 <span class="id">F7</span>、規則 <span class="id">R15</span> <span class="id">R16</span>、決定 <span class="id">D15</span>–<span class="id">D20</span>、要準備的事 <span class="id">P6</span>。</li>
+      <li>v0.4：App 名稱定為「日知」，圖示的方向也定了（<a href="#p2">P2</a>、<a href="#p5">P5</a>）。每天的更新時間從 09:00 改成 06:00。</li>
+      <li>v0.5：文章改成卡片式（<span class="id">S1</span> <span class="id">S2</span> <span class="id">S7</span> <span class="id">S14</span>–<span class="id">S17</span> 重畫），加上滑動手勢 <span class="id">S18</span>、規則 <span class="id">R17</span>、決定 <span class="id">D21</span> <span class="id">D22</span>。</li>
+      <li>v0.6：照設計畫布重畫了七張畫面（<span class="id">S1</span> <span class="id">S3</span> <span class="id">S4</span> <span class="id">S6</span> <span class="id">S7</span> <span class="id">S8</span> <span class="id">S15</span>），並加上「全部用系統原生元件」的<a href="#native">對照表</a>、規則 <span class="id">R18</span>–<span class="id">R23</span>、決定 <span class="id">D23</span>–<span class="id">D29</span>。</li>
+      <li>v0.7：日期改到標題下面（導覽列的副標題）；分類順序固定；標題改用系統的襯線字；另外七張畫面也照新設計重畫；全部畫面都有淺色和深色。D25–D28 你已經確認。</li>
+      <li>v0.8：每天的更新時間改回 09:00。</li>
+      <li>v0.9：第 14 節的決定全部照建議定案，D29 改成不顯示「數量異常」標示；P2 到 P4 你已經提供。</li>
+      <li>v0.10：補上隱私清單檔、App Store 頁面要準備的內容，以及三個上架前要你決定的事（P7 年齡分級、P8 第三方內容授權、P9 流程要不要搬到雲端）。</li>
+    </ol>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="目錄">
+  <ol>
+    <li><a href="#overview"><span>1</span>產品概述</a></li>
+    <li><a href="#scope"><span>2</span>範圍</a></li>
+    <li><a href="#system"><span>3</span>系統怎麼運作</a></li>
+    <li><a href="#screens"><span>4</span>畫面</a></li>
+    <li><a href="#duo"><span></span>iPhone Duo</a></li>
+    <li><a href="#flows"><span>5</span>操作流程</a></li>
+    <li><a href="#rules"><span>6</span>功能規則</a></li>
+    <li><a href="#data"><span>7</span>資料格式</a></li>
+    <li><a href="#site"><span>8</span>網站要加的東西</a></li>
+    <li><a href="#tech"><span>9</span>技術</a></li>
+    <li><a href="#release"><span>10</span>上架</a></li>
+    <li><a href="#phases"><span>11</span>開發階段</a></li>
+    <li><a href="#limits"><span>12</span>已知限制</a></li>
+    <li><a href="#acceptance"><span>13</span>驗收</a></li>
+    <li><a href="#decisions"><span>14</span>決定</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section class="sec" id="overview">
+  <h2><span class="no">1</span>產品概述</h2>
+  <p>每天早上打開 App，幾分鐘內看完 AI 開發方式、AI 產業動態、iOS / Apple、金融與虛擬資產的新文章重點。想細讀的文章和影片，直接在 App 裡看。</p>
+  <ul>
+    <li><b>給誰用：</b>你自己、同事，以及其他讀中文的開發者。</li>
+    <li><b>為什麼做成 App：</b>網站已經每天更新，但 App 可以離線讀、收藏、記住讀過哪些、每天提醒，還能在主畫面放 Widget。</li>
+    <li><b>跟網站的關係：</b>內容是同一份。網站繼續存在，App 是另一個閱讀的地方。</li>
+  </ul>
+  <dl class="facts">
+    <div><dt>平台</dt><dd>iPhone 和 iPhone Duo，iOS 26 以上</dd></div>
+    <div><dt>介面語言</dt><dd>繁體中文</dd></div>
+    <div><dt>帳號</dt><dd>不需要登入</dd></div>
+    <div><dt>個人資料</dt><dd>不收集</dd></div>
+    <div><dt>內容更新</dt><dd>每天 09:00（台北時間）</dd></div>
+    <div><dt>價格</dt><dd>免費（建議）</dd></div>
+  </dl>
+  <h3>你已經決定的事</h3>
+  <ul>
+    <li>做原生 App，不做內嵌網頁的套殼。</li>
+    <li>讀者留在 App 內。範圍是我們自己的畫面：按鈕、連結、Widget、通知、YouTube 播放器，都不會讓讀者跳到其他 App。讀者在 App 內的 Safari 畫面裡自己按「用 Safari 開啟」，算他自己選擇離開。</li>
+    <li>公開上架 App Store。</li>
+    <li>App 名稱是「日知」：每天知道一點原本不知道的事。圖示是藍底、白色的「日」字，中間一橫用黃色，代表當天的重點。</li>
+    <li>每天 09:00 更新內容。</li>
+    <li>文章用卡片呈現，可以用滑動手勢收藏和標為已讀。</li>
+    <li>全部元件都用系統原生的，不客製。包括分頁列、導覽列、導覽列上的按鈕、標題、副標題。唯一的例外是分類標籤（D26）。</li>
+    <li>畫面照重新設計的畫布，全部畫面都已重畫，有淺色和深色。</li>
+    <li>第 14 節的 29 個決定全部定案。</li>
+    <li>標題用系統的襯線字（D25）；分類標籤照畫布客製（D26）；分類順序固定，0 篇的留在原位（D27）；影片卡不載入 YouTube 的縮圖（D28）。</li>
+  </ul>
+</section>
+
+<section class="sec" id="scope">
+  <h2><span class="no">2</span>範圍</h2>
+  <div class="cols3">
+    <div class="col yes">
+      <h3>第一版要做</h3>
+      <ul>
+        <li>今天的摘要，分四類，跟網站一致</li>
+        <li>深度分析：一句話摘要、重點、反思問題、延伸閱讀</li>
+        <li>原文、延伸閱讀、YouTube 影片都在 App 內打開</li>
+        <li>過去每一天的摘要</li>
+        <li>收藏、已讀狀態、離線閱讀</li>
+        <li>每日提醒（手機本機的通知）</li>
+        <li>主畫面 Widget（小、中）</li>
+        <li>iPhone Duo：闔上單欄、展開兩欄，開闔時接著看</li>
+        <li>通過審查，上架 App Store</li>
+      </ul>
+    </div>
+    <div class="col no">
+      <h3>第一版不做</h3>
+      <ul>
+        <li>帳號登入、iCloud 跨裝置同步</li>
+        <li>伺服器推播（「今天的摘要好了」）</li>
+        <li>搜尋</li>
+        <li>iPad 專屬版面、Mac 版、Android 版</li>
+        <li>在 App 內顯示原文全文</li>
+        <li>數據分析、追蹤、廣告</li>
+        <li>改動網站現有的頁面</li>
+      </ul>
+    </div>
+    <div class="col fail">
+      <h3>發生任何一項就算失敗</h3>
+      <ul>
+        <li>點我們自己畫面上的東西，跳到了其他 App</li>
+        <li>App 變成轉載別人文章全文的工具</li>
+        <li>審查以 4.2（功能太少）或 5.2（智慧財產）退件</li>
+        <li>內容過期或當天沒更新，卻沒有標示</li>
+        <li>網站改了資料格式，舊版 App 整頁空白</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="system">
+  <h2><span class="no">3</span>系統怎麼運作</h2>
+  <p>App 不需要自己的伺服器。網站每天部署時多輸出一份 JSON，App 和 Widget 直接讀它。</p>
+  <figure class="fig" id="f1">
+    <div class="scroll">
+    <svg class="dg" viewBox="0 0 980 400" role="img" aria-label="資料流程：你的 Mac 每天產生摘要並部署到網站，App 和 Widget 從網站讀取 JSON，原文和影片由各自的網站提供">
+      <defs>
+        <marker id="f1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker>
+        <marker id="f1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="aha" d="M0 0L10 5L0 10z"/></marker>
+      </defs>
+      <rect class="bg" x="16" y="36" width="230" height="284" rx="14"/>
+      <text class="g" x="32" y="60">你的 Mac · 每天 09:00</text>
+      <rect class="b" x="32" y="76" width="198" height="52" rx="10"/><text class="t" x="131" y="98">① 收集各來源的新文章</text><text class="s" x="131" y="116">RSS 和網頁</text>
+      <path class="ln" d="M131 128V159" marker-end="url(#f1a)"/>
+      <rect class="b" x="32" y="160" width="198" height="52" rx="10"/><text class="t" x="131" y="182">② Claude 寫摘要和分析</text><text class="s" x="131" y="200">照寫作規則，逐篇驗證</text>
+      <path class="ln" d="M131 212V243" marker-end="url(#f1a)"/>
+      <rect class="b" x="32" y="244" width="198" height="52" rx="10"/><text class="t" x="131" y="266">③ 產生網頁和 JSON</text><text class="s" x="131" y="284">檢查通過才部署</text>
+      <path class="ln" d="M246 186H315" marker-end="url(#f1a)"/><text class="l m" x="281" y="178">每天部署</text>
+
+      <rect class="bg" x="316" y="36" width="250" height="284" rx="14"/>
+      <text class="g" x="332" y="60">willy-notes.pages.dev</text>
+      <rect class="b" x="332" y="76" width="218" height="52" rx="10"/><text class="t" x="441" y="98">/digest/ 網頁</text><text class="s" x="441" y="116">現有，不改</text>
+      <rect class="ba" x="332" y="160" width="218" height="52" rx="10"/><text class="t" x="441" y="182">/digest/api/v1/ JSON</text><text class="s" x="441" y="200">新增，App 讀這個</text>
+      <rect class="b" x="332" y="244" width="218" height="52" rx="10"/><text class="t" x="441" y="266">隱私權政策、支援頁</text><text class="s" x="441" y="284">新增，上架需要</text>
+      <path class="lna" d="M550 178H636V102H725" marker-end="url(#f1b)"/><text class="l m" x="671" y="94">讀取 JSON</text>
+      <path class="lna" d="M550 194H636V270H725" marker-end="url(#f1b)"/><text class="l m" x="671" y="288">讀取 JSON</text>
+
+      <rect class="bg" x="706" y="36" width="258" height="284" rx="14"/>
+      <text class="g" x="722" y="60">讀者的 iPhone</text>
+      <rect class="b" x="726" y="76" width="218" height="52" rx="10"/><text class="t" x="835" y="98">Widget</text><text class="s" x="835" y="116">主畫面，小和中兩種</text>
+      <rect class="b" x="726" y="160" width="218" height="52" rx="10"/><text class="t" x="835" y="182">共用快取</text><text class="s" x="835" y="200">最近 30 天</text>
+      <rect class="b" x="726" y="244" width="218" height="52" rx="10"/><text class="t" x="835" y="266">App</text><text class="s" x="835" y="284">今天、過去、收藏、設定</text>
+      <path class="ln" d="M835 160V129" marker-end="url(#f1a)"/><text class="l" x="845" y="149">連不上時讀取</text>
+      <path class="ln" d="M800 244V213" marker-end="url(#f1a)"/><text class="l e" x="792" y="233">寫入</text>
+      <path class="ln" d="M870 212V243" marker-end="url(#f1a)"/><text class="l" x="880" y="233">離線時讀取</text>
+
+      <path class="ln" d="M776 296V347" marker-end="url(#f1a)"/><text class="l e" x="768" y="339">App 內的 Safari 畫面</text>
+      <path class="ln" d="M914 296V347" marker-end="url(#f1a)"/><text class="l e" x="906" y="339">嵌入播放器</text>
+      <rect class="b" x="706" y="348" width="140" height="40" rx="10"/><text class="t" x="776" y="373">原文網站</text>
+      <rect class="b" x="864" y="348" width="100" height="40" rx="10"/><text class="t" x="914" y="373">YouTube</text>
+    </svg>
+    </div>
+    <figcaption><span class="id">F1</span>你的 Mac 每天產生摘要並部署到網站。App 和 Widget 只讀網站上的 JSON；原文和影片仍然由各自的網站提供，App 不保存別人的內容。</figcaption>
+  </figure>
+  <ul>
+    <li>排程 09:00 開始，跑完就部署。App 下次打開、或 Widget 下次更新時就會看到新內容。</li>
+    <li>網站要新增兩樣東西：給 App 讀的 JSON，以及上架必備的隱私權政策和支援頁（<a href="#site">§8</a>）。</li>
+    <li>每日提醒是手機自己排的通知，不經過任何伺服器。</li>
+  </ul>
+</section>
+
+<section class="sec" id="screens">
+  <h2><span class="no">4</span>畫面</h2>
+  <p>畫面稿用來確認內容、順序和操作，不是最終視覺。實際的 App 會用 iOS 26 的系統元件，細部排版以實作為準。內容取自 11/18 的真實摘要。切換這一頁的深淺色，畫面稿也會跟著變。iPhone Duo 的畫面在這一節的<a href="#duo">最後</a>。</p>
+
+  <figure class="fig" id="f2">
+    <div class="scroll">
+    <svg class="dg" viewBox="0 0 980 410" role="img" aria-label="畫面地圖：三個入口都到今天；今天和收藏依文章種類進詳情頁或直接開 App 內的 Safari 畫面；過去點某一天回到同一個列表；設定的連結也在 App 內的 Safari 畫面打開">
+      <defs><marker id="f2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <text class="g" x="16" y="34">入口</text>
+      <rect class="b" x="16" y="44" width="150" height="44" rx="10"/><text class="t" x="91" y="71">App 圖示</text>
+      <rect class="b" x="16" y="104" width="150" height="44" rx="10"/><text class="t" x="91" y="131">每日提醒通知</text>
+      <rect class="b" x="16" y="196" width="150" height="44" rx="10"/><text class="t" x="91" y="223">Widget</text>
+      <text class="s" x="91" y="258">點文章會直接開那一篇</text>
+      <path class="ln" d="M166 66H251" marker-end="url(#f2a)"/>
+      <path class="ln" d="M166 126H206V84H251" marker-end="url(#f2a)"/>
+      <path class="ln" d="M166 218H220V96H251" marker-end="url(#f2a)"/>
+
+      <rect class="bg" x="236" y="20" width="180" height="372" rx="14"/>
+      <text class="g" x="252" y="42">底部分頁</text>
+      <rect class="ba" x="252" y="54" width="148" height="52" rx="10"/><text class="t" x="326" y="76">今天</text><text class="s" x="326" y="94">S1、S2</text>
+      <rect class="b" x="252" y="140" width="148" height="52" rx="10"/><text class="t" x="326" y="162">過去</text><text class="s" x="326" y="180">S6</text>
+      <rect class="b" x="252" y="226" width="148" height="52" rx="10"/><text class="t" x="326" y="248">收藏</text><text class="s" x="326" y="266">S7</text>
+      <rect class="b" x="252" y="312" width="148" height="52" rx="10"/><text class="t" x="326" y="334">設定</text><text class="s" x="326" y="352">S8</text>
+      <path class="ln" d="M326 140V107" marker-end="url(#f2a)"/><text class="l" x="334" y="128">點某一天</text>
+
+      <rect class="b" x="520" y="140" width="150" height="56" rx="10"/><text class="t" x="595" y="164">詳情頁</text><text class="s" x="595" y="182">S3、S4</text>
+      <rect class="b" x="790" y="140" width="174" height="56" rx="10"/><text class="t" x="877" y="164">App 內的 Safari 畫面</text><text class="s" x="877" y="182">S5</text>
+
+      <path class="ln" d="M400 74H470V158H519" marker-end="url(#f2a)"/><text class="l" x="478" y="112">深度分析、影片</text>
+      <path class="ln" d="M400 62H877V139" marker-end="url(#f2a)"/><text class="l m" x="640" y="54">其他文章</text>
+      <path class="ln" d="M400 246H470V178H519" marker-end="url(#f2a)"/><text class="l" x="478" y="226">深度分析、影片</text>
+      <path class="ln" d="M400 262H840V197" marker-end="url(#f2a)"/><text class="l m" x="650" y="280">其他文章</text>
+      <path class="ln" d="M670 168H789" marker-end="url(#f2a)"/><text class="l m" x="730" y="160">閱讀原文、延伸閱讀</text>
+      <path class="ln" d="M400 338H920V197" marker-end="url(#f2a)"/><text class="l m" x="650" y="330">隱私權政策、網站連結</text>
+    </svg>
+    </div>
+    <figcaption><span class="id">F2</span>畫面地圖。從「過去」點某一天，看到的是跟「今天」同一個版面。任何畫面上的「分享」都用系統的分享面板，不離開 App。</figcaption>
+  </figure>
+
+  <h3 id="native">重新設計和原生元件</h3>
+  <p>畫面照<a href="https://claude.ai/artifact/4iEFZUXWayZHM9QN9q9WNg">設計畫布</a>的樣式畫，再改成系統元件的樣子，淺色和深色都有。跟畫布不一樣的地方有三個：日期改用導覽列的副標題，放在標題下面；分類順序固定，0 篇的留在原位（D27）；標題用系統的襯線字（D25）。S5 和 S11–S13 是系統畫面或小元件，沿用上一版的畫法。</p>
+  <p>你要求全部元件都用系統原生的。所以畫面稿決定的是版面、內容和順序；每一樣東西實際用哪個系統元件，照下面這張表。畫面稿跟系統元件長得不一樣的地方，以系統為準。</p>
+  <div class="tw"><table>
+    <thead><tr><th>畫面上的東西</th><th>用哪個系統元件</th><th>跟畫面稿不一樣的地方</th></tr></thead>
+    <tbody>
+      <tr><td>分頁列</td><td>系統的分頁列（TabView）</td><td>iOS 26 的系統分頁列本來就是浮動的膠囊。高度、材質由系統決定，圖示用 SF Symbols。</td></tr>
+      <tr><td>大標題和日期</td><td>導覽列的大標題和副標題</td><td>日期和「幾篇、幾點更新」放在標題下面。字體是系統字體。</td></tr>
+      <tr><td>進度圓環</td><td>導覽列右邊的項目，用系統的環形量表（Gauge）</td><td>大小跟導覽列上的其他按鈕一致。</td></tr>
+      <tr><td>返回、Aa、收藏、分享</td><td>導覽列的系統按鈕</td><td>Aa 點了出現系統選單，從四級裡選；不是點一下換一級。</td></tr>
+      <tr><td>分類標籤</td><td>客製，照畫布（D26）</td><td>唯一不用系統元件的地方：選中的填深色，其他白底細框，0 篇的用虛線框。</td></tr>
+      <tr><td>文章卡片</td><td>系統清單的圓角區塊，每篇一塊</td><td>沒有陰影，圓角大小由系統決定。</td></tr>
+      <tr><td>標題的襯線字</td><td>系統的襯線字型</td><td>英文是襯線，中文會顯示成系統的黑體。不內建 Noto Serif TC。</td></tr>
+      <tr><td>內文</td><td>系統的內文樣式</td><td>畫布的 17 pt、行高 1.85 是標準字級下的樣子，會跟著字級設定縮放。</td></tr>
+      <tr><td>閱讀進度條</td><td>系統的進度條（ProgressView）</td><td>沒有。</td></tr>
+      <tr><td>一句話摘要、想一想的色塊</td><td>系統的群組區塊，套淡藍和淡黃的底色</td><td>圓角由系統決定。</td></tr>
+      <tr><td>閱讀原文、開啟影片頁面</td><td>系統按鈕的主要和次要樣式，放在底部工具列</td><td>沒有。</td></tr>
+      <tr><td>收藏的篩選</td><td>系統的分段控制</td><td>沒有。</td></tr>
+      <tr><td>過去的比例色條</td><td>Swift Charts 的堆疊長條</td><td>沒有。</td></tr>
+      <tr><td>設定</td><td>系統的表單：滑桿、開關、時間選擇器</td><td>提醒關閉時，時間選擇器由系統自動變灰。</td></tr>
+      <tr><td>長按選單、滑動動作、分享</td><td>系統的選單、清單滑動動作、分享面板</td><td>沒有。</td></tr>
+      <tr><td>空白狀態</td><td>系統的空白狀態畫面（ContentUnavailableView）</td><td>沒有。</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>主要畫面</h3>
+  <div class="shots">
+
+    <figure class="shot" id="s1">
+      <div class="phone" role="img" aria-label="畫面稿：今天，AI 開發方式分類"><div class="dcw"><div class="dc"><div class="nd" style="width:390px;height:844px"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb"><span></span><span><span class="n-gl c n-gauge"><svg viewBox="0 0 38 38" width="38" height="38" aria-hidden="true"><circle class="trk" cx="19" cy="19" r="15"/><circle class="val" cx="19" cy="19" r="15" stroke-dasharray="18.8 94.2" transform="rotate(-90 19 19)"/></svg><b>3</b></span></span></div><div class="n-lgt"><h1>今天</h1><p>11月18日 星期三 · 15 篇 · 09:12 更新</p></div><div class="n-chips"><span class="n-chip on">AI 開發方式<b>2</b></span><span class="n-chip">AI 產業動態<b>12</b></span><span class="n-chip zero">iOS / Apple<b>0</b></span><span class="n-chip">金融與虛擬資產<b>1</b></span></div><div class="n-feed"><h2 class="n-lbl">深度分析</h2><div class="n-hc"><span class="n-meta"><i class="n-dot"></i><span>Simon Willison · 11/17</span></span><span class="n-ttl">Running the full server-side Datasette Python app in the browser with service workers and Pyodide</span><span class="n-sum n-c2">Datasette Lite 改用 service worker 重寫後，幾乎能在瀏覽器裡完整重現伺服器端的 Python 應用；作者主張這種 WebAssembly 預覽環境可成為 Python 生態系做展示與重現 bug 的通用作法。</span><span class="n-tags"><span>5 個重點</span><span>3 個反思問題</span><span>5 篇延伸閱讀</span></span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><h2 class="n-lbl">其他</h2><div class="n-vc"><span class="n-vrow"><span class="n-thumb"><span class="p"><svg class="n-ic" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 4.5l13 7.5-13 7.5z" fill="currentColor" stroke="none"/></svg></span><em>影片</em></span><span class="n-vt"><span class="n-meta"><i class="n-dot"></i><span>AI Engineer (YouTube)</span></span><b class="n-ttl">2026 in LLMs — Simon Willison, Datasette</b></span></span><span class="n-sum n-c1">Simon Willison 在 CODE Summit 2026 回顧今年 LLM 的三個轉折：可靠的 coding agent、能持續解題的模型、vibe coding 做遊戲。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><p class="n-next">這一類看完了 · 下一類：<b>AI 產業動態 12 篇</b></p></div><div class="n-tab"><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S1</span>今天 · AI 開發方式</p>
+        <ul>
+          <li>打開 App 的第一個畫面。導覽列用系統的大標題「今天」，日期、篇數和更新時間是標題下面的副標題。</li>
+          <li>右上角是今天的閱讀進度（系統的環形量表）：已讀 3 篇，一共 15 篇。</li>
+          <li>分類是一排可以橫捲的標籤，照畫布客製（<a href="#d26">D26</a>）。順序固定，0 篇的分類用虛線框，留在原位（<a href="#d27">D27</a>）。</li>
+          <li>深度分析的卡片最大，標出重點、反思問題、延伸閱讀各有幾則。影片卡用深色底加播放鍵，不載入 YouTube 的縮圖（<a href="#d28">D28</a>）。</li>
+          <li>捲到這一類的底部，提示下一類。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s2">
+      <div class="phone" role="img" aria-label="畫面稿：今天，AI 產業動態分類"><div class="dcw"><div class="dc"><div class="nd" style="width:390px;height:844px"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb"><span></span><span><span class="n-gl c n-gauge"><svg viewBox="0 0 38 38" width="38" height="38" aria-hidden="true"><circle class="trk" cx="19" cy="19" r="15"/><circle class="val" cx="19" cy="19" r="15" stroke-dasharray="18.8 94.2" transform="rotate(-90 19 19)"/></svg><b>3</b></span></span></div><div class="n-lgt"><h1>今天</h1><p>11月18日 星期三 · 15 篇 · 09:12 更新</p></div><div class="n-chips"><span class="n-chip">AI 開發方式<b>2</b></span><span class="n-chip on">AI 產業動態<b>12</b></span><span class="n-chip zero">iOS / Apple<b>0</b></span><span class="n-chip">金融與虛擬資產<b>1</b></span></div><div class="n-feed"><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/18</span></span><span class="n-ttl n-c2">AI加速嵌入式設備漏洞挖掘，研究人員90小時找出66項TCP/IP協定堆疊新漏洞</span><span class="n-sum n-c2">Forescout 研究團隊用 Claude 搭配自建工具分析 10 套嵌入式 TCP/IP 協定堆疊，約 90 小時找出 66 項新漏洞，模型費用約 1,200 至 2,300 美元。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/18</span></span><span class="n-ttl n-c2">Google揭駭客利用多代理AI框架發動攻擊，另有工具可自動發掘及利用漏洞</span><span class="n-sum n-c2">Google 威脅情報團隊指出，駭客已在實際入侵中使用 CAIRN、PentAGI 等多代理 AI 框架做偵察與掃描，還發現能自動比對修補差異並產生、執行漏洞利用程式的 exploit_agent。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-ac read"><span class="n-meta"><span>已讀 · Latent Space · 11/17</span></span><span class="n-ttl n-c2">Cloudflare Joins the Jevolution and Labels Itself a Neolab</span><span class="n-sum n-c2">Cloudflare 在 AI Engineer Code Summit 自稱 neolab，已推出仿 Jev 的決策模型 Clef 與從非結構化資料抽取數值的 Clairic。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/17</span></span><span class="n-ttl n-c2">OpenAI開放4家外部機構進駐，深入檢驗AI模型安全性</span><span class="n-sum n-c2">OpenAI 啟動嵌入式評估，讓 Apollo Research、METR、Transluce、Goodfire 進駐內部，存取未發布模型與監控系統檢驗安全性。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/17</span></span><span class="n-ttl n-c2">500大超級電腦排名前十名不變，新系統數量創新低，並呈現AI工廠正在改寫GPU算力流向的趨勢</span><span class="n-sum n-c2">最新 TOP500 前十名與上屆相同，新進系統只有 27 套創歷史新低；官方認為大量新 GPU 流向 Hyperscaler 的 AI 工廠。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div></div><div class="n-tab"><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S2</span>今天 · AI 產業動態</p>
+        <ul>
+          <li>其他三類是一般文章的卡片：來源和日期、標題、兩行摘要，右上角是書籤。</li>
+          <li>讀過的文章標題變淡，沒有藍點。</li>
+          <li>點了直接開原文（S5），因為摘要在這裡已經看得到。</li>
+          <li>往下拉可以重新整理。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s4">
+      <div class="phone" role="img" aria-label="畫面稿：影片的詳情頁"><div class="dcw"><div class="dc"><div class="nd paper" style="width:390px;height:844px"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb"><span><span class="n-gl c"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></span></span><span><span class="n-gl caps"><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3.5v11.5"/><path d="M8 7.5l4-4 4 4"/><path d="M5.5 12v6.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V12"/></svg></span></span></span></div><div class="n-player"><span class="p"><svg class="n-ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M7 4.5l13 7.5-13 7.5z" fill="currentColor" stroke="none"/></svg></span><small>YouTube 嵌入播放器</small></div><div class="n-art v"><p class="n-cat">AI 開發方式 · 影片</p><h1 class="n-h v">2026 in LLMs — Simon Willison, Datasette</h1><p class="n-src">AI Engineer (YouTube)</p><section class="n-tldr"><h2><i></i>這支影片在講什麼</h2><p class="n-body">Simon Willison 在 CODE Summit 2026 回顧今年 LLM 的三個轉折：可靠的 coding agent、能持續解題的模型、vibe coding 做遊戲，並談到安全風險與為何軟體工程感覺反而更難。</p></section><p class="n-note">播放器無法載入時，這裡會改成一句說明，並保留下方按鈕。</p></div><div class="n-bot"><span class="n-btn alt">開啟影片頁面<svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></span></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S4</span>詳情頁 · 影片</p>
+        <ul>
+          <li>播放器在最上面，直接在這一頁播。</li>
+          <li>摘要區塊的樣式跟 S3 相同，標題是「這支影片在講什麼」。</li>
+          <li>底部的「開啟影片頁面」用次要樣式，因為主要的動作是播放。</li>
+          <li>播放器不能載入時，改成一句說明，底部按鈕保留。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s3">
+      <div class="phone" role="img" aria-label="畫面稿：深度分析的詳情頁，完整捲動內容"><div class="dcw"><div class="dc"><div class="nd paper long" style="width:390px;height:844px"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb"><span><span class="n-gl c"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></span></span><span><span class="n-gl caps"><span class="b"><span class="n-aa">Aa</span></span><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3.5v11.5"/><path d="M8 7.5l4-4 4 4"/><path d="M5.5 12v6.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V12"/></svg></span></span></span></div><div class="n-prog"><i style="width:12%"></i></div><div class="n-art"><p class="n-cat">AI 開發方式 · 深度分析</p><h1 class="n-h">Running the full server-side Datasette Python app in the browser with service workers and Pyodide</h1><div class="n-by"><span class="n-av">SW</span><span><b>Simon Willison</b><br>2026 年 11 月 17 日 · simonwillison.net</span></div><section class="n-tldr"><h2><i></i>一句話摘要</h2><p class="n-body">Datasette Lite 改用 service worker 重寫後，幾乎能在瀏覽器裡完整重現伺服器端的 Python 應用；作者主張這種 WebAssembly 預覽環境可成為 Python 生態系做展示與重現 bug 的通用作法。</p></section><section class="n-sec"><h2>重點 <span>5</span></h2><ol><li class="n-pt"><span class="n-no">01</span><p>新版用 service worker 攔截頁面與靜態資源請求，交給背後的 web worker 執行 Pyodide 裡的 Datasette，解決舊版用 innerHTML 注入導致 JavaScript 無法執行的問題。</p></li><li class="n-pt"><span class="n-no">02</span><p>每個分頁用隨機 session 前綴區分，讓不同網址設定（外掛、資料庫、版本）各自跑獨立實例，不會共用同一個 service worker 狀態。</p></li><li class="n-pt"><span class="n-no">03</span><p>整個狀態寫在網址裡：可指定 Datasette 版本或 Git 分支、外掛、資料庫，甚至 SQLite 版本，作者已直接用兩條連結在 issue 裡對照 bug 修正前後。</p></li><li class="n-pt"><span class="n-no">04</span><p>這個架構五月先由 Claude 做出研究原型，作者到十一月才熟悉到敢上線；SQLite 多版本比對工具與說明圖也是請 Claude 產生的。</p></li><li class="n-pt"><span class="n-no">05</span><p>作者認為多數 Python 應用都能比照辦理，C 或 Rust 擴充套件現在也能交給 coding agent 編成 WebAssembly，主要缺口是 PostgreSQL、MySQL 這類資料庫。</p></li></ol></section><section class="n-rq"><h2>想一想</h2><p class="sub">反思問題 · 3 題</p><ol><li class="n-q"><span class="n-no">Q1</span><p>你的專案回報 bug 時，能不能附一個別人點了就能重現的連結？</p></li><li class="n-q"><span class="n-no">Q2</span><p>AI 幫你做出能動的原型之後，你需要理解到什麼程度才敢把它上線？</p></li><li class="n-q"><span class="n-no">Q3</span><p>有哪些「要開一台伺服器才能展示」的情境，其實可以搬到瀏覽器裡跑？</p></li></ol></section><section class="n-sec"><h2>延伸閱讀 <span>5</span></h2><ul><li class="n-fr"><span class="n-frt"><b>Datasette Lite</b><span class="d">本文主角，在瀏覽器中以 Pyodide 執行的 Datasette。</span></span><svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></li><li class="n-fr"><span class="n-frt"><b>URL-addressable Pyodide Python environments</b><span class="d">作者先前談如何把整個 Python 環境設定寫進網址的文章。</span></span><svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></li><li class="n-fr"><span class="n-frt"><b>pyodide-asgi-browser 研究原型</b><span class="d">新版架構的前身，由 AI 產生的研究 spike。</span><small>文中提到，未附連結</small></span><span></span></li><li class="n-fr"><span class="n-frt"><b>datasette/pysqlite3-wasm-wheels</b><span class="d">收錄 163 個 SQLite 版本的 WebAssembly wheel，支援指定 SQLite 版本。</span></span><svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></li><li class="n-fr"><span class="n-frt"><b>Service Worker API</b><span class="d">新版用來在瀏覽器端攔截並回應 HTTP 請求的機制。</span></span><svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></li></ul></section><section class="n-nextup"><h2>下一篇 · AI 開發方式</h2><div class="n-nx"><span class="n-thumb sm"><span class="p"><svg class="n-ic" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 4.5l13 7.5-13 7.5z" fill="currentColor" stroke="none"/></svg></span></span><span class="n-nxt"><b>2026 in LLMs — Simon Willison, Datasette</b><small>影片 · AI Engineer (YouTube)</small></span><svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></div></section></div><div class="n-bot"><span class="n-btn pri">閱讀原文<svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></span></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S3</span>詳情頁 · 深度分析（完整捲動內容）</p>
+        <ul>
+          <li>導覽列是系統的：左邊返回，右邊 Aa、收藏、分享；下面是閱讀進度條。</li>
+          <li>標題用系統的襯線字：英文是襯線，中文會是系統的黑體（<a href="#d25">D25</a>）。</li>
+          <li>一句話摘要在淡藍色的區塊；重點用 01 到 05 編號；「想一想」（反思問題）在淡黃色的區塊。</li>
+          <li>延伸閱讀有連結的可以點；沒附連結的標示「文中提到，未附連結」。</li>
+          <li>文末有「下一篇」。「閱讀原文」在底部的工具列，一直看得到。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s5">
+      <div class="phone" role="img" aria-label="畫面稿：用 App 內的 Safari 畫面閱讀原文">
+        <div class="scr">
+          <div class="sb"><span>9:41</span><span class="sbr"><i></i><i></i><i></i></span></div><span class="isl"></span>
+          <div class="sf-top"><span class="sf-done">完成</span><span class="sf-url"><svg class="ic"><use href="#i-reader"/></svg>simonwillison.net</span><svg class="ic"><use href="#i-reload"/></svg></div>
+          <div class="sf-page">
+            <span class="sf-tag">閱讀器模式</span>
+            <div class="dtt">Running the full server-side Datasette Python app in the browser with service workers and Pyodide</div>
+            <div class="m">Simon Willison</div>
+            <div class="ph" style="margin-top:18px"></div><div class="ph"></div><div class="ph"></div><div class="ph" style="width:72%"></div>
+            <div class="ph" style="margin-top:22px"></div><div class="ph"></div><div class="ph" style="width:88%"></div><div class="ph"></div><div class="ph" style="width:54%"></div>
+            <div class="ph" style="margin-top:22px"></div><div class="ph"></div><div class="ph" style="width:80%"></div>
+          </div>
+          <span class="sf-tip">系統按鈕：用 Safari 開啟</span>
+          <div class="sf-bar"><svg class="ic"><use href="#i-back"/></svg><svg class="ic"><use href="#i-fwd"/></svg><svg class="ic"><use href="#i-share"/></svg><svg class="ic"><use href="#i-compass"/></svg></div>
+        </div>
+      </div>
+      <figcaption>
+        <p class="cap"><span class="id">S5</span>閱讀原文 · App 內的 Safari 畫面</p>
+        <ul>
+          <li>這是 iOS 內建的畫面，外觀不能改，按鈕位置以實際系統為準。按「完成」回到 App。</li>
+          <li>網站支援時預設用閱讀器模式，可以在設定關掉。</li>
+          <li>「用 Safari 開啟」是系統按鈕，拿不掉。讀者自己按了才會離開 App。</li>
+          <li>這裡的登入狀態跟 Safari 分開，X 的文章要在這裡登入一次。</li>
+          <li>灰色橫條代表原文內容，由原網站顯示，App 不保存。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s6">
+      <div class="phone" role="img" aria-label="畫面稿：過去"><div class="dcw"><div class="dc"><div class="nd" style="width:390px;height:844px"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb bare"><span></span><span></span></div><div class="n-lgt"><h1>過去</h1><p>2026 年 11 月</p></div><div class="n-legend"><span><i style="background:var(--n-c1)"></i>AI 開發方式</span><span><i style="background:var(--n-c2)"></i>AI 產業動態</span><span><i style="background:var(--n-c3)"></i>iOS / Apple</span><span><i style="background:var(--n-c4)"></i>金融與虛擬資產</span></div><div class="n-days"><h2 class="n-wk">這一週</h2><ul class="n-grp"><li class="n-day"><span class="n-dn today"><b>18</b><small>週三</small></span><span class="n-dm"><span class="n-dt">15 篇<em class="n-pill today">今天</em></span><span class="n-bar"><i style="width:13.3%;background:var(--n-c1)"></i><i style="width:80.0%;background:var(--n-c2)"></i><i style="width:6.7%;background:var(--n-c4)"></i></span><small>開發 2 · 產業 12 · 金融 1</small></span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></li><li class="n-day"><span class="n-dn"><b>17</b><small>週二</small></span><span class="n-dm"><span class="n-dt">14 篇</span><span class="n-bar"><i style="width:85.7%;background:var(--n-c2)"></i><i style="width:14.3%;background:var(--n-c4)"></i></span><small>產業 12 · 金融 2</small></span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></li><li class="n-day"><span class="n-dn"><b>16</b><small>週一</small></span><span class="n-dm"><span class="n-dt">2 篇</span><span class="n-bar"><i style="width:50.0%;background:var(--n-c1)"></i><i style="width:50.0%;background:var(--n-c2)"></i></span><small>開發 1 · 產業 1</small></span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></li></ul><h2 class="n-wk">上一週</h2><ul class="n-grp"><li class="n-day"><span class="n-dn"><b>15</b><small>週日</small></span><span class="n-dm"><span class="n-dt">3 篇</span><span class="n-bar"><i style="width:66.7%;background:var(--n-c2)"></i><i style="width:33.3%;background:var(--n-c4)"></i></span><small>產業 2 · 金融 1</small></span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></li><li class="n-day"><span class="n-dn"><b>14</b><small>週六</small></span><span class="n-dm"><span class="n-dt">9 篇</span><span class="n-bar"><i style="width:33.3%;background:var(--n-c1)"></i><i style="width:66.7%;background:var(--n-c2)"></i></span><small>開發 3 · 產業 6</small></span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></li><li class="n-day"><span class="n-dn"><b>13</b><small>週五</small></span><span class="n-dm"><span class="n-dt">16 篇</span><span class="n-bar"><i style="width:25.0%;background:var(--n-c1)"></i><i style="width:62.5%;background:var(--n-c2)"></i><i style="width:12.5%;background:var(--n-c4)"></i></span><small>開發 4 · 產業 10 · 金融 2</small></span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></li><li class="n-day"><span class="n-dn"><b>12</b><small>週四</small></span><span class="n-dm"><span class="n-dt">22 篇</span><span class="n-bar"><i style="width:27.3%;background:var(--n-c1)"></i><i style="width:68.2%;background:var(--n-c2)"></i><i style="width:4.5%;background:var(--n-c3)"></i></span><small>開發 6 · 產業 15 · Apple 1</small></span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></li><li class="n-day"><span class="n-dn"><b>11</b><small>週三</small></span><span class="n-dm"><span class="n-dt">31 篇</span><span class="n-bar"><i style="width:45.2%;background:var(--n-c1)"></i><i style="width:38.7%;background:var(--n-c2)"></i><i style="width:16.1%;background:var(--n-c4)"></i></span><small>開發 14 · 產業 12 · 金融 5</small></span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></li></ul></div><div class="n-tab"><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S6</span>過去</p>
+        <ul>
+          <li>大標題「過去」，副標題是月份。</li>
+          <li>每天一列：日期、總篇數、四類的比例色條（Swift Charts）、各類幾篇。上方有顏色的圖例。</li>
+          <li>依週分組：這一週、上一週，更早的用日期範圍當標題。</li>
+          <li>點進去的版面跟「今天」一樣，只是換成那一天。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s7">
+      <div class="phone" role="img" aria-label="畫面稿：收藏"><div class="dcw"><div class="dc"><div class="nd" style="width:390px;height:844px"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb bare"><span></span><span></span></div><div class="n-lgt"><h1>收藏</h1><p>4 篇 · 全部可離線閱讀</p></div><div class="n-seg"><span class="on">全部 4</span><span>深度 2</span><span>影片 1</span><span>文章 1</span></div><div class="n-feed"><div class="n-ac n-sv"><span class="n-kind"><em class="deep">深度分析</em><span>Simon Willison · AI 開發方式</span></span><span class="n-ttl n-c2">Running the full server-side Datasette Python app in the browser with service workers and Pyodide</span><span class="n-off"><svg class="n-ic" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>已存在手機 · 今天收藏</span><span class="n-bmk on"><svg class="n-ic fill" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-swp trail1"><div class="n-ac n-sv"><span class="n-kind"><em class="article">文章</em><span>iThome · AI 產業動態</span></span><span class="n-ttl n-c2">漏洞濫用速度加快，Anthropic將重大漏洞揭露靜默期由90天縮短為30天</span><span class="n-off"><svg class="n-ic" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>已存在手機 · 今天收藏</span><span class="n-bmk on"><svg class="n-ic fill" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><span class="n-act rm"><svg class="n-ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>移除</span></div><div class="n-ac n-sv"><span class="n-kind"><em class="video">影片</em><span>AI Engineer (YouTube)</span></span><span class="n-ttl n-c2">2026 in LLMs — Simon Willison, Datasette</span><span class="n-off"><svg class="n-ic" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>已存在手機 · 昨天收藏</span><span class="n-bmk on"><svg class="n-ic fill" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-ac n-sv"><span class="n-kind"><em class="deep">深度分析</em><span>Addy Osmani · AI 開發方式</span></span><span class="n-ttl n-c2">Agentic Verification</span><span class="n-off"><svg class="n-ic" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>已存在手機 · 11/16 收藏</span><span class="n-bmk on"><svg class="n-ic fill" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><p class="n-hint">往左滑可以移除；收藏不會過期</p></div><div class="n-tab"><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti on"><svg class="n-ic fill" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S7</span>收藏</p>
+        <ul>
+          <li>副標題寫幾篇，以及是不是都能離線讀。</li>
+          <li>上方是系統的分段控制：全部、深度、影片、文章，各標出篇數。</li>
+          <li>每張卡標出種類、來源、「已存在手機」和收藏的時間。</li>
+          <li>往左滑可以移除收藏（第二張是滑開的樣子），點書籤也可以。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s8">
+      <div class="phone" role="img" aria-label="畫面稿：設定"><div class="dcw"><div class="dc"><div class="nd" style="width:390px;height:844px"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb bare"><span></span><span></span></div><div class="n-lgt"><h1>設定</h1></div><div class="n-form"><section class="n-fs"><h2>閱讀</h2><div class="n-fg"><div class="n-size"><div class="top"><span>內文字級</span><span class="v">標準</span></div><div class="n-slider"><span class="a1">A</span><span class="n-track"><i></i><b></b></span><span class="a2">A</span></div><p class="n-preview">每天早上幾分鐘，看完 AI 與 Apple 的新文章重點。</p></div><div class="n-row"><span>用閱讀器模式開原文</span><span class="n-sw on"><i></i></span></div></div></section><section class="n-fs"><h2>每日提醒</h2><div class="n-fg"><div class="n-row"><span>每天提醒我看摘要</span><span class="n-sw"><i></i></span></div><div class="n-row is-off"><span>提醒時間</span><span class="n-time">09:30</span></div></div><p class="n-foot">由這支手機自己排程，打開時才會詢問通知權限。</p></section><section class="n-fs"><h2>關於</h2><div class="n-fg"><div class="n-row"><span>關於日知</span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></div><div class="n-row"><span>資料來源</span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></div><div class="n-row"><span>隱私權政策</span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></div><div class="n-row"><span>聯絡與支援</span><svg class="n-ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></div></div><p class="n-foot">摘要由 AI 整理，可能有錯，請以原文為準。金融相關內容不構成投資建議。<br>版本 1.0（1）</p></section></div><div class="n-tab"><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S8</span>設定</p>
+        <ul>
+          <li>系統的表單。「內文字級」有四級，拉動滑桿時下面的範例文字會立刻跟著變。</li>
+          <li>每日提醒關閉時，提醒時間變灰色、不能點。</li>
+          <li>「關於」底下的頁面和連結都在 App 內打開。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s9">
+      <div class="phone" role="img" aria-label="畫面稿：長按一篇文章出現的選單"><div class="dcw"><div class="dc"><div class="nd" style="width:390px;height:844px"><div class="n-bgblur"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb"><span></span><span><span class="n-gl c n-gauge"><svg viewBox="0 0 38 38" width="38" height="38" aria-hidden="true"><circle class="trk" cx="19" cy="19" r="15"/><circle class="val" cx="19" cy="19" r="15" stroke-dasharray="18.8 94.2" transform="rotate(-90 19 19)"/></svg><b>3</b></span></span></div><div class="n-lgt"><h1>今天</h1><p>11月18日 星期三 · 15 篇 · 09:12 更新</p></div><div class="n-chips"><span class="n-chip">AI 開發方式<b>2</b></span><span class="n-chip on">AI 產業動態<b>12</b></span><span class="n-chip zero">iOS / Apple<b>0</b></span><span class="n-chip">金融與虛擬資產<b>1</b></span></div><div class="n-feed"><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/18</span></span><span class="n-ttl n-c2">AI加速嵌入式設備漏洞挖掘，研究人員90小時找出66項TCP/IP協定堆疊新漏洞</span><span class="n-sum n-c2">Forescout 研究團隊用 Claude 搭配自建工具分析 10 套嵌入式 TCP/IP 協定堆疊，約 90 小時找出 66 項新漏洞，模型費用約 1,200 至 2,300 美元。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/18</span></span><span class="n-ttl n-c2">Google揭駭客利用多代理AI框架發動攻擊，另有工具可自動發掘及利用漏洞</span><span class="n-sum n-c2">Google 威脅情報團隊指出，駭客已在實際入侵中使用 CAIRN、PentAGI 等多代理 AI 框架做偵察與掃描，還發現能自動比對修補差異並產生、執行漏洞利用程式的 exploit_agent。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-ac read"><span class="n-meta"><span>已讀 · Latent Space · 11/17</span></span><span class="n-ttl n-c2">Cloudflare Joins the Jevolution and Labels Itself a Neolab</span><span class="n-sum n-c2">Cloudflare 在 AI Engineer Code Summit 自稱 neolab，已推出仿 Jev 的決策模型 Clef 與從非結構化資料抽取數值的 Clairic。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/17</span></span><span class="n-ttl n-c2">OpenAI開放4家外部機構進駐，深入檢驗AI模型安全性</span><span class="n-sum n-c2">OpenAI 啟動嵌入式評估，讓 Apollo Research、METR、Transluce、Goodfire 進駐內部，存取未發布模型與監控系統檢驗安全性。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/17</span></span><span class="n-ttl n-c2">500大超級電腦排名前十名不變，新系統數量創新低，並呈現AI工廠正在改寫GPU算力流向的趨勢</span><span class="n-sum n-c2">最新 TOP500 前十名與上屆相同，新進系統只有 27 套創歷史新低；官方認為大量新 GPU 流向 Hyperscaler 的 AI 工廠。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div></div><div class="n-tab"><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div><div class="n-scrim"></div><span class="n-isl"></span><div class="n-cm"><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/18</span></span><span class="n-ttl n-c2">Google揭駭客利用多代理AI框架發動攻擊，另有工具可自動發掘及利用漏洞</span><span class="n-sum n-c2">Google 威脅情報團隊指出，駭客已在實際入侵中使用 CAIRN、PentAGI 等多代理 AI 框架做偵察與掃描，還發現能自動比對修補差異並產生、執行漏洞利用程式的 exploit_agent。</span></div><div class="n-menu"><div>收藏<svg class="n-ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></div><div>分享<svg class="n-ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3.5v11.5"/><path d="M8 7.5l4-4 4 4"/><path d="M5.5 12v6.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V12"/></svg></div><div>標為已讀<svg class="n-ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div></div></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S9</span>長按一篇文章</p>
+        <ul>
+          <li>長按卡片出現系統的選單：收藏、分享、標為已讀（已讀的文章顯示「標為未讀」）。</li>
+          <li>背景變暗、變模糊，被長按的那張卡浮在上面。</li>
+          <li>左右滑卡片也能做同樣的事（S18）。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s18">
+      <div class="phone" role="img" aria-label="畫面稿：左右滑動卡片的手勢，往右滑標為已讀，往左滑收藏或分享"><div class="dcw"><div class="dc"><div class="nd" style="width:390px;height:844px"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb"><span></span><span><span class="n-gl c n-gauge"><svg viewBox="0 0 38 38" width="38" height="38" aria-hidden="true"><circle class="trk" cx="19" cy="19" r="15"/><circle class="val" cx="19" cy="19" r="15" stroke-dasharray="18.8 94.2" transform="rotate(-90 19 19)"/></svg><b>3</b></span></span></div><div class="n-lgt"><h1>今天</h1><p>11月18日 星期三 · 15 篇 · 09:12 更新</p></div><div class="n-chips"><span class="n-chip">AI 開發方式<b>2</b></span><span class="n-chip on">AI 產業動態<b>12</b></span><span class="n-chip zero">iOS / Apple<b>0</b></span><span class="n-chip">金融與虛擬資產<b>1</b></span></div><div class="n-feed"><div class="n-swp lr"><span class="n-act read"><svg class="n-ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>已讀</span><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/18</span></span><span class="n-ttl n-c2">AI加速嵌入式設備漏洞挖掘，研究人員90小時找出66項TCP/IP協定堆疊新漏洞</span><span class="n-sum n-c2">Forescout 研究團隊用 Claude 搭配自建工具分析 10 套嵌入式 TCP/IP 協定堆疊，約 90 小時找出 66 項新漏洞，模型費用約 1,200 至 2,300 美元。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/18</span></span><span class="n-ttl n-c2">Google揭駭客利用多代理AI框架發動攻擊，另有工具可自動發掘及利用漏洞</span><span class="n-sum n-c2">Google 威脅情報團隊指出，駭客已在實際入侵中使用 CAIRN、PentAGI 等多代理 AI 框架做偵察與掃描，還發現能自動比對修補差異並產生、執行漏洞利用程式的 exploit_agent。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><div class="n-swp trail"><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>Latent Space · 11/17</span></span><span class="n-ttl n-c2">Cloudflare Joins the Jevolution and Labels Itself a Neolab</span><span class="n-sum n-c2">Cloudflare 在 AI Engineer Code Summit 自稱 neolab，已推出仿 Jev 的決策模型 Clef 與從非結構化資料抽取數值的 Clairic。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><span class="n-act save"><svg class="n-ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-act share"><svg class="n-ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3.5v11.5"/><path d="M8 7.5l4-4 4 4"/><path d="M5.5 12v6.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V12"/></svg>分享</span></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/17</span></span><span class="n-ttl n-c2">OpenAI開放4家外部機構進駐，深入檢驗AI模型安全性</span><span class="n-sum n-c2">OpenAI 啟動嵌入式評估，讓 Apollo Research、METR、Transluce、Goodfire 進駐內部，存取未發布模型與監控系統檢驗安全性。</span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div></div><div class="n-tab"><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S18</span>滑動卡片的手勢</p>
+        <ul>
+          <li>第一張：往右滑，標為已讀。已讀的文章會變成「標為未讀」。</li>
+          <li>第三張：往左滑，出現「收藏」和「分享」。</li>
+          <li>滑到底會直接執行第一個動作；滑一半則停住，顯示按鈕。這些都是系統清單的滑動動作。</li>
+          <li>不用手勢也做得到：卡片右上角的書籤、長按選單（S9）。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s10">
+      <div class="phone" role="img" aria-label="畫面稿：沒有網路也沒有快取時的空白狀態"><div class="dcw"><div class="dc"><div class="nd" style="width:390px;height:844px"><div class="n-stb"><span>9:41</span><span class="n-sig"><i></i><i></i><i></i></span></div><span class="n-isl"></span><div class="n-nb bare"><span></span><span></span></div><div class="n-lgt"><h1>今天</h1></div><div class="n-empty"><svg class="n-ic" viewBox="0 0 24 24" width="48" height="48" aria-hidden="true"><path d="M4 9c4.5-4 11.5-4 16 0M7 12.5c3-2.6 7-2.6 10 0M10 16c1.2-1 2.8-1 4 0M4 4l16 16"/></svg><b>連不上網路</b><span>接上網路後再試一次。讀過一次以後，離線也能看上次的內容。</span><em>重試</em></div><div class="n-tab"><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S10</span>沒有網路，也沒有快取</p>
+        <ul>
+          <li>系統的空白狀態畫面。只有第一次打開 App 就沒網路時才會看到。</li>
+          <li>有快取的話，會顯示上次的內容，並加上離線提示（S11）。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+  </div>
+
+  <h3>提示、Widget、通知</h3>
+  <div class="shots wide">
+
+    <figure class="shot" id="s11">
+      <div class="panel" role="img" aria-label="畫面稿：三種狀態提示">
+        <div class="ban"><i></i>今天的摘要還沒出來，這是 11月17日 的內容</div>
+        <div class="ban"><i></i>離線中，顯示 11/18 09:12 更新的內容</div>
+        <div class="ban up"><i></i>有新版 App，請更新</div>
+      </div>
+      <figcaption>
+        <p class="cap"><span class="id">S11</span>狀態提示</p>
+        <ul>
+          <li>出現在「今天」的日期下面，一次只顯示需要的那一條。</li>
+          <li>今天還沒更新：顯示最新一天，並寫出是哪一天。</li>
+          <li>離線：寫出上次更新的時間。</li>
+          <li>App 版本太舊：點了會在 App 內顯示 App Store 的頁面。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s12">
+      <div class="panel home" role="img" aria-label="畫面稿：小尺寸和中尺寸 Widget">
+        <div class="wg sm">
+          <div class="wh">11/18 週三</div>
+          <div class="wr"><span>AI 開發方式</span><b>2</b></div>
+          <div class="wr"><span>AI 產業動態</span><b>12</b></div>
+          <div class="wr"><span>iOS / Apple</span><b>0</b></div>
+          <div class="wr"><span>金融與虛擬資產</span><b>1</b></div>
+        </div>
+        <div class="wg md">
+          <div class="wh">深度分析 · Simon Willison</div>
+          <div class="t c2">Running the full server-side Datasette Python app in the browser with service workers and Pyodide</div>
+          <div class="s c3">Datasette Lite 改用 service worker 重寫後，幾乎能在瀏覽器裡完整重現伺服器端的 Python 應用。</div>
+        </div>
+      </div>
+      <figcaption>
+        <p class="cap"><span class="id">S12</span>主畫面 Widget</p>
+        <ul>
+          <li>小尺寸：日期和四類的篇數。</li>
+          <li>中尺寸：今天第一篇深度分析的標題和摘要。沒有深度分析時，改顯示「AI 產業動態」的第一篇。</li>
+          <li>點了會打開 App，直接到那篇文章或「今天」。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot" id="s13">
+      <div class="panel" role="img" aria-label="畫面稿：每日提醒的通知">
+        <div class="noti">
+          <svg class="appicon sm" viewBox="0 0 120 120" role="img" aria-label="日知的圖示"><rect width="120" height="120" rx="27" style="fill:var(--icon-bg)"/><line x1="34" y1="60" x2="86" y2="60" style="stroke:var(--icon-hi);stroke-width:9"/><rect x="34" y="26" width="52" height="68" rx="12" style="fill:none;stroke:var(--icon-fg);stroke-width:9"/></svg>
+          <div style="flex:1;min-width:0">
+            <div class="kv"><span class="t">日知</span><span class="m">09:30</span></div>
+            <div class="s" style="margin-top:1px">看看今天的資訊摘要</div>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <p class="cap"><span class="id">S13</span>每日提醒的通知</p>
+        <ul>
+          <li>文字固定是「看看今天的資訊摘要」。App 不知道當天有沒有更新，所以不寫「已更新」。</li>
+          <li>點通知會打開 App 的「今天」。</li>
+          <li>圖示是定案的方向，正式檔案在上架準備階段製作。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+  </div>
+  <h3 id="duo">iPhone Duo</h3>
+  <p>iPhone Duo 是 Apple 今年秋天推出的摺疊 iPhone：闔上時用 5.4 吋的外螢幕，展開後是 7.6 吋的內螢幕。開闔的時候 App 不會重新啟動，只是版面的大小改變。所以這裡要定兩件事：每種姿態用哪一種版面，以及開闔時畫面怎麼接續（<a href="#f7">F7</a>）。</p>
+
+  <figure class="fig" id="f6">
+    <div class="scroll">
+    <svg class="dg" viewBox="0 0 980 232" role="img" aria-label="iPhone Duo 六種姿態各用哪種版面：闔上直拿和橫拿是單欄，展開是兩欄並在摺線分開，展開後轉成直的是單欄，半開或立起來跟展開相同，跟另一個 App 並排時是單欄">
+      <rect class="ba" x="45" y="49" width="70" height="102" rx="8"/><text class="t" x="80" y="105">單欄</text>
+      <text class="t" x="80" y="196">闔上，直拿</text><text class="s" x="80" y="214">466 × 678 pt</text>
+
+      <rect class="ba" x="184" y="65" width="102" height="70" rx="8"/><text class="t" x="235" y="105">單欄</text>
+      <text class="t" x="235" y="196">闔上，橫拿</text><text class="s" x="235" y="214">678 × 466 pt</text>
+
+      <rect class="ba" x="328" y="50" width="144" height="100" rx="8"/><path class="fd" d="M400 50V150"/><text class="t" x="364" y="105">列表</text><text class="t" x="436" y="105">文章</text>
+      <text class="t" x="400" y="196">展開</text><text class="s" x="400" y="214">951 × 669 pt，兩欄</text>
+
+      <rect class="ba" x="515" y="28" width="100" height="144" rx="8"/><path class="fd" d="M515 100H615"/><text class="t" x="565" y="72">單欄</text>
+      <text class="t" x="565" y="196">展開後轉成直的</text><text class="s" x="565" y="214">669 × 951 pt</text>
+
+      <rect class="ba" x="658" y="50" width="144" height="100" rx="8"/><path class="fd" d="M730 50V150"/><text class="t" x="694" y="105">列表</text><text class="t" x="766" y="105">文章</text>
+      <text class="t" x="730" y="196">半開，或立起來</text><text class="s" x="730" y="214">跟展開相同</text>
+
+      <rect class="b" x="823" y="50" width="144" height="100" rx="8"/><rect class="ba" x="823" y="50" width="72" height="100" rx="8"/><text class="t" x="859" y="105">單欄</text><text class="s" x="931" y="105">另一個 App</text>
+      <text class="t" x="895" y="196">兩個 App 並排</text><text class="s" x="895" y="214">寬度不夠放兩欄</text>
+    </svg>
+    </div>
+    <figcaption><span class="id">F6</span>各種姿態用哪一種版面。虛線是摺線。版面跟著可用的寬度走：寬度夠放兩欄就用兩欄，不夠就用單欄，不看機型也不看方向。</figcaption>
+  </figure>
+
+  <div class="tw"><table>
+    <thead><tr><th>姿態</th><th>App 拿到的大小</th><th>版面</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td>闔上，直拿</td><td>466 × 678 pt</td><td>單欄</td><td>跟一般 iPhone 是同一套畫面（S14）。比一般 iPhone 寬，也比較矮。</td></tr>
+      <tr><td>闔上，橫拿</td><td>678 × 466 pt</td><td>單欄</td><td>同一套版面，只是高度比較矮。</td></tr>
+      <tr><td>展開</td><td>951 × 669 pt</td><td>兩欄</td><td>左邊列表、右邊文章，在摺線分開（S15–S17）。</td></tr>
+      <tr><td>展開後轉成直的</td><td>669 × 951 pt</td><td>單欄</td><td>放兩欄的話，每一欄比最小的 iPhone 還窄。內文置中，最寬 640 pt。</td></tr>
+      <tr><td>半開，或立起來</td><td>跟展開相同</td><td>兩欄</td><td>不做特別的版面。</td></tr>
+      <tr><td>兩個 App 並排</td><td>大約一半寬</td><td>單欄</td><td>跟闔上時相同。</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="cols3">
+    <div class="col yes">
+      <h3>已經確認</h3>
+      <ul>
+        <li>外螢幕 5.4 吋、內螢幕 7.6 吋（Apple 規格頁）</li>
+        <li>兩個螢幕的版面大小（這台 Mac 上 Xcode 27.1 的 Duo 模擬器設定檔）</li>
+        <li>闔上是一般 iPhone 的窄版面，展開是寬版面</li>
+        <li>開闔時 App 不重啟；系統通常會保留捲動位置和輸入中的文字</li>
+        <li>展開時可以兩個 App 並排</li>
+        <li>用標準的分頁和導覽元件，系統會依姿態自動排</li>
+        <li>要用 Xcode 27.1 建置，App 才會滿版</li>
+      </ul>
+    </div>
+    <div class="col no">
+      <h3>開發者實測，Apple 的文件沒寫</h3>
+      <ul>
+        <li>展開時摺線是直的，在正中間</li>
+        <li>螢幕右邊有一條系統的直條，放時間和鏡頭，展開時寬約 84 pt</li>
+        <li>文字欄超過 640 pt 寬會太長，不好讀</li>
+      </ul>
+    </div>
+    <div class="col fail">
+      <h3>還沒確認，要在模擬器上看</h3>
+      <ul>
+        <li>App 內的 Safari 畫面在內螢幕的樣子</li>
+        <li>分頁列在外螢幕是在底部還是右邊</li>
+        <li>YouTube 的嵌入播放器在開闔時會不會中斷</li>
+        <li>App Store 要不要另外交 Duo 的截圖</li>
+        <li>Apple 的 Duo 設計指引頁，這次讀不到內容</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">資料來源：<a href="https://www.apple.com/iphone-duo/specs/">Apple 規格頁</a>、Apple 的開發說明 <a href="https://developer.apple.com/videos/play/tech-talks/111461/">Prepare your app for iPhone Duo</a>、<a href="https://developer.apple.com/forums/thread/847644">Apple 開發者論壇的問答整理</a>，以及開發者的實測文章（<a href="https://dev.to/olivierbernal/what-broke-when-my-swiftui-app-met-the-iphone-duo-and-what-apples-checklist-missed-5fgb">Olivier Bernal</a>、<a href="https://dev.to/arshtechpro/iphone-duo-for-ios-developers-what-actually-changes-in-your-swift-code-5gc5">ArshTechPro</a>、<a href="https://swiftwithmajid.com/2026/10/14/adapting-your-app-for-iPhone-duo/">Swift with Majid</a>）。</p>
+
+  <div class="duoshots">
+
+    <figure class="shot full" id="s14">
+      <div class="scroll"><div class="duo closed" role="img" aria-label="畫面稿：iPhone Duo 闔上時的今天"><div class="dcw"><div class="dc closed"><div class="nd duo-c" style="width:466px;height:678px"><div class="n-pane"><div class="n-nb"><span></span><span><span class="n-gl c n-gauge"><svg viewBox="0 0 38 38" width="38" height="38" aria-hidden="true"><circle class="trk" cx="19" cy="19" r="15"/><circle class="val" cx="19" cy="19" r="15" stroke-dasharray="18.8 94.2" transform="rotate(-90 19 19)"/></svg><b>3</b></span></span></div><div class="n-lgt"><h1>今天</h1><p>11月18日 星期三 · 15 篇 · 09:12 更新</p></div><div class="n-chips"><span class="n-chip on">AI 開發方式<b>2</b></span><span class="n-chip">AI 產業動態<b>12</b></span><span class="n-chip zero">iOS / Apple<b>0</b></span><span class="n-chip">金融與虛擬資產<b>1</b></span></div><div class="n-feed"><h2 class="n-lbl">深度分析</h2><div class="n-hc"><span class="n-meta"><i class="n-dot"></i><span>Simon Willison · 11/17</span></span><span class="n-ttl">Running the full server-side Datasette Python app in the browser with service workers and Pyodide</span><span class="n-sum n-c2">Datasette Lite 改用 service worker 重寫後，幾乎能在瀏覽器裡完整重現伺服器端的 Python 應用；作者主張這種 WebAssembly 預覽環境可成為 Python 生態系做展示與重現 bug 的通用作法。</span><span class="n-tags"><span>5 個重點</span><span>3 個反思問題</span><span>5 篇延伸閱讀</span></span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><h2 class="n-lbl">其他</h2><div class="n-vc"><span class="n-vrow"><span class="n-thumb"><span class="p"><svg class="n-ic" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 4.5l13 7.5-13 7.5z" fill="currentColor" stroke="none"/></svg></span><em>影片</em></span><span class="n-vt"><span class="n-meta"><i class="n-dot"></i><span>AI Engineer (YouTube)</span></span><b class="n-ttl">2026 in LLMs — Simon Willison, Datasette</b></span></span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div></div><div class="n-tab"><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div><div class="n-sys" style="width:40px"><span>9:41</span><span class="cam"></span><span class="bat"></span></div></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S14</span>iPhone Duo 闔上 · 今天</p>
+        <ul>
+          <li>跟一般 iPhone 是同一套單欄畫面和操作，S1 到 S10 都適用。</li>
+          <li>外螢幕比一般 iPhone 寬、也比較矮：一行放得下更多字，一頁看到的篇數比較少。</li>
+          <li>時間和鏡頭在右邊的直條，由系統顯示。分頁列和導覽列按鈕的位置以系統為準。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot full" id="s15">
+      <div class="scroll"><div class="duo open" role="img" aria-label="畫面稿：iPhone Duo 展開，左邊是 AI 產業動態的列表，右邊是一般文章"><div class="dcw"><div class="dc wide"><div class="nd duo-o" style="width:951px;height:669px"><div class="n-pane"><div class="n-nb"><span></span><span><span class="n-gl c n-gauge"><svg viewBox="0 0 38 38" width="38" height="38" aria-hidden="true"><circle class="trk" cx="19" cy="19" r="15"/><circle class="val" cx="19" cy="19" r="15" stroke-dasharray="18.8 94.2" transform="rotate(-90 19 19)"/></svg><b>3</b></span></span></div><div class="n-lgt"><h1>今天</h1><p>11月18日 星期三 · 15 篇 · 09:12 更新</p></div><div class="n-chips"><span class="n-chip">AI 開發方式<b>2</b></span><span class="n-chip on">AI 產業動態<b>12</b></span><span class="n-chip zero">iOS / Apple<b>0</b></span><span class="n-chip">金融與虛擬資產<b>1</b></span></div><div class="n-feed"><div class="n-ac read"><span class="n-meta"><span>已讀 · iThome · 11/18</span></span><span class="n-ttl n-c2">AI加速嵌入式設備漏洞挖掘，研究人員90小時找出66項TCP/IP協定堆疊新漏洞</span></div><div class="n-ac sel"><span class="n-meta"><span>iThome · 11/18</span></span><span class="n-ttl n-c2">Google揭駭客利用多代理AI框架發動攻擊，另有工具可自動發掘及利用漏洞</span></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>Latent Space · 11/17</span></span><span class="n-ttl n-c2">Cloudflare Joins the Jevolution and Labels Itself a Neolab</span></div><div class="n-ac"><span class="n-meta"><i class="n-dot"></i><span>iThome · 11/17</span></span><span class="n-ttl n-c2">OpenAI開放4家外部機構進駐，深入檢驗AI模型安全性</span></div></div><div class="n-tab mini"><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div><div class="n-fold"></div><div class="n-right"><div class="n-rc"><div class="n-rtb"><span class="n-gl caps"><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3.5v11.5"/><path d="M8 7.5l4-4 4 4"/><path d="M5.5 12v6.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V12"/></svg></span></span></div><p class="n-cat">AI 產業動態</p><h2 class="n-h rt">Google揭駭客利用多代理AI框架發動攻擊，另有工具可自動發掘及利用漏洞</h2><p class="n-src">iThome · 2026 年 11 月 18 日</p><section class="n-tldr"><h2><i></i>摘要</h2><p class="n-body">Google 威脅情報團隊指出，駭客已在實際入侵中使用 CAIRN、PentAGI 等多代理 AI 框架做偵察與掃描，還發現能自動比對修補差異並產生、執行漏洞利用程式的 exploit_agent。</p></section><div class="n-rbot"><span class="n-btn pri">閱讀原文<svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></span></div></div><div class="n-sys" style="width:84px"><span>9:41</span><span class="cam"></span><span class="bat"></span></div></div></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S15</span>iPhone Duo 展開 · 一般文章</p>
+        <ul>
+          <li>左邊是列表，右邊是文章，在摺線分開。按鈕和文字都不跨過摺線。</li>
+          <li>左邊的列表標出三種狀態：已讀的變淡，未讀的有藍點，目前顯示的那一篇有藍色外框。</li>
+          <li>展開時一般文章也顯示在右邊：標題、完整摘要和「閱讀原文」（<a href="#d15">D15</a>）。闔上時則是直接開原文。</li>
+          <li>右邊保留大約 84 pt 給系統的直條。分頁列、工具列按鈕的實際位置由系統決定（<a href="#d17">D17</a>）。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot full" id="s16">
+      <div class="scroll"><div class="duo open" role="img" aria-label="畫面稿：iPhone Duo 展開，左邊是 AI 開發方式的列表，右邊是深度分析"><div class="dcw"><div class="dc wide"><div class="nd duo-o" style="width:951px;height:669px"><div class="n-pane"><div class="n-nb"><span></span><span><span class="n-gl c n-gauge"><svg viewBox="0 0 38 38" width="38" height="38" aria-hidden="true"><circle class="trk" cx="19" cy="19" r="15"/><circle class="val" cx="19" cy="19" r="15" stroke-dasharray="18.8 94.2" transform="rotate(-90 19 19)"/></svg><b>3</b></span></span></div><div class="n-lgt"><h1>今天</h1><p>11月18日 星期三 · 15 篇 · 09:12 更新</p></div><div class="n-chips"><span class="n-chip on">AI 開發方式<b>2</b></span><span class="n-chip">AI 產業動態<b>12</b></span><span class="n-chip zero">iOS / Apple<b>0</b></span><span class="n-chip">金融與虛擬資產<b>1</b></span></div><div class="n-feed"><h2 class="n-lbl">深度分析</h2><div class="n-hc sel"><span class="n-meta"><span>Simon Willison · 11/17</span></span><span class="n-ttl">Running the full server-side Datasette Python app in the browser with service workers and Pyodide</span><span class="n-sum n-c2">Datasette Lite 改用 service worker 重寫後，幾乎能在瀏覽器裡完整重現伺服器端的 Python 應用；作者主張這種 WebAssembly 預覽環境可成為 Python 生態系做展示與重現 bug 的通用作法。</span><span class="n-tags"><span>5 個重點</span><span>3 個反思問題</span><span>5 篇延伸閱讀</span></span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><h2 class="n-lbl">其他</h2><div class="n-vc"><span class="n-vrow"><span class="n-thumb"><span class="p"><svg class="n-ic" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 4.5l13 7.5-13 7.5z" fill="currentColor" stroke="none"/></svg></span><em>影片</em></span><span class="n-vt"><span class="n-meta"><i class="n-dot"></i><span>AI Engineer (YouTube)</span></span><b class="n-ttl">2026 in LLMs — Simon Willison, Datasette</b></span></span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div></div><div class="n-tab mini"><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div><div class="n-fold"></div><div class="n-right"><div class="n-rc"><div class="n-rtb"><span class="n-gl caps"><span class="b"><span class="n-aa">Aa</span></span><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3.5v11.5"/><path d="M8 7.5l4-4 4 4"/><path d="M5.5 12v6.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V12"/></svg></span></span></div><div class="n-prog"><i style="width:8%"></i></div><p class="n-cat">AI 開發方式 · 深度分析</p><h2 class="n-h rt">Running the full server-side Datasette Python app in the browser with service workers and Pyodide</h2><div class="n-by"><span class="n-av">SW</span><span><b>Simon Willison</b><br>2026 年 11 月 17 日 · simonwillison.net</span></div><section class="n-tldr"><h2><i></i>一句話摘要</h2><p class="n-body">Datasette Lite 改用 service worker 重寫後，幾乎能在瀏覽器裡完整重現伺服器端的 Python 應用；作者主張這種 WebAssembly 預覽環境可成為 Python 生態系做展示與重現 bug 的通用作法。</p></section><section class="n-sec"><h2>重點 <span>5</span></h2><ol><li class="n-pt"><span class="n-no">01</span><p>新版用 service worker 攔截頁面與靜態資源請求，交給背後的 web worker 執行 Pyodide 裡的 Datasette，解決舊版用 innerHTML 注入導致 JavaScript 無法執行的問題。</p></li><li class="n-pt"><span class="n-no">02</span><p>每個分頁用隨機 session 前綴區分，讓不同網址設定（外掛、資料庫、版本）各自跑獨立實例，不會共用同一個 service worker 狀態。</p></li></ol></section><div class="n-rbot"><span class="n-btn pri">閱讀原文<svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></span></div></div><div class="n-sys" style="width:84px"><span>9:41</span><span class="cam"></span><span class="bat"></span></div></div></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S16</span>iPhone Duo 展開 · 深度分析</p>
+        <ul>
+          <li>點左邊的深度分析，右邊是跟詳情頁（S3）一樣的內容，可以往下捲。</li>
+          <li>剛展開、還沒點文章時，右邊自動顯示這一類的第一篇。</li>
+          <li>目前顯示的那一篇在左邊用藍色外框標出來。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="shot full" id="s17">
+      <div class="scroll"><div class="duo open" role="img" aria-label="畫面稿：iPhone Duo 展開，左邊是列表，右邊播放影片"><div class="dcw"><div class="dc wide"><div class="nd duo-o" style="width:951px;height:669px"><div class="n-pane"><div class="n-nb"><span></span><span><span class="n-gl c n-gauge"><svg viewBox="0 0 38 38" width="38" height="38" aria-hidden="true"><circle class="trk" cx="19" cy="19" r="15"/><circle class="val" cx="19" cy="19" r="15" stroke-dasharray="18.8 94.2" transform="rotate(-90 19 19)"/></svg><b>3</b></span></span></div><div class="n-lgt"><h1>今天</h1><p>11月18日 星期三 · 15 篇 · 09:12 更新</p></div><div class="n-chips"><span class="n-chip on">AI 開發方式<b>2</b></span><span class="n-chip">AI 產業動態<b>12</b></span><span class="n-chip zero">iOS / Apple<b>0</b></span><span class="n-chip">金融與虛擬資產<b>1</b></span></div><div class="n-feed"><h2 class="n-lbl">深度分析</h2><div class="n-hc read"><span class="n-meta"><span>已讀 · Simon Willison · 11/17</span></span><span class="n-ttl">Running the full server-side Datasette Python app in the browser with service workers and Pyodide</span><span class="n-sum n-c2">Datasette Lite 改用 service worker 重寫後，幾乎能在瀏覽器裡完整重現伺服器端的 Python 應用；作者主張這種 WebAssembly 預覽環境可成為 Python 生態系做展示與重現 bug 的通用作法。</span><span class="n-tags"><span>5 個重點</span><span>3 個反思問題</span><span>5 篇延伸閱讀</span></span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div><h2 class="n-lbl">其他</h2><div class="n-vc sel"><span class="n-vrow"><span class="n-thumb"><span class="p"><svg class="n-ic" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 4.5l13 7.5-13 7.5z" fill="currentColor" stroke="none"/></svg></span><em>影片</em></span><span class="n-vt"><span class="n-meta"><span>AI Engineer (YouTube)</span></span><b class="n-ttl">2026 in LLMs — Simon Willison, Datasette</b></span></span><span class="n-bmk"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span></div></div><div class="n-tab mini"><span class="n-ti on"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>今天</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>過去</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg>收藏</span><span class="n-ti"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>設定</span></div></div><div class="n-fold"></div><div class="n-right"><div class="n-rc"><div class="n-rtb"><span class="n-gl caps"><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 4h11v16.5L12 16.8l-5.5 3.7z"/></svg></span><span class="b"><svg class="n-ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3.5v11.5"/><path d="M8 7.5l4-4 4 4"/><path d="M5.5 12v6.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V12"/></svg></span></span></div><div class="n-player rt"><span class="p"><svg class="n-ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M7 4.5l13 7.5-13 7.5z" fill="currentColor" stroke="none"/></svg></span><small>YouTube 嵌入播放器</small></div><p class="n-cat">AI 開發方式 · 影片</p><h2 class="n-h rt">2026 in LLMs — Simon Willison, Datasette</h2><p class="n-src">AI Engineer (YouTube)</p><section class="n-tldr"><h2><i></i>這支影片在講什麼</h2><p class="n-body">Simon Willison 在 CODE Summit 2026 回顧今年 LLM 的三個轉折：可靠的 coding agent、能持續解題的模型、vibe coding 做遊戲，並談到安全風險與為何軟體工程感覺反而更難。</p></section><div class="n-rbot"><span class="n-btn alt">開啟影片頁面<svg class="n-ic" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></span></div></div><div class="n-sys" style="width:84px"><span>9:41</span><span class="cam"></span><span class="bat"></span></div></div></div></div></div></div></div>
+      <figcaption>
+        <p class="cap"><span class="id">S17</span>iPhone Duo 展開 · 影片</p>
+        <ul>
+          <li>播放器在右邊，左邊的列表還在，可以一邊播一邊找下一篇。</li>
+          <li>影片不能嵌入時，右邊改成一句說明和「開啟影片頁面」。</li>
+          <li>播放中開闔手機，目標是不中斷。YouTube 的嵌入播放器做不做得到，要實際測過才知道。</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<section class="sec" id="flows">
+  <h2><span class="no">5</span>操作流程</h2>
+
+  <figure class="fig" id="f3">
+    <div class="scroll">
+    <svg class="dg" viewBox="0 0 820 580" role="img" aria-label="打開 App 的載入流程：先顯示快取，再向網站讀取；連得上就更新並判斷是不是今天，連不上就顯示快取或空白狀態">
+      <defs><marker id="f3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="b" x="190" y="16" width="300" height="52" rx="26"/><text class="t" x="340" y="38">打開 App</text><text class="s" x="340" y="56">或從背景回來，距上次更新超過 15 分鐘</text>
+      <path class="ln" d="M340 68V91" marker-end="url(#f3a)"/>
+      <rect class="b" x="190" y="92" width="300" height="52" rx="10"/><text class="t" x="340" y="114">有快取：先顯示快取內容</text><text class="s" x="340" y="132">沒有快取：顯示載入中</text>
+      <path class="ln" d="M340 144V167" marker-end="url(#f3a)"/>
+      <rect class="b" x="190" y="168" width="300" height="52" rx="10"/><text class="t" x="340" y="190">向網站讀取 JSON</text><text class="s" x="340" y="208">index.json 和最新一天</text>
+      <path class="ln" d="M340 220V235" marker-end="url(#f3a)"/>
+      <polygon class="dm" points="340,236 460,272 340,308 220,272"/><text class="t" x="340" y="277">連得上網站？</text>
+      <path class="ln" d="M340 308V339" marker-end="url(#f3a)"/><text class="l" x="350" y="328">是</text>
+      <rect class="b" x="190" y="340" width="300" height="44" rx="10"/><text class="t" x="340" y="367">存進共用快取，App 和 Widget 都讀得到</text>
+      <path class="ln" d="M340 384V407" marker-end="url(#f3a)"/>
+      <polygon class="dm" points="340,408 475,446 340,484 205,446"/><text class="t" x="340" y="444">最新一天是今天嗎？</text><text class="s" x="340" y="460">台北時間</text>
+      <path class="ln" d="M340 484V515" marker-end="url(#f3a)"/><text class="l" x="350" y="504">是</text>
+      <rect class="ba" x="230" y="516" width="220" height="48" rx="10"/><text class="t" x="340" y="545">顯示今天的摘要（S1）</text>
+      <path class="ln" d="M205 446H110V515" marker-end="url(#f3a)"/><text class="l m" x="158" y="438">否</text>
+      <rect class="b" x="20" y="516" width="180" height="48" rx="10"/><text class="t" x="110" y="537">顯示最新一天</text><text class="s" x="110" y="554">提示：今天的摘要還沒出來</text>
+
+      <path class="ln" d="M460 272H559" marker-end="url(#f3a)"/><text class="l m" x="510" y="264">否</text>
+      <polygon class="dm" points="660,236 760,272 660,308 560,272"/><text class="t" x="660" y="277">手機裡有快取？</text>
+      <path class="ln" d="M660 308V339" marker-end="url(#f3a)"/><text class="l" x="670" y="328">是</text>
+      <rect class="b" x="560" y="340" width="200" height="52" rx="10"/><text class="t" x="660" y="362">顯示快取內容</text><text class="s" x="660" y="380">提示：離線中和上次更新時間</text>
+      <path class="ln" d="M760 272H796V446H761" marker-end="url(#f3a)"/><text class="l m" x="778" y="264">否</text>
+      <rect class="b" x="560" y="420" width="200" height="52" rx="10"/><text class="t" x="660" y="442">空白狀態（S10）</text><text class="s" x="660" y="460">顯示「重試」按鈕</text>
+    </svg>
+    </div>
+    <figcaption><span class="id">F3</span>打開 App 時怎麼取得內容。原則是先讓讀者看到東西，再去更新。另外，每次讀到 index.json 都會比對版本：App 低於網站指定的最低版本時，加上「有新版 App，請更新」的提示。</figcaption>
+  </figure>
+
+  <figure class="fig" id="f4">
+    <div class="scroll">
+    <svg class="dg" viewBox="0 0 980 400" role="img" aria-label="點一篇文章的流程：深度分析進詳情頁，影片進有播放器的詳情頁，其他文章直接用 App 內的 Safari 畫面開原文；播放器不能播時也改開影片頁面">
+      <defs><marker id="f4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="b" x="16" y="176" width="124" height="52" rx="26"/><text class="t" x="78" y="198">點一篇文章</text><text class="s" x="78" y="216">列表、收藏、Widget</text>
+      <path class="ln" d="M140 202H175" marker-end="url(#f4a)"/>
+      <polygon class="dm" points="250,166 324,202 250,238 176,202"/><text class="t" x="250" y="207">哪一種？</text>
+
+      <path class="ln" d="M250 166V70H359" marker-end="url(#f4a)"/><text class="l" x="258" y="122">深度分析</text>
+      <rect class="b" x="360" y="44" width="170" height="52" rx="10"/><text class="t" x="445" y="66">詳情頁（S3）</text><text class="s" x="445" y="84">重點、反思問題、延伸閱讀</text>
+      <path class="ln" d="M530 70H799" marker-end="url(#f4a)"/><text class="l m" x="665" y="62">按「閱讀原文」或延伸閱讀</text>
+
+      <path class="ln" d="M324 202H359" marker-end="url(#f4a)"/><text class="l m" x="341" y="194">影片</text>
+      <rect class="b" x="360" y="176" width="170" height="52" rx="10"/><text class="t" x="445" y="198">詳情頁（S4）</text><text class="s" x="445" y="216">上方是 YouTube 播放器</text>
+      <path class="ln" d="M530 202H549" marker-end="url(#f4a)"/>
+      <polygon class="dm" points="630,166 710,202 630,238 550,202"/><text class="t" x="630" y="207">播放器能播？</text>
+      <path class="ln" d="M630 238V269" marker-end="url(#f4a)"/><text class="l" x="640" y="258">是</text>
+      <rect class="b" x="550" y="270" width="160" height="44" rx="10"/><text class="t" x="630" y="297">在這一頁播放</text>
+      <path class="ln" d="M710 202H799" marker-end="url(#f4a)"/><text class="l m" x="755" y="194">否</text><text class="s" x="755" y="219">改開影片頁面</text>
+
+      <path class="ln" d="M250 238V340H799" marker-end="url(#f4a)"/><text class="l m" x="525" y="332">其他文章：摘要已經在列表上</text>
+
+      <rect class="ba" x="800" y="30" width="164" height="350" rx="12"/><text class="t" x="882" y="196">App 內的 Safari 畫面</text><text class="s" x="882" y="214">S5</text><text class="s" x="882" y="230">預設用閱讀器模式</text>
+    </svg>
+    </div>
+    <figcaption><span class="id">F4</span>點一篇文章之後去哪裡。三條路最後都只會到 App 內的畫面。打開詳情頁或原文時，文章自動標為已讀。iPhone Duo 展開時，三種文章都先顯示在右欄（<a href="#r15">R15</a>）。</figcaption>
+  </figure>
+
+  <figure class="fig" id="f5">
+    <div class="scroll">
+    <svg class="dg" viewBox="0 0 980 260" role="img" aria-label="開啟每日提醒的流程：已經允許通知就直接排定；還沒問過就由系統詢問；被拒絕時開關回到關閉並用文字說明">
+      <defs><marker id="f5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="b" x="16" y="84" width="150" height="52" rx="26"/><text class="t" x="91" y="106">打開「每日提醒」</text><text class="s" x="91" y="124">設定頁的開關</text>
+      <path class="ln" d="M166 110H185" marker-end="url(#f5a)"/>
+      <polygon class="dm" points="270,72 354,110 270,148 186,110"/><text class="t" x="270" y="115">通知權限？</text>
+      <path class="ln" d="M354 110H419" marker-end="url(#f5a)"/><text class="l m" x="387" y="102">還沒問過</text>
+      <rect class="b" x="420" y="84" width="150" height="52" rx="10"/><text class="t" x="495" y="106">系統詢問通知權限</text><text class="s" x="495" y="124">只會問這一次</text>
+      <path class="ln" d="M570 110H595" marker-end="url(#f5a)"/>
+      <polygon class="dm" points="650,74 704,110 650,146 596,110"/><text class="t" x="650" y="115">允許？</text>
+      <path class="ln" d="M704 110H769" marker-end="url(#f5a)"/><text class="l m" x="737" y="102">是</text>
+      <rect class="ba" x="770" y="84" width="194" height="52" rx="10"/><text class="t" x="867" y="106">排定每天的本機通知</text><text class="s" x="867" y="124">預設 09:30，可以改</text>
+      <path class="ln" d="M270 72V30H867V83" marker-end="url(#f5a)"/><text class="l m" x="560" y="22">已經允許</text>
+      <path class="ln" d="M270 148V214H439" marker-end="url(#f5a)"/><text class="l" x="278" y="190">之前拒絕過</text>
+      <path class="ln" d="M650 146V187" marker-end="url(#f5a)"/><text class="l" x="660" y="172">否</text>
+      <rect class="b" x="440" y="188" width="260" height="52" rx="10"/><text class="t" x="570" y="210">開關回到關閉</text><text class="s" x="570" y="228">文字說明：到 iPhone「設定」打開通知</text>
+      <path class="ln" d="M867 136V187" marker-end="url(#f5a)"/>
+      <rect class="b" x="770" y="188" width="194" height="52" rx="10"/><text class="t" x="867" y="210">時間到：跳出通知</text><text class="s" x="867" y="228">點了打開 App 的「今天」</text>
+    </svg>
+    </div>
+    <figcaption><span class="id">F5</span>開啟每日提醒。權限被拒絕時只用文字說明，不放會跳到「設定」App 的按鈕（見決定 <a href="#d12">D12</a>）。</figcaption>
+  </figure>
+
+  <figure class="fig" id="f7">
+    <div class="scroll">
+    <svg class="dg" viewBox="0 0 980 312" role="img" aria-label="iPhone Duo 開闔時畫面怎麼接續：在看列表時展開，左邊是同一個列表，右邊自動顯示第一篇，闔上回到列表；在看文章時展開，左邊列表標出那一篇，右邊是同一篇，闔上停在那一篇">
+      <defs><marker id="f7a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <text class="g" x="16" y="95">在看列表</text>
+      <text class="g" x="16" y="245">在看文章</text>
+      <text class="g" x="215" y="22" text-anchor="middle">闔上</text>
+      <text class="g" x="632" y="22" text-anchor="middle">展開</text>
+
+      <rect class="ba" x="180" y="39" width="70" height="102" rx="8"/><text class="t" x="215" y="95">列表</text>
+      <rect class="ba" x="560" y="40" width="144" height="100" rx="8"/><path class="fd" d="M632 40V140"/><text class="t" x="596" y="95">列表</text><text class="t" x="668" y="88">第一篇</text><text class="s" x="668" y="104">自動顯示</text>
+      <path class="ln" d="M250 75H559" marker-end="url(#f7a)"/><text class="l m" x="405" y="67">展開：同一個分類，同一個位置</text>
+      <path class="ln" d="M560 105H251" marker-end="url(#f7a)"/><text class="l m" x="405" y="123">闔上：回到列表</text>
+      <text class="l" x="724" y="88">自動顯示的那一篇</text><text class="l" x="724" y="104">不算已讀</text>
+
+      <path class="ln" d="M215 141V188" marker-end="url(#f7a)"/><text class="l" x="223" y="169">點一篇文章</text>
+      <path class="ln" d="M668 140V189" marker-end="url(#f7a)"/><text class="l" x="676" y="169">點左邊的文章</text>
+
+      <rect class="ba" x="180" y="189" width="70" height="102" rx="8"/><text class="t" x="215" y="245">文章</text>
+      <rect class="ba" x="560" y="190" width="144" height="100" rx="8"/><path class="fd" d="M632 190V290"/><text class="t" x="596" y="238">列表</text><text class="s" x="596" y="254">標出這一篇</text><text class="t" x="668" y="245">文章</text>
+      <path class="ln" d="M250 225H559" marker-end="url(#f7a)"/><text class="l m" x="405" y="217">展開：同一篇，讀到哪裡就在哪裡</text>
+      <path class="ln" d="M560 255H251" marker-end="url(#f7a)"/><text class="l m" x="405" y="273">闔上：停在這一篇，按返回回到列表</text>
+    </svg>
+    </div>
+    <figcaption><span class="id">F7</span>iPhone Duo 開闔時畫面怎麼接續。原則是讀者正在看的東西不會不見：分類、捲動位置、正在看的文章都保留。App 內的 Safari 畫面開著的時候開闔，原文留在原地，只是畫面變大或變小。</figcaption>
+  </figure>
+</section>
+
+<section class="sec" id="rules">
+  <h2><span class="no">6</span>功能規則</h2>
+  <p>每一條都是實作和驗收的依據。左邊標出對應的畫面和流程。</p>
+  <div class="rows">
+
+    <div class="rule" id="r1">
+      <div><h3><span class="id">R1</span>今天與分類</h3><p class="see">S1、S2、S11、F3</p></div>
+      <ul>
+        <li>顯示最新一天的摘要。「今天」一律用台北時間判斷。</li>
+        <li>四個分類的順序和名稱跟網站一樣：AI 開發方式、AI 產業動態、iOS / Apple、金融與虛擬資產。</li>
+        <li>每個分類標出篇數。0 篇的分類照樣顯示在原本的位置，用虛線框，點進去寫「今天沒有」。</li>
+        <li>切換分類用點的。不用左右滑整頁來切換，因為左右滑留給卡片的手勢。</li>
+        <li>預設分類：從「AI 開發方式」開始，選第一個有文章的。</li>
+        <li>最新一天不是今天時，提示「今天的摘要還沒出來，這是 M月D日 的內容」。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r2">
+      <div><h3><span class="id">R2</span>文章列表</h3><p class="see">S1、S2、S9、S18、F4</p></div>
+      <ul>
+        <li>每篇文章是一張卡片。「AI 開發方式」先列深度分析，再列其他文章。</li>
+        <li>每篇顯示標題、來源、原文日期、摘要。沒有摘要的文章只顯示標題和來源，不留空行。</li>
+        <li>影片要標示「影片」。</li>
+        <li>點擊：深度分析和影片進詳情頁，其他文章直接開原文。iPhone Duo 展開時的做法見 R15。</li>
+        <li>卡片右上角有書籤按鈕，點了收藏或取消收藏。長按和滑動的手勢見 R17。</li>
+        <li>往下拉可以重新整理。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r3">
+      <div><h3><span class="id">R3</span>詳情頁</h3><p class="see">S3、S4</p></div>
+      <ul>
+        <li>內容順序：標題、來源和日期、一句話摘要、重點（3–5 條）、想一想（2–3 條，就是反思問題）、延伸閱讀（0–5 條）。細節見 R19。</li>
+        <li>延伸閱讀有連結的，在 App 內的 Safari 畫面打開。沒附連結的標示「文中提到，未附連結」。</li>
+        <li>工具列有收藏和分享。底部固定一個按鈕：文章是「閱讀原文」，影片是「開啟影片頁面」。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r4">
+      <div><h3><span class="id">R4</span>影片</h3><p class="see">S4、F4</p></div>
+      <ul>
+        <li>YouTube 影片用官方的嵌入播放器，在詳情頁上方播放。不自己抓影片串流。</li>
+        <li>影片作者禁止嵌入，或播放器載入失敗時，改用 App 內的 Safari 畫面開影片頁面。</li>
+        <li>播放器裡的連結（YouTube 標誌、影片標題等）由 App 攔下來，改在 App 內的 Safari 畫面打開。</li>
+        <li>哪些網址算影片由網站判斷，App 不自己解析網址。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r5">
+      <div><h3><span class="id">R5</span>閱讀原文</h3><p class="see">S5</p></div>
+      <ul>
+        <li>用 iOS 內建的 App 內 Safari 畫面（SFSafariViewController）。保留閱讀器模式，也會套用讀者裝的廣告阻擋器。</li>
+        <li>預設用閱讀器模式，可以在設定關掉。</li>
+        <li>讀者自己按系統的「用 Safari 開啟」，或點網頁上的「在 App 中打開」，算他自己選擇離開，不攔。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r6">
+      <div><h3><span class="id">R6</span>收藏</h3><p class="see">S7</p></div>
+      <ul>
+        <li>任何文章都能收藏。收藏時把整篇資料存一份在手機上，包括摘要、重點、反思問題、延伸閱讀。</li>
+        <li>收藏頁依收藏時間排列，滑動可以刪除。</li>
+        <li>收藏不會過期，不受 30 天快取的限制。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r7">
+      <div><h3><span class="id">R7</span>已讀</h3><p class="see">S2、S9</p></div>
+      <ul>
+        <li>打開詳情頁或原文時自動標為已讀。也可以手動標為已讀或未讀。</li>
+        <li>已讀的文章在列表上變淡，沒有藍點。</li>
+        <li>已讀紀錄保留 90 天，之後自動清掉。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r8">
+      <div><h3><span class="id">R8</span>過去</h3><p class="see">S6</p></div>
+      <ul>
+        <li>列出所有日期和各分類篇數，由新到舊。</li>
+        <li>點某一天，版面和操作都跟「今天」相同。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r9">
+      <div><h3><span class="id">R9</span>每日提醒</h3><p class="see">S8、S13、F5</p></div>
+      <ul>
+        <li>一個開關加一個時間。預設關閉，預設時間 09:30。</li>
+        <li>打開開關時才詢問通知權限。</li>
+        <li>通知由手機自己排程，不經過伺服器。文字固定是「看看今天的資訊摘要」。</li>
+        <li>權限被拒絕時，開關回到關閉，用文字說明要到 iPhone 的「設定」打開通知。</li>
+        <li>點通知會打開 App 的「今天」。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r10">
+      <div><h3><span class="id">R10</span>Widget</h3><p class="see">S12</p></div>
+      <ul>
+        <li>小尺寸：日期和四類的篇數。</li>
+        <li>中尺寸：今天第一篇深度分析的標題和一句話摘要。沒有深度分析時，改顯示「AI 產業動態」的第一篇。</li>
+        <li>點 Widget 會打開 App，直接到那篇文章或「今天」。</li>
+        <li>Widget 自己會連網更新。連不上時，讀 App 存下的快取。</li>
+        <li>iPhone Duo 沿用同樣的小、中兩種尺寸。第一版不做更大的尺寸。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r11">
+      <div><h3><span class="id">R11</span>設定與關於</h3><p class="see">S8</p></div>
+      <ul>
+        <li>設定項目：內文字級、用閱讀器模式開原文、每日提醒、提醒時間。提醒關閉時，提醒時間不能點。</li>
+        <li>「關於」說明：摘要由 AI 整理，可能有錯，以原文為準；金融相關內容只是新聞摘要，不構成投資建議。</li>
+        <li>另外列出資料來源、隱私權政策、聯絡方式、版本號。</li>
+        <li>這些頁面裡的連結都在 App 內打開。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r12">
+      <div><h3><span class="id">R12</span>離線與快取</h3><p class="see">S10、S11、F3</p></div>
+      <ul>
+        <li>每次讀到的資料都存進手機，App 和 Widget 共用。保留最近 30 天。</li>
+        <li>連不上網時顯示快取，並提示「離線中，顯示 M/D HH:mm 更新的內容」。</li>
+        <li>完全沒有快取時，顯示空白狀態和「重試」按鈕。</li>
+        <li>更新時機：打開 App 時；從背景回到 App、距上次更新超過 15 分鐘時；往下拉時。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r13">
+      <div><h3><span class="id">R13</span>版本相容與更新提示</h3><p class="see">S11、§7</p></div>
+      <ul>
+        <li>App 會忽略不認得的欄位。不認得的分類用網站給的名稱顯示。</li>
+        <li>App 版本低於網站指定的最低版本時，照樣盡量顯示內容，另外提示「有新版 App，請更新」。</li>
+        <li>點提示會在 App 內顯示 App Store 的頁面，不跳到 App Store App。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r14">
+      <div><h3><span class="id">R14</span>外觀與無障礙</h3><p class="see">全部畫面</p></div>
+      <ul>
+        <li>使用系統元件和 iOS 26 的預設外觀。主色沿用網站的藍色（淺色 <code>#3B5BDB</code>、深色 <code>#8AA0F2</code>）。</li>
+        <li>支援深色模式和 Dynamic Type。最大字級時文字不截斷。</li>
+        <li>VoiceOver 會唸出「未讀」「影片」「深度分析」。</li>
+        <li>介面只有繁體中文。原文標題保留原文。</li>
+      </ul>
+    </div>
+
+  
+    <div class="rule" id="r17">
+      <div><h3><span class="id">R17</span>手勢</h3><p class="see">S9、S18</p></div>
+      <ul>
+        <li>往右滑卡片：標為已讀。已讀的文章則是標為未讀。</li>
+        <li>往左滑卡片：收藏和分享。已經收藏的文章顯示「取消收藏」。在「收藏」分頁，往左滑是移除收藏。</li>
+        <li>滑到底會直接執行第一個動作（已讀，或收藏）。滑一半則停住，顯示按鈕。</li>
+        <li>長按卡片：出現選單，有收藏、分享、標為已讀或未讀。</li>
+        <li>手勢不是唯一的做法。卡片上有書籤按鈕，VoiceOver 的動作選單也有同樣的項目。</li>
+        <li>適用的地方：今天、過去的某一天、收藏，以及 iPhone Duo 展開時的左欄。</li>
+        <li>從「過去」點進某一天的畫面，往右滑可能跟系統的返回手勢相衝，要在模擬器上確認。有衝突的話，那個畫面的已讀改放到往左滑的按鈕裡。</li>
+      </ul>
+    </div>
+
+  
+    <div class="rule" id="r18">
+      <div><h3><span class="id">R18</span>今天的進度和下一類</h3><p class="see">S1</p></div>
+      <ul>
+        <li>導覽列右邊顯示當天的閱讀進度：已讀幾篇、一共幾篇，四個分類合計。</li>
+        <li>看「過去」的某一天時，顯示的是那一天的進度。</li>
+        <li>導覽列的副標題（在大標題下面）顯示日期、當天的篇數和更新時間。</li>
+        <li>捲到一個分類的底部，顯示「這一類看完了」和下一個有文章的分類，點了切換過去。最後一個有文章的分類不顯示。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r19">
+      <div><h3><span class="id">R19</span>閱讀頁</h3><p class="see">S3、S4</p></div>
+      <ul>
+        <li>導覽列下面有閱讀進度條，跟著捲動位置走。</li>
+        <li>內容的順序不變。「反思問題」在畫面上改叫「想一想」，資料的欄位名稱不變。</li>
+        <li>重點用 01、02 這樣編號，想一想用 Q1、Q2 編號。</li>
+        <li>文末有「下一篇」：同一天、同一個分類裡排在後面的那一篇。這一類的最後一篇不顯示。</li>
+        <li>影片頁的摘要區塊叫「這支影片在講什麼」，底部按鈕用次要樣式。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r20">
+      <div><h3><span class="id">R20</span>內文字級</h3><p class="see">S3、S8</p></div>
+      <ul>
+        <li>四級：小、標準、大、特大。預設是「標準」。</li>
+        <li>閱讀頁的 Aa 和「設定」都能改，兩邊是同一個設定。設定頁有即時預覽。</li>
+        <li>只影響文章內容：摘要、重點、想一想、延伸閱讀。列表、導覽列、分頁列不受影響。</li>
+        <li>跟系統的字級並存：「標準」就是系統目前的字級，其他三級是在系統字級上往下一級、往上一級、往上兩級。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r21">
+      <div><h3><span class="id">R21</span>收藏的篩選</h3><p class="see">S7</p></div>
+      <ul>
+        <li>可以篩選：全部、深度、影片、文章，各標出篇數。預設是「全部」。</li>
+        <li>每張卡標出種類、來源、「已存在手機」和收藏的時間。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r22">
+      <div><h3><span class="id">R22</span>過去的比例和異常標示</h3><p class="see">S6</p></div>
+      <ul>
+        <li>每天一列：日期、總篇數、四類的比例色條、各類幾篇。上方有四類的顏色圖例。</li>
+        <li>依週分組：這一週、上一週，更早的用日期範圍當標題。</li>
+        <li>不顯示「數量異常」之類的標示（D29）。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r23">
+      <div><h3><span class="id">R23</span>全部用系統原生元件</h3><p class="see">全部畫面、<a href="#native">對照表</a></p></div>
+      <ul>
+        <li>分頁列、導覽列、導覽列上的按鈕、標題、副標題、清單、按鈕、開關、滑桿、選單、進度條、分享面板、空白狀態，都用系統元件，不自己畫。</li>
+        <li>樣子以系統為準。畫面稿跟系統元件不一樣的地方，照系統的。</li>
+        <li>唯一的例外是分類標籤，照畫布客製（D26）。</li>
+        <li>顏色用系統的語意色，藍色設成 App 的強調色。字體用系統的文字樣式，圖示用 SF Symbols。</li>
+        <li>可以點的東西，點擊範圍至少 44 pt。文字和底色的對比至少 4.5:1。</li>
+      </ul>
+    </div>
+
+  </div>
+  <h3>iPhone Duo 的規則</h3>
+  <div class="rows">
+
+    <div class="rule" id="r15">
+      <div><h3><span class="id">R15</span>iPhone Duo 的版面</h3><p class="see">S14–S17、F6</p></div>
+      <ul>
+        <li>版面看可用的寬度決定，不看機型，也不看方向。寬度夠放兩欄（大約 700 pt 以上）就用兩欄，不夠就用單欄。</li>
+        <li>闔上：單欄，畫面和操作跟一般 iPhone 相同。</li>
+        <li>展開：兩欄，左邊列表、右邊文章，在摺線分開。按鈕和文字不跨過摺線。</li>
+        <li>展開時，每一種文章都顯示在右邊。深度分析和影片的內容跟詳情頁相同；一般文章顯示標題、完整摘要和「閱讀原文」。</li>
+        <li>剛展開、還沒點文章時，右邊自動顯示目前分類的第一篇。</li>
+        <li>「過去」展開時：左邊先選日期，再選文章，右邊顯示文章。「收藏」：左邊清單，右邊文章。「設定」：單欄，置中。</li>
+        <li>展開後轉成直的，或跟另一個 App 並排時，用單欄。單欄在比較寬的畫面上，內文置中，最寬 640 pt。</li>
+        <li>半開或立起來時，版面跟展開相同。</li>
+        <li>支援所有方向，一般 iPhone 橫拿也可以用。</li>
+        <li>時間、鏡頭、工具列按鈕和分頁的位置由系統決定。App 用標準元件，不自己畫。</li>
+      </ul>
+    </div>
+
+    <div class="rule" id="r16">
+      <div><h3><span class="id">R16</span>開闔時的接續</h3><p class="see">F7</p></div>
+      <ul>
+        <li>開闔時 App 不重啟，也不回到第一個畫面。分類、捲動位置、正在看的文章都保留。</li>
+        <li>在列表時展開：左邊是同一個列表，右邊自動顯示第一篇。</li>
+        <li>在看文章時展開：左邊列表標出那一篇，右邊是同一篇，讀到哪裡就在哪裡。</li>
+        <li>闔上時，右邊是讀者自己點開的文章：顯示那一篇，按返回回到列表。</li>
+        <li>闔上時，右邊是自動顯示的那一篇，而且沒碰過：顯示列表。</li>
+        <li>自動顯示的那一篇不算已讀。讀者點了它，或捲動了右邊的內容，才算已讀。</li>
+        <li>App 內的 Safari 畫面、選單、分享面板開著時開闔：留在原地，由系統調整大小。</li>
+        <li>影片播放中開闔：目標是不中斷。做不到的話，至少停在同一支影片。</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<section class="sec" id="data">
+  <h2><span class="no">7</span>資料格式</h2>
+  <p>網站每天部署時，從同一份摘要資料多輸出兩種 JSON，放在 <code>/digest/api/v1/</code> 底下。App 只讀這兩種檔案。</p>
+  <h3>索引：<code>/digest/api/v1/index.json</code></h3>
+<pre><code>{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-18T09:03:00+08:00",
+  "minimumAppVersion": "1.0",
+  "categories": [
+    { "id": "dev", "label": "AI 開發方式" },
+    { "id": "industry", "label": "AI 產業動態" },
+    { "id": "apple", "label": "iOS / Apple" },
+    { "id": "finance", "label": "金融與虛擬資產" }
+  ],
+  "days": [
+    { "date": "2026-11-18", "total": 15,
+      "counts": { "dev": 2, "industry": 12, "apple": 0, "finance": 1 } }
+  ]
+}</code></pre>
+  <h3>某一天：<code>/digest/api/v1/2026-11-18.json</code></h3>
+<pre><code>{
+  "schemaVersion": 1,
+  "date": "2026-11-18",
+  "items": [
+    {
+      "id": "3f9c0a1b2c3d4e5f",
+      "category": "dev",
+      "title": "Running the full server-side Datasette Python app in the browser…",
+      "url": "https://simonwillison.net/2026/Nov/17/datasette-lite/",
+      "source": "Simon Willison",
+      "publishedOn": "2026-11-17",
+      "summary": "一兩句摘要",
+      "deep": true,
+      "points": ["…"],
+      "questions": ["…"],
+      "further": [{ "title": "Datasette Lite", "url": "https://lite.datasette.io/", "note": "…" }],
+      "video": null
+    }
+  ]
+}</code></pre>
+  <div class="tw"><table>
+    <thead><tr><th>欄位</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td><code>id</code></td><td>網址的 SHA-256 前 16 碼。同一篇文章在不同天的 id 都一樣，收藏和已讀靠它辨認。</td></tr>
+      <tr><td><code>category</code></td><td><code>dev</code>、<code>industry</code>、<code>apple</code>、<code>finance</code> 其中之一。</td></tr>
+      <tr><td><code>publishedOn</code></td><td>原文日期，可能是 <code>null</code>。</td></tr>
+      <tr><td><code>summary</code></td><td>一兩句摘要。<code>null</code> 代表那篇沒有分析，App 只顯示標題。</td></tr>
+      <tr><td><code>deep</code></td><td>是不是深度分析。<code>true</code> 時才有 <code>points</code>、<code>questions</code>、<code>further</code>。</td></tr>
+      <tr><td><code>further[].url</code></td><td>可能沒有，代表文中有提到但沒附連結。</td></tr>
+      <tr><td><code>video</code></td><td>YouTube 影片是 <code>{ "provider": "youtube", "id": "…" }</code>，其他是 <code>null</code>。</td></tr>
+      <tr><td><code>days</code></td><td>所有日期，由新到舊。被剔除的文章和不是 http(s) 的網址不會輸出，跟網頁一致。</td></tr>
+    </tbody>
+  </table></div>
+  <h3>格式之後要改的時候</h3>
+  <p>上架後，舊版 App 會在讀者手機上留很久，所以格式的改法要先講好。</p>
+  <div class="tw"><table>
+    <thead><tr><th>情況</th><th>網站怎麼做</th><th>已經裝好的 App 怎麼反應</th></tr></thead>
+    <tbody>
+      <tr><td>只加欄位</td><td><code>schemaVersion</code> 不變</td><td>忽略不認得的欄位</td></tr>
+      <tr><td>多一個分類</td><td><code>categories</code> 加一筆</td><td>用 <code>categories</code> 裡的名稱顯示</td></tr>
+      <tr><td>刪除欄位，或改變意思</td><td>開新路徑 <code>/digest/api/v2/</code>，<code>v1</code> 繼續產生一段時間</td><td>舊版照常讀 <code>v1</code></td></tr>
+      <tr><td>要停掉 <code>v1</code></td><td>先把 <code>v1</code> 的 <code>minimumAppVersion</code> 調高，等一段時間再停</td><td>版本太舊的 App 提示更新</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sec" id="site">
+  <h2><span class="no">8</span>網站要加的東西</h2>
+  <ul>
+    <li><b>JSON 輸出：</b>產生摘要網頁的同一支腳本，一起輸出 §7 的 JSON。檔案放在 <code>public/digest/</code> 底下，所以每天的排程會自動 commit 和部署，排程不用改。</li>
+    <li><b>測試：</b>用 <code>node --test</code> 驗證 §7 的每一條規則，並用 11/18 的真實資料產生一份範例檔，App 的測試也會用它。</li>
+    <li><b>隱私權政策 <code>/app/privacy</code>：</b>App 不收集個人資料、沒有帳號、不追蹤；只連到 willy-notes.pages.dev 取得摘要；每日提醒是本機通知；影片用 YouTube 的播放器，YouTube 可能依它自己的政策收集資料。</li>
+    <li><b>支援頁 <code>/app/support</code>：</b>聯絡 email（<code>willy.xcoder@gmail.com</code>），以及常見問題（X 要登入、影片不能播、內容沒更新）。</li>
+  </ul>
+  <p class="note">網站現有的頁面都不改。</p>
+</section>
+
+<section class="sec" id="tech">
+  <h2><span class="no">9</span>技術</h2>
+  <ul>
+    <li><b>平台：</b>iPhone，包含 iPhone Duo。最低 iOS 26。</li>
+    <li><b>建置工具：</b>用 Xcode 27.1 和 iOS 27.1 SDK。iPhone Duo 要用這一版建置才會滿版，Duo 模擬器也在這一版。這台 Mac 已經裝好了。只有 iOS 27.1 才有的功能要先判斷系統版本，舊系統上略過。</li>
+    <li><b>版面：</b>跟著可用寬度伸縮，不判斷機型，也不判斷方向。</li>
+    <li><b>語言和框架：</b>Swift 6，SwiftUI、SwiftData、WidgetKit、SafariServices、WebKit、UserNotifications、StoreKit。不用第三方套件。</li>
+    <li><b>位置：</b>放在 willy-notes repo 的 <code>ios/</code> 資料夾。開發都在 worktree 進行，主資料夾留在 <code>main</code>，不會擋到每天 09:00 的部署。</li>
+    <li><b>資料來源：</b>固定讀 <code>https://willy-notes.pages.dev/digest/api/v1/</code>。</li>
+    <li><b>儲存：</b>快取放在 App 和 Widget 共用的資料夾；收藏和已讀用 SwiftData。</li>
+    <li><b>隱私清單檔（PrivacyInfo.xcprivacy）：</b>App 和 Widget 都要附。寫明用到的、Apple 要求說明理由的系統 API：UserDefaults（存設定）和檔案時間（判斷快取新舊）；並寫明不追蹤、不收集資料。缺這個檔案，送審會被退。</li>
+    <li><b>自動測試：</b>解碼真實範例檔和刻意做的邊界資料（沒有摘要、影片、沒附連結的延伸閱讀、不認得的分類）、預設分類的規則、連不上網時退回快取、已讀紀錄的清理、播放器失敗時的退回判斷。</li>
+    <li><b>人工確認：</b>在模擬器上看淺色、深色、最大字級、離線、今天還沒更新。YouTube 播放要在實機上確認。</li>
+    <li><b>iPhone Duo 的確認：</b>在 Duo 模擬器上跑過闔上直拿、闔上橫拿、展開、展開後轉成直的，以及跟另一個 App 並排。每加一個畫面都要重看一般 iPhone 的版面有沒有被改到。</li>
+  </ul>
+  <p class="note">留給實作決定的：Xcode 專案結構和架構寫法、卡片的細部排版和動畫、快取檔案格式、Widget 的更新頻率、播放器的設定細節。</p>
+</section>
+
+<section class="sec" id="release">
+  <h2><span class="no">10</span>上架</h2>
+  <h3>審查會看的重點</h3>
+  <div class="tw"><table>
+    <thead><tr><th>審查準則</th><th>審查會看什麼</th><th>我們的對策</th></tr></thead>
+    <tbody>
+      <tr><td>4.2 最低功能</td><td>App 是不是只把網站包起來</td><td>內容用原生排版；有離線、收藏、已讀、每日提醒、Widget；完全不用 WebView 顯示自己的網站</td></tr>
+      <tr><td>5.2 智慧財產</td><td>有沒有轉載別人的內容</td><td>只放標題、用自己的話寫的摘要和原文連結；影片用 YouTube 官方播放器；商店描述寫明這是摘要和導讀</td></tr>
+      <tr><td>5.1.1 隱私</td><td>收集哪些資料</td><td>不收集任何資料，隱私標示填「不收集資料」；附隱私權政策；不需要追蹤授權</td></tr>
+      <tr><td>2.1 完整性</td><td>審查時 App 能不能正常使用</td><td>審查期間網站要有內容；備註說明內容每天更新，X 登入不是必要的</td></tr>
+      <tr><td>出口合規</td><td>有沒有用到需要申報的加密</td><td>只用 HTTPS，申報為不使用非豁免加密</td></tr>
+      <tr><td>隱私清單</td><td>用到需要說明理由的系統 API 時，有沒有附隱私清單檔</td><td>App 和 Widget 都附 PrivacyInfo.xcprivacy（見 <a href="#tech">§9</a>）</td></tr>
+    </tbody>
+  </table></div>
+  <h3>App Store 頁面要準備的內容</h3>
+  <p>由我先寫草稿，你修改後定稿。放在第 6 階段（上架準備）做。</p>
+  <div class="tw"><table>
+    <thead><tr><th>項目</th><th>內容</th></tr></thead>
+    <tbody>
+      <tr><td>名稱和副標題</td><td>名稱「日知」（不超過 30 字元）；副標題一句話說明用途</td></tr>
+      <tr><td>描述</td><td>這是什麼、每天幾點更新、有哪些分類、內容是 AI 整理的摘要和導讀、閱讀全文會打開原文網站</td></tr>
+      <tr><td>關鍵字</td><td>100 字元以內，例如 AI、iOS、開發、摘要、新聞</td></tr>
+      <tr><td>類別</td><td>新聞</td></tr>
+      <tr><td>截圖</td><td>6.9 吋 iPhone 必備，其他尺寸由系統縮放。iPhone Duo 要不要另外交，送審前確認</td></tr>
+      <tr><td>網址</td><td>支援網址 <code>/app/support</code>、隱私權政策網址 <code>/app/privacy</code></td></tr>
+      <tr><td>年齡分級</td><td>填 Apple 的問卷，見 <a href="#p7">P7</a></td></tr>
+      <tr><td>App 隱私標示</td><td>不收集資料</td></tr>
+      <tr><td>給審查人員的備註</td><td>內容每天 09:00 更新；不需要帳號；X 的文章要登入 X 才看得到，不是必要功能；摘要是用自己的話寫的導讀</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>流程</h3>
+  <ol class="steps">
+    <li><b>備齊帳號和素材</b>下面的 P1 到 P5。</li>
+    <li><b>TestFlight 內部測試</b>你和同事先裝在自己的手機上用。</li>
+    <li><b>送審</b>附上給審查人員的備註。被退件就照意見修改再送。</li>
+    <li><b>上架</b>通過後公開。</li>
+  </ol>
+  <h3>只有你能準備的事</h3>
+  <div class="rows">
+    <div class="rule" id="p1"><div><h3><span class="id">P1</span>開發者帳號</h3></div><div class="body"><p>加入 Apple Developer Program，每年 US$99。個人帳號在 App Store 上顯示你的本名；組織帳號需要 D-U-N-S 編號，顯示組織名稱。你會在最後提供。</p></div></div>
+    <div class="rule" id="p2"><div><h3><span class="id">P2</span>App 名稱和 Bundle ID<span class="ok-tag">你已提供</span></h3></div><div class="body"><p>名稱定為「日知」。App Store 上的名稱不能跟別人重複，能不能用要到建立 App 時才確定；被用掉的話，改成「日知 · AI 摘要」。</p><p>Bundle ID：<code>com.willywu.jihchih</code>。在 Apple 開發者帳號註冊之後就不能改。</p></div></div>
+    <div class="rule" id="p3"><div><h3><span class="id">P3</span>聯絡用的 email<span class="ok-tag">你已提供</span></h3></div><div class="body"><p><code>willy.xcoder@gmail.com</code>。會公開顯示在支援頁、隱私權政策和 App Store 頁面上。</p></div></div>
+    <div class="rule" id="p4"><div><h3><span class="id">P4</span>上架地區和價格<span class="ok-tag">你已提供</span></h3></div><div class="body"><p>免費。上架全部地區，中國大陸除外（在中國大陸上架需要 ICP 備案，新聞類 App 還有額外的許可）。</p></div></div>
+    <div class="rule" id="p5"><div><h3><span class="id">P5</span>App 圖示</h3></div><div class="body"><p>方向已定：藍底、白色的「日」字，中間一橫用黃色。正式檔案（1024 px，以及淺色、深色、單色的版本）在上架準備階段製作，到時候請你再看一次。</p></div></div>
+    <div class="rule" id="p6"><div><h3><span class="id">P6</span>iPhone Duo 實機</h3></div><div class="body"><p>有的話，送審前請在實機上開闔幾次。模擬器看得出版面，但摺線的手感和 YouTube 播放要實機才準。沒有實機也能上架，只是這兩點沒辦法確認。</p></div></div>
+    <div class="rule" id="p7"><div><h3><span class="id">P7</span>年齡分級的問卷怎麼答</h3></div><div class="body"><p>問卷有一題是「App 有沒有不受限制的網頁瀏覽」。日知用 App 內的 Safari 畫面開原文，讀者可以在裡面一直點連結；答「有」的話，分級可能被拉到最高。</p><p><b>建議</b>送審前照 Apple 當時的說明判斷，我會把兩種答法的結果整理給你選。</p></div></div>
+    <div class="rule" id="p8"><div><h3><span class="id">P8</span>第三方內容授權（審查準則 5.2.2）</h3></div><div class="body"><p>Apple 規定顯示別的網站的內容要有授權，審查時可能要求出示證明。iThome 頁尾寫著「版權所有、轉載必究」，而 AI 產業動態大多來自 iThome。目前的對策是只放標題、用自己的話寫摘要、原文開回原網站。</p><p><b>要你決定</b>先寄信詢問 iThome，還是被審查問到再處理。</p></div></div>
+    <div class="rule" id="p9"><div><h3><span class="id">P9</span>每天的流程要不要搬到雲端</h3></div><div class="body"><p>現在整個流程靠你的 Mac 開著、醒著才會跑。公開上架後，讀者會預期每天都有更新。搬到雲端是另一個專案，要改用 API 產生摘要，也要確認方案條款是否允許。</p><p><b>建議</b>上架前做決定。不搬的話，App 已經會標出「今天的摘要還沒出來」。</p></div></div>
+  </div>
+  <p class="note">這些不影響開工。P2 到 P4 你已經提供；P1 要在 TestFlight 之前備好；P5、P6 在送審前備齊；P7 到 P9 在送審前決定。</p>
+</section>
+
+<section class="sec" id="phases">
+  <h2><span class="no">11</span>開發階段</h2>
+  <p>依這個順序做，每個階段做完都有看得到的成果。</p>
+  <div class="tw"><table>
+    <thead><tr><th>階段</th><th>做什麼</th><th>做完你會看到</th></tr></thead>
+    <tbody>
+      <tr><td>1 網站輸出 JSON</td><td>腳本加上 JSON 輸出和測試，跟著每天的部署上線</td><td>正式站讀得到 <code>/digest/api/v1/index.json</code></td></tr>
+      <tr><td>2 閱讀核心</td><td>今天、分類、文章列表、深度分析詳情頁、開原文、過去。版面從一開始就做成跟著寬度伸縮</td><td>模擬器上讀得到當天的真實內容（S1–S3、S5、S6）</td></tr>
+      <tr><td>3 收藏、已讀、離線</td><td>收藏、已讀、卡片的滑動手勢、快取、狀態提示、設定頁</td><td>開飛航模式還能讀（S7–S11、S18）</td></tr>
+      <tr><td>4 影片、提醒、Widget</td><td>YouTube 播放器和退回、每日提醒、Widget</td><td>影片在 App 內播放，主畫面有 Widget（S4、S12、S13）</td></tr>
+      <tr><td>5 iPhone Duo</td><td>展開時的兩欄版面、開闔時的接續、各種姿態和並排的確認</td><td>Duo 模擬器上開闔自如（S14–S17）</td></tr>
+      <tr><td>6 上架準備</td><td>隱私權政策和支援頁、隱私清單檔、圖示、截圖和 App Store 頁面內容、TestFlight</td><td>你和同事的手機裝得到測試版</td></tr>
+      <tr><td>7 送審上架</td><td>送審，回應審查意見</td><td>App Store 上找得到</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sec" id="limits">
+  <h2><span class="no">12</span>已知限制</h2>
+  <ul>
+    <li><b>內容更新靠你的 Mac。</b>每天的內容由你 Mac 上的排程產生，Claude App 要開著、Mac 要醒著才會跑。排程訂在 09:00，那時候 Mac 如果在睡眠，會等你打開 Mac 才補跑。Claude App 的「工作時保持喚醒」已經打開，排程跑到一半不會再因為閒置而睡著（闔上螢幕還是會睡）；排程也會補寫最近 7 天中斷或漏掉的分析。要不要搬到雲端，見 <a href="#p9">P9</a>。沒跑的那天，App 會顯示最新一天並標出日期。公開上架後，讀者會預期每天都有更新。要改成不靠 Mac，是另一個專案：把整個流程搬到雲端。</li>
+    <li><b>11/14、11/15 的缺漏已修正。</b>11/14 是排程跑到一半 Mac 睡著，分析已補寫。11/15 是 Eugene Yan 改了網址格式，212 篇舊文被當成新文章；收集程式已改成比對網址時忽略斜線和大小寫，也不再列出超過時間範圍的舊文，那 214 篇已剔除。App 這邊仍然要能正常顯示只有標題的文章。</li>
+    <li><b>X 的文章要先登入。</b>讀者要在 App 內的 Safari 畫面登入一次 X 才看得到。</li>
+    <li><b>部分 YouTube 影片不能嵌入。</b>這些影片會改用 App 內的 Safari 畫面打開。</li>
+    <li><b>App 內的 Safari 畫面一定有「用 Safari 開啟」按鈕。</b>這是系統按鈕，拿不掉。</li>
+    <li><b>iPhone Duo 有幾件事還沒確認。</b>App 內的 Safari 畫面在內螢幕的樣子、分頁列在外螢幕的位置、YouTube 播放器開闔時會不會中斷、App Store 要不要另外交 Duo 的截圖，都要等做到那個階段，在模擬器或實機上才看得出來。Apple 的 Duo 設計指引頁這次也讀不到內容。</li>
+    <li><b>畫面稿是用網頁畫的示意圖。</b>玻璃材質、字體、按鈕的實際樣子以系統為準。深色的配色是我依淺色推出來的，實作時改用系統的語意色。</li>
+    <li><b>iPhone Duo 的畫面稿只是示意。</b>右邊直條裡的時間、鏡頭、按鈕和分頁由系統決定怎麼排，實際的樣子可能跟圖上不同。</li>
+  </ul>
+</section>
+
+<section class="sec" id="acceptance">
+  <h2><span class="no">13</span>驗收</h2>
+  <h3>網站</h3>
+  <ul class="check">
+    <li>自動測試全部通過。</li>
+    <li>正式站的 <code>/digest/api/v1/index.json</code> 和最新一天的 JSON 都讀得到。</li>
+  </ul>
+  <h3>App</h3>
+  <ul class="check">
+    <li>打開 App 看到最新一天，能切換四個分類，篇數跟網站一樣。</li>
+    <li>深度分析的詳情頁有一句話摘要、重點、反思問題、延伸閱讀。</li>
+    <li>影片在 App 內播放。不能嵌入的影片會改用 App 內的 Safari 畫面打開。</li>
+    <li>原文和延伸閱讀都在 App 內打開，預設用閱讀器模式。</li>
+    <li>照清單逐一點過我們自己畫面上所有可以點的東西，沒有任何一個會跳到其他 App。清單包括各個畫面、Widget、每日提醒通知、YouTube 播放器裡的連結。</li>
+    <li>開飛航模式時，顯示快取內容和離線提示。</li>
+    <li>收藏和已讀在 App 重開後還在。收藏的文章離線也能打開。</li>
+    <li>往右滑卡片可以標為已讀或未讀，往左滑可以收藏和分享。同樣的事用卡片上的書籤、長按選單和 VoiceOver 的動作選單也做得到。</li>
+    <li>每日提醒會在設定的時間出現，點了打開「今天」。</li>
+    <li>Widget 顯示今天的內容，點了打開對應的文章。</li>
+    <li>最大字級、深色模式、VoiceOver 都正常。</li>
+    <li>分頁列、導覽列、標題、按鈕、清單都是系統元件，程式裡沒有自己畫的分頁列或導覽列。</li>
+    <li>內文字級四級都能切換，閱讀頁和設定頁顯示同一個設定。系統字級調到最大時，文字不截斷。</li>
+    <li>進度圓環的數字正確；分類底部的「下一類」和文末的「下一篇」點了會到對的地方；收藏的篩選結果正確。</li>
+    <li>TestFlight 版本可以裝在實機上。</li>
+    <li>App 和 Widget 都附有隱私清單檔，列出用到的系統 API 和理由。</li>
+    <li>App Store 頁面的內容和截圖都已備齊，你確認過。</li>
+  </ul>
+  <h3>iPhone Duo</h3>
+  <ul class="check">
+    <li>在 Duo 模擬器上，闔上直拿、闔上橫拿、展開、展開後轉成直的都能正常使用，沒有被切掉或疊在一起的內容。</li>
+    <li>展開時是兩欄，摺線上沒有按鈕或文字。</li>
+    <li>開闔時，分類、捲動位置、正在看的文章都保留。</li>
+    <li>跟另一個 App 並排時能正常使用。</li>
+    <li>一般 iPhone 上的畫面，跟加入 Duo 之前一樣。</li>
+  </ul>
+</section>
+
+<section class="sec" id="decisions">
+  <h2><span class="no">14</span>決定</h2>
+  <p>這些決定你已經在 2026-11-18 全部確認，D29 照建議改成不顯示標示。之後想改，講編號就可以。</p>
+  <div class="rows">
+
+    <div class="rule" id="d1"><div><h3><span class="id">D1</span>一般文章不進詳情頁，直接開原文<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>摘要已經在列表上，多一頁只是多點一下。深度分析和影片才有詳情頁。iPhone Duo 展開時例外，見 D15。</p>
+      <p><b>改掉的話</b>每篇都有詳情頁，導覽和標為已讀的時機要跟著改。</p></div></div>
+
+    <div class="rule" id="d2"><div><h3><span class="id">D2</span>第一版就做 Widget 和每日提醒<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>公開上架要避免被當成套殼（4.2），這兩樣也最貼近早上打開來看的習慣。伺服器推播要多架一個服務，放到之後。</p>
+      <p><b>改掉的話</b>Widget 大約占 App 工作量的四分之一。拿掉可以早一點上架，但原生功能少一項。</p></div></div>
+
+    <div class="rule" id="d3"><div><h3><span class="id">D3</span>第一版不做搜尋和 iCloud 同步<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>這兩項之後可以加，不影響第一次審查。</p>
+      <p><b>改掉的話</b>各自多一塊工作。iCloud 同步還要在隱私說明多寫一段。</p></div></div>
+
+    <div class="rule" id="d4"><div><h3><span class="id">D4</span>只做 iPhone，最低 iOS 26<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>影片播放器用的 SwiftUI WebView 從 iOS 26 才有。只做 iPhone 就不用準備 iPad 的截圖。iPhone Duo 也是 iPhone，包含在內。</p>
+      <p><b>改掉的話</b>支援更舊的 iOS 要多寫一層相容程式。iPad 的版面可以沿用 Duo 展開時的兩欄，比原本容易，但還是要另外確認和準備截圖。</p></div></div>
+
+    <div class="rule" id="d5"><div><h3><span class="id">D5</span>App 放在 willy-notes repo 的 <code>ios/</code><span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>資料格式和 App 要一起改，測試資料也能共用。開發都在 worktree 做，不會擋到每天的部署。</p>
+      <p><b>改掉的話</b>另開一個 repo 也可以，範例資料要多一步同步。</p></div></div>
+
+    <div class="rule" id="d6"><div><h3><span class="id">D6</span>JSON 路徑帶版本號，由網站判斷哪些是影片<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>上架後舊版 App 會留很久，路徑帶 <code>v1</code> 才能安全地改格式。判斷規則放在網站，App 和 Widget 就不會各寫一套。</p>
+      <p><b>改掉的話</b>之後改格式的風險比較高。</p></div></div>
+
+    <div class="rule" id="d7"><div><h3><span class="id">D7</span>每日提醒預設關閉，文字不寫「已更新」<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>App 不知道當天有沒有更新，寫「已更新」可能是錯的。預設關閉是因為通知應該由讀者自己決定要不要。</p>
+      <p><b>改掉的話</b>要準確地說「已更新」，就需要伺服器推播。</p></div></div>
+
+    <div class="rule" id="d8"><div><h3><span class="id">D8</span>「關於」註明 AI 整理和「不構成投資建議」<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>對讀者透明，也降低審查的疑慮。</p>
+      <p><b>改掉的話</b>審查時金融內容可能被多問幾句。</p></div></div>
+
+    <div class="rule" id="d9"><div><h3><span class="id">D9</span>用「最低版本」通知舊版 App 更新<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>已經裝在手機上的 App 只看得懂 1.0 內建的訊號，所以這個欄位第一版就要有。</p>
+      <p><b>改掉的話</b>之後沒有辦法通知舊版 App 的讀者更新。</p></div></div>
+
+    <div class="rule" id="d10"><div><h3><span class="id">D10</span>「今天」用台北時間判斷<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>摘要是台北時間早上產生的。</p>
+      <p><b>改掉的話</b>用手機當地時間的話，在其他時區的讀者會常常看到「今天還沒出來」。</p></div></div>
+
+    <div class="rule" id="d11"><div><h3><span class="id">D11</span>YouTube 播放器裡的連結改在 App 內打開<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>播放器是我們自己的畫面，符合你說的「只管我們的按鈕」。</p>
+      <p><b>改掉的話</b>點播放器上的 YouTube 標誌會跳到 YouTube App。</p></div></div>
+
+    <div class="rule" id="d12"><div><h3><span class="id">D12</span>通知權限被拒絕時只用文字說明<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>一般的做法是放一個「前往設定」按鈕，但它會跳到「設定」App，不符合留在 App 內。</p>
+      <p><b>改掉的話</b>放按鈕對讀者比較方便，代價是這個按鈕會離開 App。</p></div></div>
+
+    <div class="rule" id="d13"><div><h3><span class="id">D13</span>介面只有繁體中文<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>內容本身就是中文摘要。</p>
+      <p><b>改掉的話</b>加英文介面的工作量不大，但摘要仍然是中文。</p></div></div>
+
+    <div class="rule" id="d14"><div><h3><span class="id">D14</span>更新提示在 App 內顯示 App Store 頁面<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>直接開 App Store App 會離開我們的 App。iOS 可以在 App 內顯示 App Store 的頁面。</p>
+      <p><b>改掉的話</b>直接跳到 App Store App，程式比較簡單。</p></div></div>
+
+  
+    <div class="rule" id="d21"><div><h3><span class="id">D21</span>手勢的方向：往右滑已讀，往左滑收藏<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>跟 iPhone 內建的「郵件」一樣，讀者不用重新學。</p>
+      <p><b>改掉的話</b>例如兩邊對調，或往左滑只放收藏、不放分享。改起來不難，告訴我就可以。</p></div></div>
+
+    <div class="rule" id="d22"><div><h3><span class="id">D22</span>分類不用左右滑整頁來切換<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>左右滑已經留給卡片的手勢。兩種手勢放在同一個方向，會互相搶。分類改成只用點的。</p>
+      <p><b>改掉的話</b>保留整頁左右滑切換分類，卡片就只能用長按和書籤按鈕，不能滑。</p></div></div>
+
+  
+    <div class="rule" id="d23"><div><h3><span class="id">D23</span>內文字級是在系統字級上加減<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>讀者在 iPhone 設定裡調的字級照樣有效，App 內的四級只是再往上或往下調。這樣兩邊不會打架，也不用自己定每一級是幾 pt。</p>
+      <p><b>改掉的話</b>照畫布固定成 15、17、19、21 pt。系統字級調得很大的讀者，進到閱讀頁字反而變小。</p></div></div>
+
+    <div class="rule" id="d24"><div><h3><span class="id">D24</span>進度圓環只顯示，不能點<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>畫布把它畫成按鈕，但沒有定點了會怎樣。</p>
+      <p><b>改掉的話</b>例如點了跳到第一篇還沒讀的文章。</p></div></div>
+
+    <div class="rule" id="d25"><div><h3><span class="id">D25</span>標題用系統的襯線字，不內建 Noto Serif TC<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>你要求全部用原生的。系統的襯線字只涵蓋英文，所以英文標題是襯線，中文標題會是系統的黑體。深度分析的標題大多是英文。</p>
+      <p><b>改掉的話</b>把 Noto Serif TC 放進 App，中文標題也有襯線。代價是用了自訂字體，App 也會變大。</p></div></div>
+
+    <div class="rule" id="d26"><div><h3><span class="id">D26</span>分類標籤照畫布客製<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>你決定保留畫布的樣式：選中的填深色，其他白底細框，0 篇的用虛線框。這是「全部用原生元件」唯一的例外。</p>
+      <p><b>改掉的話</b>改回系統按鈕或系統的分段控制。</p></div></div>
+
+    <div class="rule" id="d27"><div><h3><span class="id">D27</span>分類順序固定，0 篇的不移到最後<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>每個分類每天都在同一個位置，不用找。0 篇的分類留在原位，用虛線框表示今天沒有。畫布原本把它排到最後。</p>
+      <p><b>改掉的話</b>照畫布把 0 篇的排到最後，有文章的分類會靠前，但每天的順序可能不一樣。</p></div></div>
+
+    <div class="rule" id="d28"><div><h3><span class="id">D28</span>影片卡不載入 YouTube 的縮圖<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>用深色底加播放鍵，跟畫布畫的一樣。這樣打開列表時不會連到 YouTube，離線時也長得一樣。</p>
+      <p><b>改掉的話</b>顯示影片真正的縮圖，比較好認。代價是列表一打開就會連到 YouTube，隱私說明要多寫一句。</p></div></div>
+
+    <div class="rule" id="d29"><div><h3><span class="id">D29</span>不顯示「數量異常」標示<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>收集程式已經擋住舊文洗版這類問題；「待修正」給公開的讀者看也不好。每天的排程會在回報裡提醒你，11/15 那次就有。</p>
+      <p><b>改掉的話</b>照畫布顯示這個標示，一天超過 100 篇就標出來。</p></div></div>
+
+  </div>
+  <h3>iPhone Duo 的決定</h3>
+  <div class="rows">
+
+    <div class="rule" id="d15"><div><h3><span class="id">D15</span>展開時，每一種文章都顯示在右邊<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>兩欄版面的右邊需要內容。一般文章如果直接跳出原文，會蓋掉列表，右邊也會常常是空的。</p>
+      <p><b>改掉的話</b>展開時點一般文章也直接開原文，跟闔上時一致，但兩欄的好處少一半。</p></div></div>
+
+    <div class="rule" id="d16"><div><h3><span class="id">D16</span>幾欄看寬度決定<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>展開後轉成直的只有 669 pt 寬，放兩欄的話每一欄比最小的 iPhone 還窄。並排時也一樣。Apple 也建議看可用空間，不要看機型。</p>
+      <p><b>改掉的話</b>展開後轉成直的也要兩欄，或改成上下兩半，就要多設計一套版面。</p></div></div>
+
+    <div class="rule" id="d17"><div><h3><span class="id">D17</span>分頁和工具列用系統預設的位置<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>用標準元件，系統會依每種姿態自動排。自己畫的話，摺線和每種姿態都要自己處理。</p>
+      <p><b>改掉的話</b>例如把分頁改成左邊的側欄。四個分頁用不到那麼寬，會擠掉內容的空間。</p></div></div>
+
+    <div class="rule" id="d18"><div><h3><span class="id">D18</span>半開和立起來時不做特別的版面<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>這是閱讀用的 App，依摺疊角度變化版面的幫助不大。</p>
+      <p><b>改掉的話</b>例如立起來時影片在上半、說明在下半。要多一套版面，還要用到 iOS 27.1 才有的功能。</p></div></div>
+
+    <div class="rule" id="d19"><div><h3><span class="id">D19</span>Widget 在 Duo 上沿用小、中兩種尺寸<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>這兩種尺寸在 Duo 的兩個螢幕上都能用。</p>
+      <p><b>改掉的話</b>加大尺寸的 Widget 可以放更多篇，要多設計一種版面。</p></div></div>
+
+    <div class="rule" id="d20"><div><h3><span class="id">D20</span>支援所有方向<span class="ok-tag">你已確認</span></h3></div><div class="body">
+      <p><b>理由</b>Duo 的內螢幕不一定會遵守 App 鎖定的方向，Apple 的說法前後不一。版面既然跟著寬度走，橫拿本來就能用。</p>
+      <p><b>改掉的話</b>只鎖直向的話，一般 iPhone 沒問題，但在 Duo 展開時不可靠。</p></div></div>
+
+  </div>
+</section>
+
+</main>
+</div>
+</div>
