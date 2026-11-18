@@ -38,7 +38,7 @@
 - 預設值：每日提醒關、時間 09:30；閱讀器模式開；內文字級「標準」。
 - 每做一個自己判斷的決定，在 `docs/ios-app/decisions.md` 加一筆，跟著那次 commit。格式：`## 日期 · 階段 · 標題`，下面五項：遇到什麼問題／考慮過的做法／選了哪個、為什麼／選錯的代價／怎麼改回來。繁體中文、台灣用語。
 - 不 push、不改 `automation/`、不改網站現有頁面、不手動跑 `npm run digest:publish` 或 wrangler。
-- 模擬器：一般 iPhone 用「Jihchih 17 Pro Max」（iOS 27.2，`F1C511B4-8871-4969-AA33-677547B6A310`）；Duo 用「Jihchih Duo」（iOS 27.1，`07E2D888-B5D7-4818-A638-872D2C6B7164`）。iOS 27.1 runtime 只支援 iPhone Duo，所以一般 iPhone 用 27.2（已記進決策紀錄）。
+- 模擬器：一般 iPhone 用「Jihchih 17 Pro Max」（iOS 27.2，`F1C511B4-8871-4969-AA33-677547B6A310`）；Duo 用「iPhone Duo」（iOS 27.1，`26CAD93A-D93B-4D06-BD2B-8ADE91EAC618`，這台已授權給 iOS Simulator 工具，可以切換開闔；同名的還有一台，所以 destination 一律用 `id=`）。iOS 27.1 runtime 只支援 iPhone Duo，所以一般 iPhone 用 27.2（已記進決策紀錄）。需要用 iOS Simulator 工具點按一般 iPhone 時（例如加 Widget），用已授權的「iPhone 17 Pro」（iOS 27.0，`51BBFDBA-1864-4295-AC44-457C8185AB86`）。
 - 每個 iOS 任務的完成條件：`ios/scripts/test.sh unit` 全過、該任務新增的 UI 測試在兩台模擬器都過、`ios/scripts/test.sh release` 編譯成功。
 
 ## Review Focus
@@ -195,7 +195,7 @@ git commit -m "Add the 日知 privacy and support pages"
 
 **`ios/scripts/test.sh`**（`set -euo pipefail`，從 repo 任何位置都能跑）：
 - `unit` → `xcodebuild test -project ios/Jihchih.xcodeproj -scheme Jihchih -destination 'platform=iOS Simulator,name=Jihchih 17 Pro Max,OS=27.2' -only-testing:JihchihTests`
-- `ui phone|duo` → 同上，`-only-testing:JihchihUITests`，duo 用 `name=Jihchih Duo,OS=27.1`。
+- `ui phone|duo` → 同上，`-only-testing:JihchihUITests`，duo 用 `id=26CAD93A-D93B-4D06-BD2B-8ADE91EAC618`；phone 用 `id=F1C511B4-8871-4969-AA33-677547B6A310`。
 - `release` → `xcodebuild build -project ios/Jihchih.xcodeproj -scheme Jihchih -configuration Release -destination generic/platform=iOS CODE_SIGNING_ALLOWED=NO`
 - `all` → `unit`、`ui phone`、`ui duo`、`release` 依序跑。
 - 結果檔放 `ios/.build/results/<名稱>.xcresult`，跑之前刪掉舊的。最後印出 `xcrun xcresulttool get test-results summary` 的通過／失敗／略過數。
