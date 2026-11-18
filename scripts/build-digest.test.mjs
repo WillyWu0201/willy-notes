@@ -1,6 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { groupByCategory, defaultTab, renderDay, renderIndex } from "./build-digest.mjs";
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { groupByCategory, defaultTab, renderDay, renderIndex, buildAll } from "./build-digest.mjs";
 
 const day = { date: "2026-11-09", items: [
   { source: "Addy", title: "Agentic <Verification>", url: "https://a.test/v", date: "2026-10-14", curated: true, groups: ["AI"],
@@ -52,4 +55,17 @@ test("renderIndex lists days with per-tab counts", () => {
   assert.match(html, /<div class="d">4 篇<\/div>/);
   assert.match(html, /<div class="s">AI 開發方式 2、AI 產業動態 1、金融與虛擬資產 1<\/div>/);
   assert.match(renderIndex([]), /尚無摘要/);
+});
+test("buildAll writes the app JSON next to the pages", () => {
+  const dir = mkdtempSync(join(tmpdir(), "digest-"));
+  mkdirSync(join(dir, "content/digests"), { recursive: true });
+  writeFileSync(join(dir, "content/digests/2026-11-09.json"), JSON.stringify({ ...day, generatedAt: "2026-11-09T01:00:00.000Z" }));
+  const cwd = process.cwd();
+  process.chdir(dir);
+  try {
+    assert.equal(buildAll(), 1);
+  } finally {
+    process.chdir(cwd);
+  }
+  for (const f of ["index.json", "2026-11-09.json"]) assert.ok(existsSync(join(dir, "public/digest/api/v1", f)), f);
 });

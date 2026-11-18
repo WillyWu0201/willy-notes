@@ -6,6 +6,7 @@ import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 
 import { join } from "node:path";
 import { layout, esc } from "./blog-lib.mjs";
 import { CATEGORIES, categoryOf, isWebUrl } from "./digest-lib.mjs";
+import { writeApi } from "./digest-api.mjs";
 
 const OUT = "public/digest";
 const DIGEST_DIR = "content/digests";
@@ -127,6 +128,7 @@ export function buildAll() {
   mkdirSync(OUT, { recursive: true });
   for (const d of days) writeFileSync(join(OUT, `${d.date}.html`), renderDay(d));
   writeFileSync(join(OUT, "index.html"), renderIndex(days));
+  writeApi(join(OUT, "api/v1"), days);
   return days.length;
 }
 

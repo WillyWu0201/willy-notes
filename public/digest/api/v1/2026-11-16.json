@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "generatedAt": "2026-11-16T09:01:17+08:00",
+  "items": [
+    {
+      "id": "fea848d5167da7fe",
+      "category": "dev",
+      "title": "I love you so jevving much — Diogo Almeida, TypeSafe AI",
+      "url": "https://www.youtube.com/watch?v=Cyt3LU8TyNc",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "TypeSafe AI 共同創辦人在 CODE Summit 2026 的演講：認為 RLHF 讓模型擅長輔助人類、卻不夠可靠於自動化，主張改走以機器為主的路線（Jev），並談到 agent 可靠性、KV cache 限制、共享記憶、語意型別與即時安全。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "Cyt3LU8TyNc"
+      }
+    },
+    {
+      "id": "bce1be5542546671",
+      "category": "industry",
+      "title": "FBI警告駭客利用AI工具ARTEX加速入侵，部分事件不到3小時取得系統高權限",
+      "url": "https://www.ithome.com.tw/news/180508",
+      "source": "iThome",
+      "publishedOn": "2026-11-16",
+      "summary": "FBI 發布警示，多個駭客組織利用開源 AI 代理滲透測試框架 ARTEX 自動找漏洞入侵企業，部分事件不到 3 小時就取得高權限；臺灣 91APP 遭駭事件也發現其使用痕跡。FBI 建議檢查對外服務、雲端 OAuth 授權並監控異常 API 請求。",
+      "deep": false,
+      "video": null
+    }
+  ]
+}

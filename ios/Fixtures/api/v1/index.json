@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-18T09:01:52+08:00",
+  "minimumAppVersion": "1.0",
+  "categories": [
+    {
+      "id": "dev",
+      "label": "AI 開發方式"
+    },
+    {
+      "id": "industry",
+      "label": "AI 產業動態"
+    },
+    {
+      "id": "apple",
+      "label": "iOS / Apple"
+    },
+    {
+      "id": "finance",
+      "label": "金融與虛擬資產"
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-11-18",
+      "total": 15,
+      "counts": {
+        "dev": 2,
+        "industry": 12,
+        "apple": 0,
+        "finance": 1
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "total": 14,
+      "counts": {
+        "dev": 0,
+        "industry": 12,
+        "apple": 0,
+        "finance": 2
+      }
+    }
+  ]
+}

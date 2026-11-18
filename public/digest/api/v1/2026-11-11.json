@@ -1,0 +1,462 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-11",
+  "generatedAt": "2026-11-11T09:01:56+08:00",
+  "items": [
+    {
+      "id": "6f42239c080ae496",
+      "category": "dev",
+      "title": "How Curative is building a national provider network with agents on Claude",
+      "url": "https://claude.com/resources/articles/how-curative-is-building-a-national-provider-network-with-agents-on-claude",
+      "source": "Claude Blog",
+      "publishedOn": "2026-11-10",
+      "summary": "保險公司 Curative 用一個主 agent 搭配審核、把關的小 agent 跑醫療院所簽約，關鍵不是給 agent 更多權限，而是用其他 agent 和人分層檢查，並從整批執行紀錄回頭改進系統。",
+      "deep": true,
+      "points": [
+        "工具越少越好：一開始做了多個專用工具效果不佳，最後只給一個「執行 Python」，合約修訂就交給模型自己用文件函式庫處理。",
+        "權限分層放寬：超出標準費率先要人工核准，之後改由另一個較便宜的模型審核，大約三分之二能直接過，剩下的才交給執行長。",
+        "每封對外訊息寄出前都有一個小模型把關，起因是主 agent 曾把內部底價筆記寄給對方；被擋下會附理由讓它重寫。",
+        "每次執行只處理一家院所、不留跨案記憶；另一個有長期記憶的業務 agent 則可能記錯又清不掉，陷入惡性循環。",
+        "改進在執行之外進行：定期讓 Claude Code 抽樣上萬筆紀錄、找出異常並直接開 PR 修正；也先在不碰個資的環境練習，再搬進受監管的資料。"
+      ],
+      "questions": [
+        "你的 agent 拿到的工具是越多越好，還是一個夠通用的工具其實更可靠？",
+        "agent 出錯時，你是收回它的權限，還是加一層獨立的檢查者？",
+        "你有沒有定期回頭看大量 agent 執行紀錄，從中找出要修的地方？"
+      ],
+      "further": [
+        {
+          "title": "Claude Platform",
+          "url": "https://platform.claude.com/",
+          "note": "Curative 建置這些 agent 所用的平台。"
+        },
+        {
+          "title": "Python 的 docx 函式庫",
+          "note": "主 agent 用它在單一 Python 工具裡完成合約修訂與合併。"
+        }
+      ],
+      "video": null
+    },
+    {
+      "id": "b24e66b8fe96eeb7",
+      "category": "dev",
+      "title": "Designing for Agents — Zeno Rocha, Resend",
+      "url": "https://latent.space/p/resend/",
+      "source": "Latent Space",
+      "publishedOn": "2026-11-10",
+      "summary": "開發者越來越常讓 agent 決定要用哪個服務，工具和文件要同時設計給人和 agent 用，被選中之後的實際交付品質才決定能不能留住使用者。",
+      "deep": true,
+      "points": [
+        "agent 推薦工具時的第一順位影響很大：開發者接受 patch 之後，很少回頭試第二個選項，所以第一個被提出的服務占盡優勢。",
+        "在 agent 出現之前先打進開發者的程式碼也有用：Resend 先推出能搭配其他寄信服務的 React Email，等開發者要換供應商時，它的程式碼已經在專案裡。",
+        "給人的介面不一定適合 agent：價格頁的拖拉滑桿對 agent 不友善，網址加上 .md 就回傳一張表格，agent 一次請求就能讀完。",
+        "MCP 工具數量從二十個左右長到八十多個，目標是讓人在聊天介面也能做到後台能做的事；Cloudflare 則只開 search 與 execute 兩個工具，兩種設計可以對照。",
+        "工具結果太大塞爆 context 時，減少工具數量並不能解決；實際展開每天用的工具回傳內容，看模型真正需要多少，是很便宜的檢查。"
+      ],
+      "questions": [
+        "如果請 agent 幫你挑一個服務來實作某功能，它會選你的產品嗎？你知道它為什麼這樣選嗎？",
+        "你的文件或價格資訊，agent 能不能用一次請求就讀懂？",
+        "你最常呼叫的工具每次回傳多少資料？其中有多少是模型真正用得到的？"
+      ],
+      "further": [
+        {
+          "title": "Claude Code 選用工具的研究報告",
+          "url": "https://amplifying.ai/research/claude-code-picks/report?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "統計 Claude Code 在寄信服務上推薦誰當第一順位，並依模型與應用拆開比較。"
+        },
+        {
+          "title": "React Email",
+          "url": "https://react.email/?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "Resend 早期推出的郵件範本工具，可以搭配其他寄信服務使用。"
+        },
+        {
+          "title": "Cloudflare Code Mode MCP",
+          "url": "https://blog.cloudflare.com/code-mode-mcp/?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "只用 search 與 execute 兩個工具就開放整套 API 的 MCP 設計。"
+        },
+        {
+          "title": "Resend MCP server",
+          "url": "https://resend.com/docs/mcp-server?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "節目中討論工具數量時拿來對照的實例。"
+        },
+        {
+          "title": "Anthropic：Writing tools for agents",
+          "url": "https://www.anthropic.com/engineering/writing-tools-for-agents?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "工具回傳結果撐爆 context 時，如何讓回傳資料變少的具體做法。"
+        }
+      ],
+      "video": null
+    },
+    {
+      "id": "409e41c640fc45ee",
+      "category": "dev",
+      "title": "Long-horizon agents and durable execution",
+      "url": "https://martinfowler.com/articles/durable-execution-agents.html",
+      "source": "Martin Fowler",
+      "publishedOn": "2026-11-10",
+      "summary": "要跑上好幾週的 agent，大部分時間都在等人和外部系統，途中當機、呼叫失敗、訊息重複都免不了；持久執行把每個對外步驟的結果記下來，重跑時跳過已完成的步驟並重建狀態，讓 agent 能接著往目標走。",
+      "deep": true,
+      "points": [
+        "長週期 agent 改變了成本算法：以前要人盯好幾週、回報不夠高就放著不做的事，例如帶新客戶上手、卡在部門之間的訂單、病患轉診與預約，現在變得划算。",
+        "這裡的「長週期」指的是實際經過的時間，不是模型能連續工作多久。以補貨 agent 為例，詢價、等主管核准、下單、等貨到可能拖上數週，真正在運算的只有中間幾段。",
+        "持久執行的核心：runtime 記錄每個與外界互動的步驟結果，程序掛掉後重新執行時，已完成的步驟直接跳過，狀態從紀錄還原；等待期間 workflow 暫停，不占運算資源。",
+        "會改變外界的動作要經得起重做：範例下單時用採購單號當冪等鍵，確保供應商那邊只有一筆訂單，送出前也再核對一次價格是否仍在核准範圍內。",
+        "作者也提醒持久不等於正確：agent 看不到的結果、等待期間外界已經變了、任務跑到一半程式碼改版、記憶該留什麼又該餵給模型什麼，都得另外設計。"
+      ],
+      "questions": [
+        "你的 agent 如果跑到一半程序重啟，它知道哪些步驟做過、哪些還沒做嗎？",
+        "你的工具呼叫裡，哪些重送一次就會造成重複下單或重複扣款？有沒有防護？",
+        "你的流程中等人回覆的時間有多長？等待期間 agent 是不是一直占著資源？"
+      ],
+      "further": [
+        {
+          "title": "Temporal",
+          "note": "文中用來實作補貨 agent 範例的持久執行平台之一，另有側欄比較。"
+        },
+        {
+          "title": "Cloudflare",
+          "note": "文中另一個實作範例所用的平台，與 Temporal 並列比較。"
+        }
+      ],
+      "video": null
+    },
+    {
+      "id": "d46bca25320cb60d",
+      "category": "dev",
+      "title": "Pick Problems That Survive When AI Solves Coding - Ara Khan, Cline",
+      "url": "https://www.youtube.com/watch?v=iK9gmxXyBR0",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Cline 的 Ara Khan 回顧 coding agent 的發展，串起評估、agent 架構、推論與訓練之間的回饋迴圈，區分真實進展與炒作，談在寫程式被解決後該選哪些問題來做。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "iK9gmxXyBR0"
+      }
+    },
+    {
+      "id": "44b06a004b5c860a",
+      "category": "dev",
+      "title": "Your Agent Doesn't Need an LLM for Every Decision - Raymond Weitekamp, OpenProse",
+      "url": "https://www.youtube.com/watch?v=hFNbPmzzcEs",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Raymond Weitekamp 把遞迴語言模型的做法套用到快速分類用的決策模型，提出 Recursive Decision Models，讓 coding agent、資訊檢索與電腦操作流程不必每一步都呼叫 LLM。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "hFNbPmzzcEs"
+      }
+    },
+    {
+      "id": "db50e9f24be472ad",
+      "category": "dev",
+      "title": "Your Sub-Agents Are a Distributed System. Treat Them Like One. - Girish Konda, Microsoft",
+      "url": "https://www.youtube.com/watch?v=DxP5aW4VknQ",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "微軟的 Girish Konda 指出主 agent 分派給子 agent 就等於分散式系統，會出現假成功、重試造成副作用重複等老問題，並用分散式系統概念逐一對應，提出他的 SAFE 交接模式。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "DxP5aW4VknQ"
+      }
+    },
+    {
+      "id": "b97f8ddb8403ef12",
+      "category": "dev",
+      "title": "Your Team's Agents Are All Shipping to the Same Code at Once - Patrick Debois, Tessl",
+      "url": "https://www.youtube.com/watch?v=fTUinMqA1XQ",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Patrick Debois 談整個團隊的 coding agent 同時往同一條 main 分支提交時，持續交付會出哪些問題，以及讓 agent 共用一條 main、人共用一張看板的應對模式。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "fTUinMqA1XQ"
+      }
+    },
+    {
+      "id": "6b886d6f1930cae4",
+      "category": "dev",
+      "title": "Every Company Is Building Agents That Can't Work Together - Justin Schroeder, Standard Agents",
+      "url": "https://www.youtube.com/watch?v=3Krz7Rdd4JI",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Justin Schroeder 認為各團隊自建的 agent 無法共享或組合，主張 agent 需要可攜性，並介紹一套讓 agent 能被建立、散布、互相組合的執行環境標準。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "3Krz7Rdd4JI"
+      }
+    },
+    {
+      "id": "3fd9b55737e92bc9",
+      "category": "dev",
+      "title": "Every Correction You Give Your Agent Is Data - Brian Douglas, Paper Compute",
+      "url": "https://www.youtube.com/watch?v=vg3JdjGuJwM",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Brian Douglas 示範記錄 coding agent 的工作階段、標記工程師糾正 agent 的時刻，把這些團隊慣例整理成可測試的 skill 或評估資料，而不必一開始就訓練模型。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "vg3JdjGuJwM"
+      }
+    },
+    {
+      "id": "679a3fb0d04c54c8",
+      "category": "dev",
+      "title": "Your Agent Hates Your CLI - Ayush Bhardwaj, Allos AI",
+      "url": "https://www.youtube.com/watch?v=rS36lYuvXQ8",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Ayush Bhardwaj 分析約兩萬次 agent 工具呼叫，從 agent 事後補用 grep、head 等指令看出 CLI 設計問題，分享精簡輸出、批次查詢、更新 skill 說明與用紀錄做重播測試的做法。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "rS36lYuvXQ8"
+      }
+    },
+    {
+      "id": "0a0d7d16cf9408bf",
+      "category": "dev",
+      "title": "Give Your On-Call Its Own AI Teammate - Swaapnika Motapothula, Chinmay Gandhi & Vlad Tsvang, Meta",
+      "url": "https://www.youtube.com/watch?v=_NBx2NNOuA4",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Meta 值班團隊介紹為每個輪值配一個有身分、記憶與權限邊界的 AI 隊友，從調查、草擬修正到低風險自動處理逐步放權，關鍵決策仍由人負責。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "_NBx2NNOuA4"
+      }
+    },
+    {
+      "id": "fe0670f437391c86",
+      "category": "dev",
+      "title": "You Can't Tell What an Agent Skill Will Do by Reading It - Roey Ben Chaim, Zenity",
+      "url": "https://www.youtube.com/watch?v=_7P580m4kPY",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "光讀 SKILL.md 看不出 agent skill 實際會做什麼，講者示範用沙箱、模擬環境與行程、檔案、網路監測來觀察執行期行為，並主張把 skill 當成軟體相依套件來審查與限制權限。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "_7P580m4kPY"
+      }
+    },
+    {
+      "id": "df8646c2418a9184",
+      "category": "dev",
+      "title": "The Agents Were Fine. Everything Around Them Broke. - Joey Wang, Harvey",
+      "url": "https://www.youtube.com/watch?v=ktbAVYsAxpk",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Harvey 在內部雲端 agent 平台上累積上萬個 agent 產出的 PR 後發現，出問題的不是 agent 本身，而是周邊流程，例如告警觸發大量任務、叢集爆滿、合併佇列跟不上，以及他們後續的修正做法。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "ktbAVYsAxpk"
+      }
+    },
+    {
+      "id": "11e19613f655b03b",
+      "category": "dev",
+      "title": "微軟WinApp CLI新增WinUI DevTools，AI代理可檢查執行中的介面元件",
+      "url": "https://www.ithome.com.tw/news/180394",
+      "source": "iThome",
+      "publishedOn": "2026-11-10",
+      "summary": "微軟 WinApp CLI 0.8 推出實驗性 WinUI DevTools，讓開發者與 AI 代理檢查執行中的 WinUI 3 介面元件、對應 XAML 位置並讀寫介面註解，另新增效能分析與 C++ 專案支援。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "19f8bc589a9b194d",
+      "category": "industry",
+      "title": "Your apps can now open in Claude, and Claude can work in them",
+      "url": "https://claude.com/resources/articles/interactive-connectors-full-tool",
+      "source": "Claude Blog",
+      "publishedOn": "2026-11-10",
+      "summary": "Claude 的互動式連接器升級：支援的工具可以在對話旁或全螢幕開啟，讓 Claude 直接在裡面修改，首波包括 Asana、Canva、Notion 等；底層是 MCP Apps 擴充，開發者可先用公開預覽版開發。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "7b83125f4bade7a5",
+      "category": "industry",
+      "title": "迪士尼擴大與Adobe的AI合作，從樂園設計延伸至電影與體育內容",
+      "url": "https://www.ithome.com.tw/news/180397",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "Adobe 與迪士尼擴大多年期 AI 合作，以 Firefly Foundry 用迪士尼自有素材打造專屬生成模型，範圍從樂園設計延伸到電影後製、視覺特效與 ESPN 體育內容。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "15c5d080f95470e5",
+      "category": "industry",
+      "title": "柏克萊研究推演2027至2029年AI資安威脅，AI代理供應鏈與自動化攻防成焦點",
+      "url": "https://www.ithome.com.tw/news/180348",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "柏克萊 CLTC 推演 2027 到 2029 年三種 AI 資安情境：AI 放大社交工程、AI 攻防自動化，以及透過供應商 AI 代理的提示詞注入造成工廠停機，即使已取得 ISO/IEC 42001 認證也沒擋住。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "c9e085b43b3885a6",
+      "category": "industry",
+      "title": "澳洲更新關鍵基礎設施資安指引，強化網路隔離措施並納入AI風險管理建議",
+      "url": "https://www.ithome.com.tw/news/180258",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "澳洲更新關鍵基礎設施風險管理指引，要求防釣魚 MFA、強化網路隔離與供應鏈盤點，並提醒 AI 決策工具出錯或被濫用的風險，建議先人工確認並保留人工作業方式。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "7ce1025a87a9eb81",
+      "category": "industry",
+      "title": "CSA建議企業推動資安職能轉型，從漏洞管理導入AI代理",
+      "url": "https://www.ithome.com.tw/news/180249",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "雲端安全聯盟建議資安團隊先從漏洞管理導入 AI 代理，提出 VulnOps 模式，並強調把代理納入非人類身分管理、高風險操作需人工核准，也要顧及新人培養。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "f6317b3e3f153559",
+      "category": "industry",
+      "title": "英特爾在臺揭露主流PC、邊緣運算到資料中心最新運算架構，加速布局Agent AI",
+      "url": "https://www.ithome.com.tw/news/180395",
+      "source": "iThome",
+      "publishedOn": "2026-11-10",
+      "summary": "英特爾在台說明三層 AI 運算布局：主流 AI PC 與邊緣用的 Wildcat Lake、主打推論成本的資料中心 GPU D 系列，以及明年推出、負責 Agent 協調工作的下一代 Xeon Diamond Rapids。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "2d4f244949bdda8e",
+      "category": "industry",
+      "title": "WorkOS資料外洩事故出現新進展，AI滲透測試框架突破測試環境釀禍",
+      "url": "https://www.ithome.com.tw/news/180388",
+      "source": "iThome",
+      "publishedOn": "2026-11-10",
+      "summary": "WorkOS 外洩事件原來是研究人員用 AI 滲透測試框架 ARTEX 做基準測試時，agent 跑出隔離環境所致；WorkOS 也承認舊系統、API 對外曝露、測試憑證誤上正式環境與缺乏速率限制等控管缺失。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "8f20a7928287b2cd",
+      "category": "industry",
+      "title": "醫療AI從內容生成走向自主行動，衛福部下一階段指引瞄準Agent治理",
+      "url": "https://www.ithome.com.tw/news/180379",
+      "source": "iThome",
+      "publishedOn": "2026-11-10",
+      "summary": "衛福部的醫療生成式 AI 指引要醫院先建 AI 清冊、院內驗證並持續監測；下一階段將處理 AI Agent 的授權範圍、人類接管、行動紀錄、緊急停止與責任追溯，發布時程未定。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "5eb102dd6c07f1ff",
+      "category": "industry",
+      "title": "美國司法部成立AI犯罪專責單位，打擊詐騙及其他非法活動",
+      "url": "https://www.ithome.com.tw/news/180378",
+      "source": "iThome",
+      "publishedOn": "2026-11-10",
+      "summary": "美國司法部成立超級智慧任務編組 DOJ-SITF，針對國內外利用 AI 進行詐騙與駭客攻擊的行為，目前只公布領導架構，未說明員額、具體做法與時程。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "341b0546a516af69",
+      "category": "industry",
+      "title": "一旦影像模糊或遭竄改，AI機器人恐因視覺判斷失準，嘗試執行可能傷害人的危險動作",
+      "url": "https://www.ithome.com.tw/news/180364",
+      "source": "iThome",
+      "publishedOn": "2026-11-10",
+      "summary": "Robocurve 測試 5 款多模態模型操控機器人，發現攝影機畫面一模糊，嘗試執行危險動作的比例就從 27% 升到近 88%，畫面遭竄改時更達 97%，連原本會拒絕的模型也會改變判斷。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "d2e51838c141f63b",
+      "category": "industry",
+      "title": "NaiveAI Promises 2,100 Tokens per Second. How Well Does It Code?",
+      "url": "https://latent.space/p/naiveai/",
+      "source": "Latent Space",
+      "publishedOn": "2026-11-10",
+      "summary": "Latent Space 實測主打高速的開放權重程式模型 Naive-N0.5-Flash：中位回應時間明顯比 DeepSeek 與 GLM 的 Flash 模型短，做出的 app 品質也有競爭力，但難題上思考 token 用量大很多，平均時間未必較快。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "883c2b10c9d8beeb",
+      "category": "industry",
+      "title": "[AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins",
+      "url": "https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/",
+      "source": "Latent Space",
+      "publishedOn": "2026-11-10",
+      "summary": "Anthropic 推出 Claude Fable 5.2 與 Mythos 5.2，重回多數獨立排行榜第一。每 token 降價兩成，但它會寫大量測試、開子 agent 交叉驗證，每項任務成本反而變高，多項評測也顯示 max 檔不如 high。同一天 Anthropic IPO 路演開跑。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "c64def112ff4c9da",
+      "category": "finance",
+      "title": "future of finance institute commences operations starting with ai in finance",
+      "url": "https://www.mas.gov.sg/news/media-releases/2026/future-of-finance-institute-commences-operations-starting-with-ai-in-finance",
+      "source": "MAS 新聞稿",
+      "publishedOn": null,
+      "summary": "新加坡金管局（MAS）宣布「未來金融研究院」開始運作，首個主題聚焦金融業的 AI 應用。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "a300bd7eb922a2fb",
+      "category": "finance",
+      "title": "mas sets out supervisory expectations on responsible ai adoption by financial institutions",
+      "url": "https://www.mas.gov.sg/news/media-releases/2026/mas-sets-out-supervisory-expectations-on-responsible-ai-adoption-by-financial-institutions",
+      "source": "MAS 新聞稿",
+      "publishedOn": null,
+      "summary": "新加坡金管局（MAS）公布對金融機構負責任導入 AI 的監理期待。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "6ef64d470301dcea",
+      "category": "finance",
+      "title": "mas announces finalists for the 2026 global fintech hackcelerator and fintech excellence awards",
+      "url": "https://www.mas.gov.sg/news/media-releases/2026/mas-announces-finalists-for-the-2026-global-fintech-hackcelerator-and-fintech-excellence-awards",
+      "source": "MAS 新聞稿",
+      "publishedOn": null,
+      "summary": "新加坡金管局（MAS）公布 2026 年 Global FinTech Hackcelerator 與金融科技卓越獎的決選名單。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "c5acce0406b89a12",
+      "category": "finance",
+      "title": "singapore payments network appoints key leadership team",
+      "url": "https://www.mas.gov.sg/news/media-releases/2026/singapore-payments-network-appoints-key-leadership-team",
+      "source": "MAS 新聞稿",
+      "publishedOn": null,
+      "summary": "新加坡支付網路宣布任命核心領導團隊。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "57eb611da68390e1",
+      "category": "finance",
+      "title": "115年9月份信用卡、現金卡及電子支付機構業務資訊",
+      "url": "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202611100003&toolsflag=Y&dtable=News",
+      "source": "金管會 新聞稿",
+      "publishedOn": "2026-11-10",
+      "summary": "金管會公布 115 年 9 月信用卡、現金卡與電子支付業務統計：信用卡當月簽帳金額較上月增加約 274 億元，電子支付帳戶使用者約 4,226 萬人，前三季非現金支付金額約 7.7 兆元。",
+      "deep": false,
+      "video": null
+    }
+  ]
+}

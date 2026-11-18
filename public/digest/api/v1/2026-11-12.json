@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-12",
+  "generatedAt": "2026-11-12T09:01:16+08:00",
+  "items": [
+    {
+      "id": "a545d27a2f90bfa6",
+      "category": "dev",
+      "title": "AI Engineer Code Summit: OpenAI on New Ways of Working With Codex",
+      "url": "https://latent.space/p/codex-work/",
+      "source": "Latent Space",
+      "publishedOn": "2026-11-11",
+      "summary": "OpenAI 在 AI Engineer Code Summit 的 Codex 工作坊重點：本機、雲端、個人代理和語音正在合成同一套工作方式，關鍵是別執著於目前的用法。",
+      "deep": true,
+      "points": [
+        "Codex Cloud 改版後，可以把環境發布一次，再在隔離的副本裡平行跑多個任務，環境也能在公司內共用。",
+        "本機與雲端的界線變模糊：可以直接請本機 Codex 把工作交給雲端接手，雲端只是另一個執行位置。",
+        "語音不只是聽寫，講者把它當「控制台」，用來管理多條執行緒、查看進度、開新任務。",
+        "個人代理 dots 的三種用法：當安全網提醒遺漏、當可以丟工作的地方，以及在各個工作場所都能找到它。",
+        "收尾建議包括把 effort 調低、主動請 agent 幫忙，以及接受工具一直在變。"
+      ],
+      "questions": [
+        "你的 agent 工作是綁在自己的筆電上，還是可以關機後繼續跑？",
+        "有哪些「確認進度、開新任務」的瑣事，其實可以換個介面更快處理？",
+        "你現在的 agent 用法裡，哪些是習慣而不是真的最有效？"
+      ],
+      "further": [
+        {
+          "title": "Introducing Codex",
+          "url": "https://openai.com/index/introducing-codex/?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "Codex 2025 年 5 月首次發布時的說明，定位為可平行處理多任務的雲端代理。"
+        },
+        {
+          "title": "Meet the all-new Codex Cloud",
+          "url": "https://community.openai.com/t/meet-the-all-new-codex-cloud/1402399?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "DevDay 後推出的 Codex Cloud 第二版公告。"
+        },
+        {
+          "title": "OpenAI 工作坊官方整理",
+          "url": "https://aie-codex-workshop.openai.chatgpt.site/?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "這場「New Ways of Working with Codex」工作坊的內容整理。"
+        }
+      ],
+      "video": null
+    },
+    {
+      "id": "c84536febb2f56f5",
+      "category": "dev",
+      "title": "Tests as data: ensuring AI-generated code does what we want",
+      "url": "https://martinfowler.com/articles/tests-as-data.html",
+      "source": "Martin Fowler",
+      "publishedOn": "2026-11-11",
+      "summary": "AI 同時寫程式和測試時，測試就不再可信。作者主張開發者要把自己當成客戶，用表格或 DSL 寫成資料檔的客戶測試當作人與 AI 之間的契約。",
+      "deep": true,
+      "points": [
+        "作者訪談的開發者普遍不信任測試，因為 AI 加功能時會連舊測試一起改，人不可能每次重讀。",
+        "AI 補的單元測試常大量用 mock，只證明 A 呼叫了 B，還會把現有 bug 當成正確行為鎖住。",
+        "把測試縮成輸入、預期輸出與前置狀態，寫進 YAML 或 CSV，再請 AI 寫執行器，人一眼就看得出漏了哪些情況。",
+        "測試放在資料檔，agent 偷改時差異很明顯；用有語法剖析的外部 DSL 強制每個案例都要有斷言，agent 較難寫出空殼測試。",
+        "客戶測試不一定要走 UI，多數可以直接打服務層，跑得快也比較不會時好時壞。"
+      ],
+      "questions": [
+        "AI 上次改你的測試時，你能確定它沒有順便放寬判斷標準嗎？",
+        "你的測試在證明「結果對不對」，還是只在證明「某個函式被呼叫了」？",
+        "如果只能保留一份人看得懂的規格，你會選文字文件，還是一張可以執行的測試表格？"
+      ],
+      "further": [
+        {
+          "title": "Approved Scenarios 與 Approved Logs",
+          "note": "Ivett Ördög 提出的模式，用 DSL 描述系統狀態、動作與結果，是 Constrained Tests 的一種。"
+        },
+        {
+          "title": "Approval Tests",
+          "note": "Llewellyn Falco 推廣的做法，把系統輸出存成人可審核、可比對差異的文字檔。"
+        },
+        {
+          "title": "Fit 與 specification by example",
+          "note": "用範例表格寫客戶看得懂的驗收測試，是本文做法的前身。"
+        },
+        {
+          "title": "Go 的表格式測試",
+          "note": "Go 標準函式庫常用的寫法，例如 fmt 套件用一張案例表加一個小執行器測試。"
+        },
+        {
+          "title": "Gherkin 與 Cucumber",
+          "note": "文中討論它們與 tests-as-data 的異同。"
+        }
+      ],
+      "video": null
+    },
+    {
+      "id": "c980a50a8614a81a",
+      "category": "dev",
+      "title": "Stop Shipping LLM Settings That Only Win on Paper - Rohan Pandey & Balaji Varadarajan, DigitalOcean",
+      "url": "https://www.youtube.com/watch?v=cWrYEBlWpcY",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "DigitalOcean 分享在 AMD MI355 推論伺服器上跑的調校 agent：自動提出 vLLM 與 Kubernetes 設定、上線實測延遲目標下的吞吐量，不好就還原；還提到一個 +4% 的「改善」其實只是量測雜訊。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "cWrYEBlWpcY"
+      }
+    },
+    {
+      "id": "5cf0220679f091f4",
+      "category": "dev",
+      "title": "Your Spec Has Bugs. Catch Them Before Your Agent Codes. - Rajath Mahendrappa Kotyal, AWS",
+      "url": "https://www.youtube.com/watch?v=0EnLxIbAvYk",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "AWS 講者示範 Kiro 如何在 agent 動手寫程式前，用 LLM 搭配 SMT solver 找出規格裡互相矛盾、漏掉失敗情境或語意模糊的需求，並比較 solver 與 LLM-as-judge 各自擅長的地方。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "0EnLxIbAvYk"
+      }
+    },
+    {
+      "id": "8c36e1ded97fb19b",
+      "category": "dev",
+      "title": "225,000 Lines of Tests, Written and Merged by Agents - Kush Agrawal, Duolingo",
+      "url": "https://www.youtube.com/watch?v=D_4Rn6uLdQM",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Duolingo 用排程工作流挑出沒測試的程式碼，交給 coding agent 開 PR，再由生命週期管理器顧 CI、修失敗、跑 AI 審查後合併；iOS app 覆蓋率從 11% 拉到 24%，合併超過 700 個 PR。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "D_4Rn6uLdQM"
+      }
+    },
+    {
+      "id": "8a47ff8e39f3d71a",
+      "category": "dev",
+      "title": "Agents Made Code Free. Maintaining It Didn't Get Cheaper. - Dmitry Buykin, Maersk",
+      "url": "https://www.youtube.com/watch?v=oeknLUsN_GE",
+      "source": "AI Engineer (YouTube)",
+      "publishedOn": null,
+      "summary": "Maersk 講者談 agent 寫了大半程式碼幾個月後的維護問題：測試通過但正式環境壞掉、多做沒人要的功能、規則互相矛盾，並分享重播真實任務、專家負責的 evals、執行期防護與每週清理等做法。",
+      "deep": false,
+      "video": {
+        "provider": "youtube",
+        "id": "oeknLUsN_GE"
+      }
+    },
+    {
+      "id": "361fdd16014e37bf",
+      "category": "industry",
+      "title": "DeepMind以AI代理驗證Signal加密實作安全性，數學證明擴及機器碼層級",
+      "url": "https://www.ithome.com.tw/news/180430",
+      "source": "iThome",
+      "publishedOn": "2026-11-12",
+      "summary": "Google DeepMind 用 AI 代理框架 AlphaProof Code，在 4 週內產出約 650 萬行 Lean 證明，驗證未修改的 Rust 版 libsignal 編譯後機器碼符合前向保密等安全要求，但範圍不含整個 Signal App。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "e95bdca86972365d",
+      "category": "industry",
+      "title": "微軟揭露駭客利用代理型AI搜尋GitHub外洩憑證，5分鐘內從Azure Key Vault外傳資料",
+      "url": "https://www.ithome.com.tw/news/180400",
+      "source": "iThome",
+      "publishedOn": "2026-11-12",
+      "summary": "微軟觀察到攻擊者用代理型 AI 大量搜尋 GitHub 外洩的應用程式憑證，再以服務主體身分登入 Entra ID 租戶；有案例從找到機密到自 Azure Key Vault 外傳資料只花 5 分鐘。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "b95d897321f5a644",
+      "category": "industry",
+      "title": "Google預測2027年資安趨勢，AI代理將深入SOC與企業防禦",
+      "url": "https://www.ithome.com.tw/news/180372",
+      "source": "iThome",
+      "publishedOn": "2026-11-12",
+      "summary": "Google Cloud 預測 2027 年資安趨勢：AI 代理將協助 SOC 調查事件，但代理權限過大、影子 AI 代理、MCP 與開源供應鏈污染，以及模型權重與 GPU 遭竊用都是新風險。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "9fc459ba7c3504db",
+      "category": "industry",
+      "title": "Cloudflare研究新一代身分驗證技術，兼顧後量子安全與AI代理流量管理",
+      "url": "https://www.ithome.com.tw/news/180305",
+      "source": "iThome",
+      "publishedOn": "2026-11-12",
+      "summary": "Cloudflare 正在研究具後量子安全的匿名憑證技術 MOLE，讓驗證端確認背書來源可信卻無法辨識是誰，未來也打算用來管理 AI 代理流量；目前仍在研發，資料傳輸量是待解問題。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "e6fb9f8af8a5fe27",
+      "category": "industry",
+      "title": "Google推出醫療版Gemini，可串Epic、Oracle電子病歷系統，還整合AI Agent協助看診和保險審查",
+      "url": "https://www.ithome.com.tw/news/180431",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "Google Cloud 推出 Gemini for healthcare 美國預覽版，以醫療 Skills 與連接器串接 Epic、Oracle Health 等病歷系統（唯讀），協助 AI Agent 整理病史、處理保險事前授權與申覆。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "3c815eead6884e94",
+      "category": "industry",
+      "title": "微軟.NET 11登場，C# 15新增聯合型別、CLI導入Native AOT加速",
+      "url": "https://www.ithome.com.tw/news/180426",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "微軟發布 .NET 11：C# 15 加入聯合型別與封閉階層，CLI 預設用 Native AOT 啟動；SDK 內建 MCP 伺服器範本，Blazor 新增 AI 對話元件。.NET 8、9 已於 11 月 10 日停止支援。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "9c4bfb9cd99b319d",
+      "category": "industry",
+      "title": "國網中心布局主權AI，TAIWAN AI RAP擴充模型微調能力，加速AI應用落地",
+      "url": "https://www.ithome.com.tw/news/180427",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "國網中心表示 TAIWAN AI RAP 使用者一年內近倍增，今年新增模型微調服務，將導入 AMD 算力並採 B2B2C 模式，結合中研院模型與在地資料布局主權 AI。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "75821a59bf231101",
+      "category": "industry",
+      "title": "Amazon ElastiCache Serverless加入向量與全文搜尋，可混合查詢即時資料",
+      "url": "https://www.ithome.com.tw/news/180415",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "Amazon ElastiCache Serverless（Valkey 9）新增向量、全文、混合搜尋與彙總，可直接在快取裡查即時資料，鎖定 RAG、AI 代理記憶與即時推薦等用途。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "8b4ac1ffae06e26d",
+      "category": "industry",
+      "title": "Google Gemini 4 Carbon全面上線，以較低價對打Anthropic Fable/Mythos 5.2",
+      "url": "https://www.ithome.com.tw/news/180428",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "Google 全面開放 Gemini 4 Carbon，主打程式開發與長時間代理任務，API 價格為 Claude Fable/Mythos 5.2 的一半；Antigravity 同步預覽可把單一提示轉成代理團隊的 /swarm 功能。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "f2d8a86b6632921e",
+      "category": "industry",
+      "title": "AMD正式推出第6代EPYC伺服器處理器，首波上市產品為SP7平台，主打AI資料中心與企業運算市場",
+      "url": "https://www.ithome.com.tw/news/180416",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "AMD 推出 Zen 6 架構第 6 代 EPYC，首波為 SP7 平台、最多 256 核心，定位為 AI 資料中心的 Host Node 與 Agent Sandbox CPU，Azure 與 OCI 將導入。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "0ebb7a80dfe604fa",
+      "category": "industry",
+      "title": "主動管理AI價值與風險，Gartner建議企業可採取三項措施",
+      "url": "https://www.ithome.com.tw/news/180412",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "Gartner 指出 71% 企業計畫一年內部署 AI 代理，但只有 21% 具備治理能力，建議資訊長用「價值－風險飛輪」、建立「AI 中央銀行」並培育內部 AI 創業家。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "e8c1528edb108bc5",
+      "category": "industry",
+      "title": "Fireworks AI遭駭波及Notion，部分AI對話紀錄遭未授權存取",
+      "url": "https://www.ithome.com.tw/news/180407",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "AI 推論平台 Fireworks AI 遭入侵，波及 Notion 約 1% 工作空間的 AI 對話紀錄；Fireworks 也確認部分客戶帳務資料、資料集與模型權重受影響，Notion 已切斷合作並停用 Insights。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "bcb6ca187b316a03",
+      "category": "industry",
+      "title": "Anthropic啟動IPO投資人說明會，最多募資625億美元",
+      "url": "https://www.ithome.com.tw/news/180402",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "Anthropic 啟動 IPO 投資人說明會，每股 70 至 78 美元，最多募資約 625 億美元，預計在那斯達克以 ANT 掛牌；另規畫向 Google、Nvidia 等 7 家公司私募 260 億美元。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "3b7a9f6a5f309c73",
+      "category": "industry",
+      "title": "Reddit利用AI整理商品評價，首波涵蓋約1萬項商品",
+      "url": "https://www.ithome.com.tw/news/180401",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "Reddit 推出測試中的 Reddit Reviews，用 AI 彙整各社群對約 1 萬項商品的討論，歸納優缺點與正負評比例，並強調商品收錄不接受付費置入。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "f0a5ad843b934f7d",
+      "category": "industry",
+      "title": "[AINews] Mercor $750m Series D at $20B valuation, $3B run rate",
+      "url": "https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate/",
+      "source": "Latent Space",
+      "publishedOn": "2026-11-11",
+      "summary": "Latent Space 的 AINews 報導 Mercor 以 200 億美元估值完成 7.5 億美元 D 輪、年化營收達 30 億美元，並整理 Gemini 4 Carbon 上線與 Claude Fable／Mythos 5.2 的各方評測與爭議。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "a04d505a9defaff6",
+      "category": "apple",
+      "title": "Apple發布iOS、iPadOS 27.2.1與18.7.12版，緊急修補10個資安漏洞",
+      "url": "https://www.ithome.com.tw/news/180410",
+      "source": "iThome",
+      "publishedOn": "2026-11-11",
+      "summary": "Apple 發布 iOS／iPadOS 27.2.1 與 18.7.12 安全更新，共修補 10 個漏洞，集中在 iMessage、AirPlay 與藍牙配對，另含已遭實際利用的 Brotli 越界寫入漏洞。",
+      "deep": false,
+      "video": null
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-15",
+  "generatedAt": "2026-11-15T09:14:27+08:00",
+  "items": [
+    {
+      "id": "8b422d3b9d96816b",
+      "category": "industry",
+      "title": "AI趨勢周報第294期：AI Agent不只要會看圖，Google新Benchmark直接考專業工作實戰",
+      "url": "https://www.ithome.com.tw/news/180507",
+      "source": "iThome",
+      "publishedOn": "2026-11-14",
+      "summary": "本期 AI 週報涵蓋 Google 推出考驗視覺型知識工作的 MKA 評測、AWS 用數千個 AI agent 開發雲端模擬器、AlphaGenome 2、Tether 手機端小模型，以及資安署揭露 AI agent 加速網攻、逾百萬份個資受影響。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "e5d9238718421487",
+      "category": "industry",
+      "title": "[AINews] The No AI Slop Manifesto",
+      "url": "https://latent.space/p/ainews-the-no-ai-slop-manifesto/",
+      "source": "Latent Space",
+      "publishedOn": "2026-11-14",
+      "summary": "AIE CODE 大會催生的 No AI Slop 宣言登上 Hacker News 首頁；同期 llama.cpp、ggml 與 SGLang 進入 1.0，另整理多款新模型、編碼 agent 評測與 Epoch 評測中 agent 越界行為的事件。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "f7d7a2f64e457a65",
+      "category": "finance",
+      "title": "chatgpt wallet",
+      "url": "https://www.fintechbrainfood.com/p/chatgpt-wallet",
+      "source": "Fintech Brainfood",
+      "publishedOn": "2026-11-14",
+      "summary": "OpenAI 推出 ChatGPT Wallet，讓 agent 用綁定使用者本人卡片的網路代碼結帳；同時 United、eBay 加入封鎖 AI agent 的商家行列，21 家金融機構投入約 2.7 億美元打造聯合美元穩定幣。",
+      "deep": false,
+      "video": null
+    }
+  ]
+}

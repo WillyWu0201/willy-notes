@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-18T09:01:52+08:00",
+  "minimumAppVersion": "1.0",
+  "categories": [
+    {
+      "id": "dev",
+      "label": "AI 開發方式"
+    },
+    {
+      "id": "industry",
+      "label": "AI 產業動態"
+    },
+    {
+      "id": "apple",
+      "label": "iOS / Apple"
+    },
+    {
+      "id": "finance",
+      "label": "金融與虛擬資產"
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-11-18",
+      "total": 15,
+      "counts": {
+        "dev": 2,
+        "industry": 12,
+        "apple": 0,
+        "finance": 1
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "total": 14,
+      "counts": {
+        "dev": 0,
+        "industry": 12,
+        "apple": 0,
+        "finance": 2
+      }
+    },
+    {
+      "date": "2026-11-16",
+      "total": 2,
+      "counts": {
+        "dev": 1,
+        "industry": 1,
+        "apple": 0,
+        "finance": 0
+      }
+    },
+    {
+      "date": "2026-11-15",
+      "total": 3,
+      "counts": {
+        "dev": 0,
+        "industry": 2,
+        "apple": 0,
+        "finance": 1
+      }
+    },
+    {
+      "date": "2026-11-14",
+      "total": 9,
+      "counts": {
+        "dev": 3,
+        "industry": 5,
+        "apple": 0,
+        "finance": 1
+      }
+    },
+    {
+      "date": "2026-11-13",
+      "total": 16,
+      "counts": {
+        "dev": 4,
+        "industry": 10,
+        "apple": 0,
+        "finance": 2
+      }
+    },
+    {
+      "date": "2026-11-12",
+      "total": 22,
+      "counts": {
+        "dev": 6,
+        "industry": 15,
+        "apple": 1,
+        "finance": 0
+      }
+    },
+    {
+      "date": "2026-11-11",
+      "total": 31,
+      "counts": {
+        "dev": 14,
+        "industry": 12,
+        "apple": 0,
+        "finance": 5
+      }
+    },
+    {
+      "date": "2026-11-10",
+      "total": 32,
+      "counts": {
+        "dev": 17,
+        "industry": 10,
+        "apple": 3,
+        "finance": 2
+      }
+    },
+    {
+      "date": "2026-11-09",
+      "total": 48,
+      "counts": {
+        "dev": 27,
+        "industry": 19,
+        "apple": 1,
+        "finance": 1
+      }
+    },
+    {
+      "date": "2026-11-06",
+      "total": 18,
+      "counts": {
+        "dev": 0,
+        "industry": 11,
+        "apple": 2,
+        "finance": 5
+      }
+    }
+  ]
+}

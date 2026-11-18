@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-06",
+  "generatedAt": "2026-11-06T14:41:50+08:00",
+  "items": [
+    {
+      "id": "eeb92871f1c91dcf",
+      "category": "industry",
+      "title": "New agents and products for security, productivity, and creative work on Claude Marketplace",
+      "url": "https://claude.com/resources/articles/new-agents-and-products-claude-marketplace",
+      "source": "Claude Blog",
+      "publishedOn": "2026-11-04",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "b22d8c99fffc95fe",
+      "category": "industry",
+      "title": "Make long-running agents faster with message threads",
+      "url": "https://claude.com/resources/articles/message-threads",
+      "source": "Claude Blog",
+      "publishedOn": "2026-11-02",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "2c30d9388d133285",
+      "category": "industry",
+      "title": "HKMA launches Project SAGE and establishes Expert Group for agentic finance",
+      "url": "https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/11/20261102-4/",
+      "source": "HKMA 新聞稿",
+      "publishedOn": "2026-11-02",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "8fae2b8a7ec54585",
+      "category": "industry",
+      "title": "Google擴大AI基礎設施投資，首度進駐懷俄明州建資料中心",
+      "url": "https://www.ithome.com.tw/news/180286",
+      "source": "iThome",
+      "publishedOn": "2026-11-06",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "37880a73ef95f598",
+      "category": "industry",
+      "title": "OpenAI發表GPT-6 Cyber，找出Firefox 81個未知高風險漏洞",
+      "url": "https://www.ithome.com.tw/news/180285",
+      "source": "iThome",
+      "publishedOn": "2026-11-06",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "b6926b842e94d220",
+      "category": "industry",
+      "title": "回應資料中心建設爭議，OpenAI提出用電、用水與資訊公開承諾",
+      "url": "https://www.ithome.com.tw/news/180271",
+      "source": "iThome",
+      "publishedOn": "2026-11-06",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "df1efae6fff6e78c",
+      "category": "industry",
+      "title": "Anthropic推出Claude個人理財功能，可連結銀行帳戶分析收支",
+      "url": "https://www.ithome.com.tw/news/180268",
+      "source": "iThome",
+      "publishedOn": "2026-11-06",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "54d3fb3dcbc6f2a1",
+      "category": "industry",
+      "title": "資料安全業者Sentra獲1.5億美元投資，擴大AI代理安全業務",
+      "url": "https://www.ithome.com.tw/news/180235",
+      "source": "iThome",
+      "publishedOn": "2026-11-06",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "1f6052e2de87bf0c",
+      "category": "industry",
+      "title": "英國NCSC預警2028年前AI惡意程式恐用於勒索軟體攻擊，威脅關鍵基礎設施",
+      "url": "https://www.ithome.com.tw/news/180196",
+      "source": "iThome",
+      "publishedOn": "2026-11-06",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "883f68419f9581b1",
+      "category": "industry",
+      "title": "OpenAI揭露AI助理個人化瓶頸，模型仍難善用過往對話",
+      "url": "https://www.ithome.com.tw/news/180267",
+      "source": "iThome",
+      "publishedOn": "2026-11-05",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "b37b9bd352aa6007",
+      "category": "industry",
+      "title": "公路局擬擴大推動無人機AI巡檢，結合3D建模、AI影像辨識提升橋梁與邊坡養護效率",
+      "url": "https://www.ithome.com.tw/news/180263",
+      "source": "iThome",
+      "publishedOn": "2026-11-05",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "aeaf2a842a4cf282",
+      "category": "apple",
+      "title": "【資安日報】11月5日，法國國家血液機構冷藏設備遭網路攻擊，3處設施溫度控制遭竄改",
+      "url": "https://www.ithome.com.tw/news/180260",
+      "source": "iThome",
+      "publishedOn": "2026-11-05",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "829254b892ce3d81",
+      "category": "apple",
+      "title": "俄羅斯駭客APT29發動大規模水坑式攻擊，竊取iOS與Android裝置帳密及資料",
+      "url": "https://www.ithome.com.tw/news/180250",
+      "source": "iThome",
+      "publishedOn": "2026-11-05",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "543cbe10dc605ed6",
+      "category": "finance",
+      "title": "payments new ads",
+      "url": "https://www.fintechbrainfood.com/p/payments-new-ads",
+      "source": "Fintech Brainfood",
+      "publishedOn": "2026-11-04",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "12b0dbaddc93a07e",
+      "category": "finance",
+      "title": "金管會修正「金融業申請業務試辦作業要點」－優化試辦機制、提升金融創新彈性",
+      "url": "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202611050002&toolsflag=Y&dtable=News",
+      "source": "金管會 新聞稿",
+      "publishedOn": "2026-11-05",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "82f0bb4465600b53",
+      "category": "finance",
+      "title": "金管會預告「穩定幣發行許可及管理辦法」草案及修正金融機構洗錢防制相關規定",
+      "url": "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202611030002&toolsflag=Y&dtable=News",
+      "source": "金管會 新聞稿",
+      "publishedOn": "2026-11-03",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "96c5d7dc58b6d504",
+      "category": "finance",
+      "title": "預告「虛擬資產服務法」有關虛擬資產服務商管理之8項授權法規命令草案",
+      "url": "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202611030001&toolsflag=Y&dtable=News",
+      "source": "金管會 新聞稿",
+      "publishedOn": "2026-11-03",
+      "summary": null,
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "4fd0cce9a510ee1e",
+      "category": "finance",
+      "title": "Hong Kong FinTech Week 2026",
+      "url": "https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/11/20261102-3/",
+      "source": "HKMA 新聞稿",
+      "publishedOn": "2026-11-02",
+      "summary": null,
+      "deep": false,
+      "video": null
+    }
+  ]
+}

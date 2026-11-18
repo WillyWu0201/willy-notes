@@ -16,6 +16,7 @@
     "gather": "node scripts/daily-gather.mjs",
     "digest": "node scripts/feed-digest.mjs && node scripts/build-digest.mjs",
     "build:digest": "node scripts/build-digest.mjs",
+    "build:app-fixtures": "node scripts/build-app-fixtures.mjs",
     "digest:collect": "node scripts/feed-digest.mjs && node scripts/digest-prep.mjs",
     "digest:publish": "node scripts/digest-publish.mjs"
   },

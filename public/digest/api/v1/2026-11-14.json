@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-14",
+  "generatedAt": "2026-11-14T09:15:31+08:00",
+  "items": [
+    {
+      "id": "2fce942bef9f44eb",
+      "category": "dev",
+      "title": "Building always-on agents",
+      "url": "https://claude.com/resources/articles/building-always-on-agents",
+      "source": "Claude Blog",
+      "publishedOn": "2026-11-13",
+      "summary": "always-on agent 其實大部分時間都在休眠，靠事件收件匣、計時器、記憶、權限和寄件匣五個元件串成循環，讓一次次短暫的執行看起來像一直在線上。",
+      "deep": true,
+      "points": [
+        "事件來源不要直接叫醒 agent，而是先寫進持久化的收件匣（通常是資料庫表），由同一時間只有一個的 worker 取出執行。這樣不會有兩次執行互相覆蓋，當機也不會漏掉事件，連續幾則訊息還能合併成一次處理。",
+        "計時器分兩種：agent 替自己設的追蹤期限，以及固定週期的排程。計時器放在獨立的表，由排程服務定期掃描，到期後丟一個事件進收件匣，而不是自己啟動執行。",
+        "記憶只存查不回來的東西，其他系統已經有的資料只留指標。建議分成使用者指示、使用者筆記、已經說過的話、任務進度幾類，執行開始時只先載入索引，需要時再讀細節。",
+        "權限是風險最高的一環：憑證由環境外的代理在送出請求時補上；高風險動作交給分類器把關；需要使用者決定的工具呼叫先暫停並保存對話，答覆以新事件回到收件匣後再接著做。",
+        "多數情況一個「傳送」工具就夠，要控制發送節奏或從錯誤中恢復時才需要正式的寄件匣。訊息太多會吵、太少會漏，建議用 evals 調整，寧可一開始安靜，再慢慢爭取使用者的注意力。"
+      ],
+      "questions": [
+        "你的 agent 如果執行到一半當掉，重新啟動後知道該從哪裡接著做嗎？",
+        "你的 agent 記住的東西裡，有多少其實可以從別的系統查回來？",
+        "當 agent 需要你核准某個動作時，它是整個卡住等你，還是能先去處理別的事？"
+      ],
+      "further": [
+        {
+          "title": "Anthropic 談 agent 記憶組成的文章",
+          "url": "https://www.anthropic.com/research/components-of-agent-memory",
+          "note": "進一步說明記憶設計，包括回顧過去對話來整理記憶的 dreaming。"
+        },
+        {
+          "title": "Agent SDK 安全部署：憑證管理",
+          "url": "https://code.claude.com/docs/en/agent-sdk/secure-deployment#credential-management",
+          "note": "由環境外的代理注入憑證，agent 本身拿不到真正的密鑰。"
+        },
+        {
+          "title": "Claude Code auto mode",
+          "url": "https://www.anthropic.com/research/claude-code-auto-mode",
+          "note": "用分類器審查高風險動作，讓 agent 不必一直等人核准。"
+        },
+        {
+          "title": "Claude Code hooks：延後工具呼叫",
+          "url": "https://code.claude.com/docs/en/hooks#defer-a-tool-call-for-later",
+          "note": "讓工具呼叫先暫停、等使用者補充或核准後再繼續的機制。"
+        },
+        {
+          "title": "MCP Apps",
+          "url": "https://modelcontextprotocol.io/extensions/apps/overview",
+          "note": "文中舉例用它做互動卡片，向使用者呈現待核准的請求。"
+        }
+      ],
+      "video": null
+    },
+    {
+      "id": "68811c4e6ccf667c",
+      "category": "dev",
+      "title": "AI Ambition: ArtCraft Cloned Photoshop and Now Wants to \"Rebuild Everything\"",
+      "url": "https://latent.space/p/artcraft/",
+      "source": "Latent Space",
+      "publishedOn": "2026-11-13",
+      "summary": "ArtCraft 創辦人在 AIE Code 大會主張用 AI 把被大公司把持的軟體全部以開源重寫，他們靠 agent 從零做出 Photoshop 替代品 PhotoCraft，目前已推出 17 款開源工具。",
+      "deep": true,
+      "points": [
+        "PhotoCraft 的做法：先給模型一份詳細描述 Photoshop 工具、資料結構與檔案匯入器的提示，再用一個大型提示建置整個應用程式，並讓所有功能都能從 MCP 與 CLI 操作；據稱 24 小時內就有相當接近的雛形。",
+        "功能對等還沒做完：講者說剛過六成，專案 GitHub 寫功能廣度約 76%、專業可用度約 46%。目前刻意沿用 Adobe 的介面讓使用者習慣不變，之後才打算做更偏 agent 操作的新介面。",
+        "選 Rust 是為了原生效能，講者認為高品質的創作軟體用 Electron 不夠；他也表示工程師不熟 Rust 沒關係，agent 寫得來。",
+        "分工原則：後端、schema 遷移和 API 設計交給人；桌面 app、遊戲這類性質上近乎不可變的東西，可以放手讓 agent 做。",
+        "規模變大後踩到的坑集中在權限、GitHub、擴充與 CI，CI 撐不住只好自己架，並另外找共置主機取得記憶體。"
+      ],
+      "questions": [
+        "你的專案裡，哪些部分可以放心交給 agent，哪些一定要人來決定？這條線是怎麼畫的？",
+        "如果 agent 一天就能寫出一個應用程式的雛形，你的 CI 和審查流程跟得上嗎？",
+        "用 AI 重寫既有軟體時，你會用什麼方式衡量它跟原版還差多少？"
+      ],
+      "further": [
+        {
+          "title": "AI Engineer Code Summit",
+          "url": "https://ai.engineer/code/2026/?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "這場演講所在的研討會，第二天的主題是用 AI 提高企圖心。"
+        },
+        {
+          "title": "ArtCraft",
+          "url": "https://getartcraft.com/?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "官方網站，集中提供旗下的開源工具與社群做的 app。"
+        },
+        {
+          "title": "PhotoCraft",
+          "url": "https://getartcraft.com/apps/photocraft?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "以 Rust 從零打造的 Photoshop 替代品。"
+        },
+        {
+          "title": "PhotoCraft 功能對等文件",
+          "url": "https://github.com/storytold/photocraft/blob/main/docs/target-app-parity.md?utm_source=latent.space&utm_medium=ainews&utm_campaign=lsbeehiiv",
+          "note": "專案自評與 Photoshop 的功能對等程度。"
+        },
+        {
+          "title": "AutoCraft",
+          "note": "ArtCraft 打算開源的全自動軟體工廠。"
+        }
+      ],
+      "video": null
+    },
+    {
+      "id": "3007f82c38138e35",
+      "category": "dev",
+      "title": "Building strong safety evaluations",
+      "url": "https://www.anthropic.com/research/building-strong-safety-evaluations",
+      "source": "Anthropic Engineering",
+      "publishedOn": null,
+      "summary": "安全評估的結論只跟評估本身一樣可靠。Anthropic 借鏡心理學的再現性改革，整理從組隊、設計、執行到報告的做法，核心是先定義要量什麼、驗證評分模型、誠實報告不確定性。",
+      "deep": true,
+      "points": [
+        "先想清楚要量什麼：拒答率不等於安全，例如面對自傷話題一律拒絕反而是失敗。應由各領域專家訂評分準則，同時量有害請求的配合程度與無害請求的過度拒答。",
+        "單輪題目很快飽和，也不像真實情況。做法是由專家寫情境規格、固定第一句，再讓另一個模型扮演使用者多輪對話，每個情境跑多次並抽換人設、語氣等維度，最後由評分模型依準則打分。",
+        "評分模型要校準：能用程式檢查就用程式，準則拆成是非題，寫明什麼不算數；評分壞掉要明確報錯，不要默默計分；並先跟人工標註比對，一致程度至少要接近專家彼此之間。",
+        "看結果前先寫下指標、比較方式與門檻（預先登記）。樣本要夠：多輪評估至少 100 題、單輪至少 1,000 題，每題重跑幾次；比較兩個模型時，用同一題的配對差異來算信賴區間。",
+        "報告要附信賴區間與完整設定：同一模型在 API 和 claude.ai 上的結果可差到 34 個百分點；文中也舉例 98% 對 94% 的差距在統計上不顯著，不能據此說哪個比較好。"
+      ],
+      "questions": [
+        "你的評估分數變好時，能確定是模型變好了，而不是評分方式或題目變了嗎？",
+        "你拿模型當評分者時，有沒有用人工標註檢查過它跟人的判斷有多一致？",
+        "兩個版本的分數只差幾個百分點時，你怎麼判斷那是真的差異還是雜訊？"
+      ],
+      "further": [
+        {
+          "title": "Demystifying evals for AI agents",
+          "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+          "note": "先前談能力評估的文章，這篇則專談安全評估。"
+        },
+        {
+          "title": "Anthropic system cards",
+          "url": "https://www.anthropic.com/system-cards",
+          "note": "文中多數例子的出處，也可當記錄評估設定與結果的格式參考。"
+        },
+        {
+          "title": "Inspect",
+          "url": "https://inspect.aisi.org.uk/",
+          "note": "英國 AI 安全研究所的開源評估框架，負責執行、記錄與評分。"
+        },
+        {
+          "title": "Petri",
+          "url": "https://www.anthropic.com/research/petri-open-source-auditing",
+          "note": "建立在 Inspect 上的工具，能自動化多輪行為測試。"
+        },
+        {
+          "title": "Anthropic 談模型評估統計方法的文章",
+          "url": "https://www.anthropic.com/research/statistical-approach-to-model-evals",
+          "note": "文中建議用配對比較偵測模型間小差異時引用的文章。"
+        }
+      ],
+      "video": null
+    },
+    {
+      "id": "3b018aa13f55b827",
+      "category": "industry",
+      "title": "AWS擴充AgentCore執行環境，支援大型程式編譯與本地模型載入",
+      "url": "https://www.ithome.com.tw/news/180503",
+      "source": "iThome",
+      "publishedOn": "2026-11-13",
+      "summary": "AWS 推出 Bedrock AgentCore Runtime V2，單一工作階段可用到 8 個 vCPU 與 32 GB 記憶體，搭配快照啟動大幅縮短開機時間，已成為 19 個區域新建環境的預設版本。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "a08b8b02569f3e26",
+      "category": "industry",
+      "title": "GovTech月報第58期：國網中心擬擴充TAIWAN AI RAP模型微調服務；歐洲央行將在2027年試點驗證數位歐元的實境支付能力",
+      "url": "https://www.ithome.com.tw/news/180496",
+      "source": "iThome",
+      "publishedOn": "2026-11-13",
+      "summary": "iThome GovTech 月報整理近一個月的公部門科技動態，包括國網中心 TAIWAN AI RAP 將新增模型微調服務、歐洲央行預計 2027 年下半年試點數位歐元，以及高雄市、公路局導入 AI 的案例。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "5bcccb8615eda156",
+      "category": "industry",
+      "title": "憂AI助長網攻及生物武器風險，美國非營利組織控告OpenAI等5家業者",
+      "url": "https://www.ithome.com.tw/news/180485",
+      "source": "iThome",
+      "publishedOn": "2026-11-13",
+      "summary": "美國四家非營利組織在加州法院控告 OpenAI、Google、Meta、Anthropic 與 SpaceXSI，主張先進 AI 可能助長網路攻擊與生物武器風險，要求凍結最前沿模型的開發。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "ba19103e424713c4",
+      "category": "industry",
+      "title": "AI讓攻擊進入自動化時代，Google：企業更要管好Agent權限",
+      "url": "https://www.ithome.com.tw/news/180481",
+      "source": "iThome",
+      "publishedOn": "2026-11-13",
+      "summary": "Google 威脅情報小組技術長認為，AI 沒有發明新的攻擊手法，而是讓攻擊更快、規模更大；企業導入 AI Agent 時應比照員工落實最小權限，並保留日誌、稽核與人的最終判斷。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "f55817b72e9782bd",
+      "category": "industry",
+      "title": "[AINews] Jensen Huang resigns after 33 years leading NVIDIA",
+      "url": "https://latent.space/p/ainews-jensen-huang-resigns-after-33-years-leading-nvidia/",
+      "source": "Latent Space",
+      "publishedOn": "2026-11-13",
+      "summary": "黃仁勳在領導 NVIDIA 33 年後辭去執行長、總裁與董事職務，由財務長 Colette Kress 暫代執行長；同一期也整理了 Google 推出 Gemini 4 Hydrogen、Anthropic 提交上市申請等消息。",
+      "deep": false,
+      "video": null
+    },
+    {
+      "id": "b11ce16c29be428f",
+      "category": "finance",
+      "title": "金管會資安長會議聚焦AI攻擊與代理AI安全，籲金融業強化防禦及應變",
+      "url": "https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202611130001&toolsflag=Y&dtable=News",
+      "source": "金管會 新聞稿",
+      "publishedOn": "2026-11-13",
+      "summary": "金管會召開金融機構資安長會議，聚焦 AI 加速攻擊與代理 AI 安全，要求業者優先處理對外曝險與重大漏洞、落實零信任、審慎評估導入防禦性 AI，並由董事會負起資安治理責任。",
+      "deep": false,
+      "video": null
+    }
+  ]
+}
