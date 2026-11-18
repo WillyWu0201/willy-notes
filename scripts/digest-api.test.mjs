@@ -107,3 +107,13 @@ test("writeApi writes index and day files and removes stale day files", () => {
   writeApi(dir, [day]);
   assert.equal(readFileSync(join(dir, "index.json"), "utf8"), raw);
 });
+
+test("buildApi tolerates a day without generatedAt", () => {
+  const bare = { date: "2026-11-10", items: day.items.slice(2, 3) };
+  const bad = { date: "2026-11-08", generatedAt: "nonsense", items: day.items.slice(2, 3) };
+  const { index, files } = buildApi([bare, day, bad]);
+  assert.equal(files.get("2026-11-10").generatedAt, null);
+  assert.equal(files.get("2026-11-08").generatedAt, null);
+  assert.equal(index.generatedAt, "2026-11-09T09:01:52+08:00");
+  assert.equal(buildApi([bare]).index.generatedAt, null);
+});

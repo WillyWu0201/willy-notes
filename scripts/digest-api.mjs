@@ -30,7 +30,9 @@ export function videoOf(url) {
 }
 
 // "2026-11-18T01:01:52.522Z" -> "2026-11-18T09:01:52+08:00" (Taiwan has no DST).
+// A missing or unparseable time gives null, so one odd day file never breaks the build.
 export function toTaipeiIso(iso) {
+  if (!iso || Number.isNaN(new Date(iso).getTime())) return null;
   return new Date(new Date(iso).getTime() + 8 * 3600 * 1000).toISOString().replace(/\.\d+Z$/, "+08:00");
 }
 
@@ -68,7 +70,7 @@ export function buildApi(days, { minimumAppVersion = "1.0" } = {}) {
   const files = new Map(days.map((d) => [d.date, buildDay(d)]));
   const index = {
     schemaVersion: 1,
-    generatedAt: days.length ? files.get(days[0].date).generatedAt : null,
+    generatedAt: days.map((d) => files.get(d.date).generatedAt).find(Boolean) ?? null,
     minimumAppVersion,
     categories: CATEGORIES,
     days: days.map((d) => {
