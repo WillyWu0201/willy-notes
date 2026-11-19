@@ -16,7 +16,12 @@ test("validateAnalysis rejects an analysis written for a different article", () 
   assert.match(validateAnalysis({ ...good, url: "https://a.test/other" }, entry), /url/);
 });
 test("validateAnalysis rejects unknown categories", () => {
-  assert.match(validateAnalysis({ ...good, category: "security" }, entry), /category/);
+  assert.match(validateAnalysis({ ...good, category: "sports" }, entry), /category/);
+});
+test("validateAnalysis accepts a summary-only security analysis", () => {
+  const plain = { url: entry.url, category: "security", drop: false, dropReason: null, summary: "s" };
+  assert.equal(validateAnalysis(plain, entry), null);
+  assert.match(validateAnalysis({ ...good, category: "security" }, entry), /points/);
 });
 test("validateAnalysis enforces 3–5 points and 2–3 questions for deep dev items", () => {
   assert.match(validateAnalysis({ ...good, points: ["a", "b"] }, entry), /points/);

@@ -30,7 +30,7 @@ function furtherError(further, entry) {
 export function validateAnalysis(a, entry) {
   if (!a || typeof a !== "object") return "分析不是 JSON 物件";
   if (a.url !== entry.url) return `url 跟素材不一致：${a.url}`;
-  if (!CATEGORY_IDS.includes(a.category)) return `category 不是四類之一：${a.category}`;
+  if (!CATEGORY_IDS.includes(a.category)) return `category 不是 ${CATEGORY_IDS.join("、")} 之一：${a.category}`;
   if (a.drop) return isText(a.dropReason, LIMITS.line) ? null : "drop 時要寫 dropReason";
   if (!isText(a.summary, LIMITS.summary)) return `summary 要有內容、最多 ${LIMITS.summary} 字`;
   if (a.category === "dev" && entry.deep) {

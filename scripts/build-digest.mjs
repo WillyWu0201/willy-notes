@@ -1,5 +1,5 @@
 // Build the digest pages: content/digests/{date}.json -> public/digest/{date}.html + index.html.
-// Each day is split into four tabs (see digest-lib CATEGORIES). "AI 開發方式" items with a deep
+// Each day is split into tabs (see digest-lib CATEGORIES). "AI 開發方式" items with a deep
 // analysis get a card; everything else is a row with a short summary. Only http(s) links are
 // published, and dropped items are never shown.
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
@@ -10,10 +10,10 @@ import { writeApi } from "./digest-api.mjs";
 
 const OUT = "public/digest";
 const DIGEST_DIR = "content/digests";
-const INTRO = "每天早上自動整理 AI 開發方式、AI 產業動態、iOS／Apple、金融與虛擬資產的新文章；AI 開發方式每篇附重點、反思問題與延伸閱讀。";
+const INTRO = "每天早上自動整理 AI 開發方式、AI 產業動態、iOS／Apple、金融與虛擬資產、金融 App 資安的新文章；AI 開發方式每篇附重點、反思問題與延伸閱讀。";
 const LABEL = Object.fromEntries(CATEGORIES.map((c) => [c.id, c.label]));
 
-// Always four groups in tab order; deep = dev items that carry a deep analysis.
+// One group per category, in tab order; deep = dev items that carry a deep analysis.
 export function groupByCategory(items) {
   const groups = new Map(CATEGORIES.map((c) => [c.id, { deep: [], rows: [] }]));
   for (const i of items) {

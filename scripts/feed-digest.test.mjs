@@ -2,8 +2,9 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   buildMatcher, parseFeed, extractLinks, parseSitemap, extractYouTube,
-  parseAppleSecurity, parseLooseDate, selectNew, renderDigest, pickHits,
+  parseAppleSecurity, parseLooseDate, selectNew, renderDigest, pickHits, keywordsFor,
 } from "./feed-digest.mjs";
+import { readFileSync } from "node:fs";
 
 const match = buildMatcher({
   AI: ["AI", "LLM", "agent", "生成式"],
@@ -141,4 +142,19 @@ test("pickHits keeps only keyword hits for normal sources", () => {
   const out = pickHits([{ url: "a", text: "New AI model" }, { url: "b", text: "Gardening tips" }], {}, match);
   assert.deepEqual(out.map((i) => i.url), ["a"]);
   assert.equal(out[0].curated, undefined);
+});
+
+test("keywordsFor limits a source with `groups` to those keyword groups", () => {
+  const keywords = { AI: ["AI"], 金融資安: ["banking trojan"] };
+  assert.deepEqual(keywordsFor(keywords, {}), keywords);
+  assert.deepEqual(keywordsFor(keywords, { groups: ["金融資安"] }), { 金融資安: ["banking trojan"] });
+  const securityOnly = buildMatcher(keywordsFor(keywords, { groups: ["金融資安"] }));
+  assert.deepEqual(securityOnly("AI pentesting checklist").groups, []);
+  assert.deepEqual(securityOnly("New AI banking trojan").groups, ["金融資安"]);
+});
+test("every `groups` in feeds.json names a keyword group", () => {
+  const cfg = JSON.parse(readFileSync("automation/feeds.json", "utf8"));
+  for (const src of cfg.sources.filter((s) => s.groups)) {
+    for (const g of src.groups) assert.ok(cfg.keywords[g], `${src.id} 的 groups 有不存在的群組：${g}`);
+  }
 });

@@ -18,7 +18,7 @@ const day = { date: "2026-11-09", items: [
 
 test("groupByCategory uses analysed categories, falls back for old items, and skips dropped and non-http items", () => {
   const g = Object.fromEntries(groupByCategory(day.items));
-  assert.deepEqual(Object.keys(g), ["dev", "industry", "apple", "finance"]);
+  assert.deepEqual(Object.keys(g), ["dev", "industry", "apple", "finance", "security"]);
   assert.deepEqual(g.dev.deep.map((i) => i.title), ["Agentic <Verification>"]);
   assert.deepEqual(g.dev.rows.map((i) => i.title), ["Talk"]);
   assert.deepEqual(g.industry.rows.map((i) => i.title), ["GPT-6"]);

@@ -175,6 +175,13 @@ export function selectNew(items, prevSeen, today, days = 7) {
   return { fresh, seen: seen.slice(-5000), firstRun };
 }
 
+// A source with `groups` is matched only against those keyword groups, so a general security
+// feed adds only 金融資安 hits instead of every article that mentions AI.
+export function keywordsFor(keywords, src) {
+  if (!src.groups) return keywords;
+  return Object.fromEntries(Object.entries(keywords).filter(([group]) => src.groups.includes(group)));
+}
+
 // Curated sources (`all`) are kept whole and marked curated; others must hit a keyword.
 export function pickHits(fresh, src, match) {
   const hits = fresh.map((i) => ({ ...i, ...match(i.text) }));
@@ -254,14 +261,13 @@ async function main() {
   const date = dateArg !== -1 ? process.argv[dateArg + 1] : todayLocal();
   const cfg = JSON.parse(readFileSync("automation/feeds.json", "utf8"));
   const state = existsSync(cfg.statePath) ? JSON.parse(readFileSync(cfg.statePath, "utf8")) : {};
-  const match = buildMatcher(cfg.keywords);
 
   const results = await Promise.all(cfg.sources.map(async (src) => {
     try {
       const items = await load(src);
       const { fresh, seen, firstRun } = selectNew(items, state[src.id], date, src.firstRunDays ?? 7);
       if (items.length) state[src.id] = seen; // a broken parser must not wipe the baseline
-      const hits = pickHits(fresh, src, match);
+      const hits = pickHits(fresh, src, buildMatcher(keywordsFor(cfg.keywords, src)));
       return {
         status: { name: src.name, parsed: items.length, fresh: fresh.length, matched: hits.length, firstRun },
         hits: hits.map((h) => ({
