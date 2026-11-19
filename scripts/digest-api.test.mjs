@@ -47,9 +47,9 @@ test("buildApi index lists categories, days newest first, and per-category count
   assert.equal(index.minimumAppVersion, "1.0");
   assert.deepEqual(index.categories, CATEGORIES);
   assert.deepEqual(index.days.map((d) => d.date), ["2026-11-09", "2026-11-08"]);
-  assert.deepEqual(index.days[0].counts, { dev: 2, industry: 1, apple: 0, finance: 1 });
+  assert.deepEqual(index.days[0].counts, { dev: 2, industry: 1, apple: 0, finance: 1, security: 0 });
   assert.equal(index.days[0].total, 4);
-  assert.deepEqual(index.days[1].counts, { dev: 0, industry: 1, apple: 0, finance: 0 });
+  assert.deepEqual(index.days[1].counts, { dev: 0, industry: 1, apple: 0, finance: 0, security: 0 });
   assert.equal(index.generatedAt, "2026-11-09T09:01:52+08:00");
   assert.equal(buildApi([day], { minimumAppVersion: "99.0" }).index.minimumAppVersion, "99.0");
 });

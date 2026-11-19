@@ -1,4 +1,4 @@
-// Shared by the digest scripts: the four tabs, the fallback tab for items without an
+// Shared by the digest scripts: the tabs, the fallback tab for items without an
 // analysis, and the http(s)-only rule for anything published.
 
 export const CATEGORIES = [
@@ -6,9 +6,10 @@ export const CATEGORIES = [
   { id: "industry", label: "AI 產業動態" },
   { id: "apple", label: "iOS / Apple" },
   { id: "finance", label: "金融與虛擬資產" },
+  { id: "security", label: "金融 App 資安" },
 ];
 
-const GROUP_TO_CATEGORY = { AI: "industry", "iOS / Apple": "apple", 金融: "finance", 虛擬資產: "finance" };
+const GROUP_TO_CATEGORY = { AI: "industry", "iOS / Apple": "apple", 金融: "finance", 虛擬資產: "finance", 金融資安: "security" };
 
 export function fallbackCategory(item) {
   if (item.curated) return "dev";

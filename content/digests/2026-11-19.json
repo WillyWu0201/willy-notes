@@ -222,6 +222,407 @@
       "drop": false,
       "summary": "GPT-6.2 Astra 在多項評測僅次於 Fable 5.2、成本卻低很多，Sol 以約 15% 成本追平上一代 Astra，但早期測試者評價兩極。另整理微軟 MAI 模型、代理 harness 成本差異與多代理協作等消息。",
       "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Linked billing on the Claude Platform",
+      "url": "https://claude.com/resources/articles/linked-billing-on-claude-platform",
+      "date": "2026-11-17",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Claude Platform 推出 linked billing（beta）：程式 agent、自動化工具等第三方平台不必再向客戶拿 API key，改由客戶連結自己的組織直接付費，可替每個平台設每月花費上限、隨時解除。請求在平台的組織內執行，客戶端的 IP 白名單、資料保留等設定不會套用。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "The Claude Tag guide for startups",
+      "url": "https://claude.com/resources/articles/claude-tag-guide-for-startups",
+      "date": "2026-11-13",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "dev",
+      "drop": false,
+      "summary": "訪談八家新創後，整理出最值得先讓 Claude Tag 進駐的 Slack 頻道：值班告警分流、從討論串開 PR、公司知識庫、自助查資料、例行報告。共同做法是從一個明確任務開始、限縮存取範圍，並由人負責審查與合併。",
+      "deep": true,
+      "points": [
+        "值班頻道通常最先交給 Claude：每則告警各開一串，先查資料再推論，分清楚已驗證和推測的部分；修正範圍小才開草稿 PR，否則附上調查結果轉給負責人，合併前一律由人審查。",
+        "從討論串開 PR 適合一直排不進待辦的小功能和小瑕疵：產品、工程、業務在同一串給意見，Claude 缺資訊時先問、先要真實範例。NavigateAI 從 Slack 開了約 223 個 PR，合併了 134 個。",
+        "讓非工程人員自助查資料，前提是有治理過的資料模型或語意層、CI 把關，以及大家同意的指標定義；Orderful 認為少了這些，只會得到看起來很篤定的錯誤答案。",
+        "近半數受訪新創先在私人頻道找不同職能的人試用，用 bundle 只開放第一個頻道需要的連接器，設好花費上限和警示，再拿實際成本規劃下一個頻道。主動發言程度也要調，太吵或太安靜都會出問題。",
+        "頻道指示要寫得像在帶新人：先查什麼、何時開 PR、何時該問，也要讓它知道「不需要處理」是可以的答案。糾正直接在討論串裡做，同事也能從旁學會怎麼跟它協作。"
+      ],
+      "questions": [
+        "你的團隊有哪些「很小但一直沒人做」的需求，其實只差有人把討論變成一個 PR？",
+        "讓 AI 在共用頻道裡做事時，你會怎麼劃分它能自己動手的事和一定要人點頭的事？",
+        "你的文件和資料定義夠一致嗎？AI 照著回答時，會不會很有把握地答錯？"
+      ],
+      "further": [
+        {
+          "title": "How Claude Tag serves as Anthropic's first responder for CI/CD failures",
+          "url": "https://claude.com/resources/articles/ai-ci-cd-on-call",
+          "note": "Anthropic 自己用 Claude Tag 當 CI/CD 失敗第一線處理者的做法。"
+        },
+        {
+          "title": "Self-service data analytics in Slack",
+          "url": "https://claude.com/resources/articles/self-service-data-analytics-in-slack-how-anthropic-deploys-claude-tag-for-ad-hoc-questions",
+          "note": "Anthropic 某個內部資料頻道的經驗，一個月內由 Claude Tag 回答了超過 75% 的提問。"
+        },
+        {
+          "title": "Claude Tag agent 身分說明",
+          "url": "https://claude.com/docs/claude-tag/concepts/agent-identity",
+          "note": "Claude 在頻道裡用自己的 agent 身分和服務帳號運作，不借用任何人的個人登入。"
+        },
+        {
+          "title": "Claude Tag 頻道記憶",
+          "url": "https://claude.com/docs/claude-tag/users/memory",
+          "note": "Claude 依頻道記住回饋，可以請它更新該頻道的記憶，讓修正長期有效。"
+        },
+        {
+          "title": "Claude Tag 花費上限設定",
+          "url": "https://claude.com/docs/claude-tag/admins/set-spend-limit",
+          "note": "設定整體與各頻道的花費上限，文中建議導入前就先談好預算。"
+        }
+      ]
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Which Claude model is best to use for knowledge work",
+      "url": "https://claude.com/resources/articles/using-claude-opus-5-5-as-your-daily-driver-for-knowledge-work",
+      "date": "2026-11-12",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Opus 5.5 已是 Pro、Max、Ultra、Team 方案的預設模型，官方建議研究、分析、做文件和簡報都用它，並比較四款模型的價格與適用場合。建議 effort 從 Medium 開始、拿掉要它「想仔細一點」的提示；結果不理想先調高 effort，還不行再換更大的模型。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Introducing Claude Meetings, now in beta",
+      "url": "https://claude.com/resources/articles/claude-meetings",
+      "date": "2026-11-12",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Claude Meetings 推出 beta，Claude 能以參與者身分加入 Google Meet，回答問題、經同意後使用連接的工具，會中建立文件與白板，會後留下筆記與待辦；預設有外部來賓就不加入，只存逐字稿不存錄音，先開放 Team 與 Enterprise 方案。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Claude for Manufacturing: AI plugin for plant teams",
+      "url": "https://claude.com/resources/articles/claude-for-manufacturing",
+      "date": "2026-11-12",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Anthropic 推出 Claude for Manufacturing 外掛，含 17 個技能，透過 Autodesk Fusion、Infor、Microsoft 365、Oracle NetSuite 連接器協助起草報價、調查檢驗不合格、診斷設備故障與彙整生產報告，結果都由負責人審核後才送出。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "J.Crew’s Style Advisor: an AI stylist built with Claude",
+      "url": "https://claude.com/resources/articles/j-crew-style-advisor-with-claude",
+      "date": "2026-11-12",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "J.Crew 推出 AI 造型顧問 Style Advisor，顧客說出場合就能拿到整套穿搭，搭配都取自品牌造型師拍好的造型照。團隊用 Fable 5.1 規劃推理方式、用 Opus 5.5 在 Claude Code 做原型，上線後由 Sonnet 5.5 當造型師、Haiku 5.5 處理快速小任務。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Working with Claude Sheets, Whiteboards, and Interactive Connectors",
+      "url": "https://claude.com/resources/articles/more-ways-to-work-with-claude-sheets-whiteboards-and-interactive-connectors",
+      "date": "2026-11-10",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Anthropic 想讓其他部門也像工程師用 Claude Code 那樣工作：新增 Sheets、Whiteboards、Data 三種 artifact，互動式 connector 讓 Adobe 等 App 直接嵌進 Claude。文中舉了內部法務、財務團隊與客戶的用法，並說明企業版的權限控管。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Claude Whiteboards, Claude Sheets, and Claude Data",
+      "url": "https://claude.com/resources/articles/sheets-whiteboards-data",
+      "date": "2026-11-10",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Whiteboards 與 Sheets 開放 beta，Dashboards 正式上線並改名 Claude Data。白板把口頭計畫整理成有負責人和日期的時程；試算表支援分頁、公式、下拉選單並標示修改；Data 新增認證查詢、資料故事和即時分享。Team 方案預設全開，Enterprise 的白板和試算表預設關閉。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "JPMorganChase expands Claude Code to more employees",
+      "url": "https://claude.com/resources/articles/jpmorganchase-expands-claude-code",
+      "date": "2026-11-09",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "摩根大通把 Claude 從工程師擴大到產品、資產管理等更多部門，用來改寫舊系統、自建 PR 審查與自我修復 agent、做監控和根因分析。Claude Code 跑在公司自有的容器化開發平臺上，每次變更都要過自動化測試與關卡，Claude 不能自己核准自己的成果。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "More visibility and control over Claude Enterprise for security teams",
+      "url": "https://claude.com/resources/articles/claude-enterprise-security-updates",
+      "date": "2026-11-05",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Claude Enterprise 加強資安管理：安全中心把現有設定和官方建議值並排比對；inference hooks 正式上線，提示和工具呼叫會先送進企業的 DLP 工具檢查。另有跨組織集中管理主控台、Admin API 強制登出、自管 IP 白名單、封鎖個人帳號，以及在 Cowork 虛擬機裡跑 EDR。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Introducing Personal Finance in Claude",
+      "url": "https://claude.com/resources/articles/introducing-personal-finance-in-claude",
+      "date": "2026-11-05",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Claude 推出 Personal Finance beta，透過 Plaid 以唯讀方式連結銀行與信用卡帳戶，讓使用者用口語查詢支出、待繳帳單與手續費，不能轉帳或投資；先開放美國 Pro、Max、Ultra 方案，專區內的對話不會拿來訓練模型。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Introducing artifacts for legal work with Claude",
+      "url": "https://claude.com/resources/articles/introducing-artifacts-for-legal-work",
+      "date": "2026-10-28",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Claude for Legal 推出法律 artifact 範本庫，提供引註核對、跨法域法規比較、合約條款偏離審查、法規動態掃描等互動工具，結果都附來源連結；也收錄 Harvey、PwC、Goodwin 等夥伴與法律扶助團體做的 artifact，並啟動 Legal Ambassadors Program。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "IDC brings Quanta into Claude and adopts Claude across the company",
+      "url": "https://claude.com/resources/articles/idc-brings-quanta-into-claude-and-adopts-claude-across-the-company",
+      "date": "2026-10-28",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "IDC 把市場研究平台 IDC Quanta 做成 Claude 的 MCP connector，客戶可在 Claude 裡產出競品簡報、供應商評比，答案標註 IDC 出處。IDC 內部也全面導入 Claude，工程團隊用 Claude Code 把原估三個月的資料庫重建縮到三週，程式碼審查從五天縮到約 30 分鐘。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Smart reports, surveys, and pooled group budgets for Claude Enterprise",
+      "url": "https://claude.com/resources/articles/smart-reports-surveys-pooled-budgets",
+      "date": "2026-10-28",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Claude Enterprise 推出三項管理功能：智慧報告抽樣分析團隊的對話，整理出工作類別、花費和常見卡關點，並建議哪些流程該做成 skill；App 內問卷蒐集成員覺得 Claude 帶來的價值；群組共用預算讓整組共用每月額度，個人上限照樣有效。官方強調報告不能拿來評估個人績效。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Claude for Financial Advisors",
+      "url": "https://claude.com/resources/articles/claude-for-financial-advisors",
+      "date": "2026-10-27",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Anthropic 推出 Claude for Financial Advisors，串接 BlackRock、Schwab、Addepar 等二十多家托管、資產管理與財富科技業者，搭配會前準備、再平衡檢視、合規審查等技能處理理財顧問的準備與文書工作；投資建議與客戶溝通仍須顧問審核。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Manage costs and demonstrate ROI for Claude Code on Google Cloud",
+      "url": "https://claude.com/resources/articles/how-to-manage-costs-and-demonstrate-roi-for-claude-code-on-google-cloud",
+      "date": "2026-10-27",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "dev",
+      "drop": false,
+      "summary": "在 Google Cloud 上管理 Claude Code 的花費可以分三步：控制、追蹤、證明。用引導取代一刀切的限制，用 OpenTelemetry 看清錢花在哪，最後拿交付成果和既有歷史資料對照，算出投資報酬。",
+      "deep": true,
+      "points": [
+        "花最多的人通常是重度使用者，產出的價值往往也最高；浪費多半藏在中段，例如 Sonnet 就能做的例行工作卻用 Fable 跑，或忘了關掉還在自動執行的排程。所以重點是引導，不是砍額度。",
+        "Claude apps gateway 跑在自家 Google Cloud 專案裡，開發者經由身分提供者登入，因此能依人或群組設花費上限與可用模型，接近上限時 CLI 會先提醒。文中特別推薦設預設模型，因為多數人不會主動換。",
+        "Claude Code 的 OTel 指標能依使用者、模型、skill、plugin、MCP server 拆分用量與估算成本；用 OTEL_RESOURCE_ATTRIBUTES 加上部門或成本中心標籤，就能在既有監控工具裡分攤。",
+        "證明價值看三個面向：採用程度、開發者滿意度（導入前後做問卷）、實際影響。影響指標分時間、投入、產出，例如 PR 從開到合併的週期、每個 PR 的審查來回次數、每位工程師的 PR 數。",
+        "修錯字和發布新功能都算一個 PR，所以要用標籤或 ticket 定義要算哪一類合併 PR。Claude Code 統計的是它開出的 PR，不是最後合併的，要跟版本控制和 ticket 系統對照才準。"
+      ],
+      "questions": [
+        "你的團隊花在 AI 工具上的錢，說得出主要花在哪些人、哪些任務上嗎？",
+        "如果要證明 AI 讓團隊變快，你手上有哪些歷史資料可以當比較基準？",
+        "你們算的「一件工作」是什麼？一個 PR 真的能代表一份成果嗎？"
+      ],
+      "further": [
+        {
+          "title": "Anthropic 與 Google Cloud 的網路研討會",
+          "url": "https://www.anthropic.com/webinars/how-to-control-costs-and-show-roi-for-claude-code-on-google-cloud",
+          "note": "這篇文章的出處，主題同樣是控制 Claude Code 成本與證明投資報酬。"
+        },
+        {
+          "title": "Claude apps gateway 花費上限文件",
+          "url": "https://code.claude.com/docs/en/claude-apps-gateway-spend-limits",
+          "note": "依使用者、群組或整個組織設定花費上限，也能透過管理 API 程式化調整。"
+        },
+        {
+          "title": "Claude Code 用量監控文件",
+          "url": "https://code.claude.com/docs/en/monitoring-usage",
+          "note": "說明 Claude Code 輸出的 OpenTelemetry 指標與事件。"
+        },
+        {
+          "title": "Claude Code Monitoring 儀表板範本",
+          "url": "https://github.com/GoogleCloudPlatform/monitoring-dashboard-samples/tree/master/dashboards/claude-code",
+          "note": "可直接複製到 Cloud Monitoring，一頁看採用情形、程式活動、token 用量與估算花費。"
+        },
+        {
+          "title": "Claude Code OTel quickstart",
+          "url": "https://github.com/Google-Cloud-AI/partner-ai-anthropic/tree/main/01-quickstart/otlp-to-telemetry-api",
+          "note": "把遙測送進 Cloud Logging、Cloud Monitoring 與 BigQuery，並附上分析花費與工具成效的 SQL。"
+        }
+      ]
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Expanding Claude for Nonprofits",
+      "url": "https://claude.com/resources/articles/expanding-claude-for-nonprofits",
+      "date": "2026-10-26",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Anthropic 推出 Claude for Nonprofits 外掛，與約 30 個非營利組織共同設計，涵蓋行銷、人資與董事會事務、依組織 AI 政策安全導入，以及從找資助者到寫報告的募款流程，Team 與 Enterprise 方案免費自動安裝；也計畫與 Taproot 合作擴大 Claude Corps。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Claude Cowork and chat come together for Enterprise",
+      "url": "https://claude.com/resources/articles/unified-claude-enterprise",
+      "date": "2026-10-23",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "industry",
+      "drop": false,
+      "summary": "Enterprise 方案的聊天和 Cowork 正式合而為一：對話從聊天開始，需要跑程式或處理檔案時改到雲端的隔離虛擬機繼續做，關掉筆電也不會中斷。成本控管方面新增 Efficient 模式，只用 Sonnet 和 Haiku，也能依角色限制可用的模型、設定各層級的花費上限。",
+      "deep": false
+    },
+    {
+      "source": "Claude Blog",
+      "title": "Building agents: When to fold subagents into your main agent loop",
+      "url": "https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop",
+      "date": "2026-10-22",
+      "groups": [
+        "AI"
+      ],
+      "keywords": [],
+      "curated": true,
+      "category": "dev",
+      "drop": false,
+      "summary": "企業 agent 不必照組織架構拆成一堆 subagent；把它們逐一收進單一 agent loop，靠 skills 和 tool search 按需載入脈絡，品質常更好，成本與延遲也更低。",
+      "deep": true,
+      "points": [
+        "各團隊各做一個 subagent、中央再疊一層 orchestrator，常造成 subagent 氾濫、系統提示規則互相衝突、評估只看局部，交接時細節流失；有客戶改成單一 loop 後執行時間約快一倍。",
+        "subagent 仍適合三種情況：單一 loop 因脈絡膨脹明顯變差、需要平行處理且用完即丟的乾淨脈絡、工具或指令多到 agent 選錯。真要拆時依脈絡切，別依問題類型切。",
+        "建議的單一 loop：同一個模型與脈絡視窗，每輪平行呼叫工具，計畫自己寫也自己改；回合與成本上限放在 harness，驗證、核准等硬性限制放進工具，作業流程放進 skills。",
+        "遷移分階段做：先建一套小型端到端評估（10 個標準範例就能起步），一次只收一個 subagent。比較時要看哪些任務從通過變失敗，而且每個任務多跑幾次，因為有些退步只在部分執行中出現。",
+        "團隊改為擁有 skills 和工具而不是 agent：工具依使用者意圖分組，定義超過 30–50 個時選擇會變差；權限檢查放在工具裡並回傳模型讀得懂的拒絕；由小型中央團隊負責系統提示與整體品質。"
+      ],
+      "questions": [
+        "你的 agent 架構是依任務需要拆的，還是照著團隊分工拆的？",
+        "改動 agent 架構之後，你有沒有一套端到端評估能說明整體是變好還是變壞？",
+        "你的系統提示裡，有哪些規則是為舊模型加的，現在可能只讓 agent 變慢或變僵硬？"
+      ],
+      "further": [
+        {
+          "title": "single-agent-loop-kit",
+          "url": "https://github.com/anthropics/single-agent-loop-kit",
+          "note": "文中的遷移工具包，以引導流程評估多 agent 系統並移到單一 loop，附可在模擬系統上試跑的示範。"
+        },
+        {
+          "title": "The anatomy of effective commerce agents",
+          "url": "https://claude.com/resources/articles/the-anatomy-of-effective-commerce-agents#:~:text=In%20our%20comparisons%20across%20several%20enterprise%20deployments,latency%20per%20task",
+          "note": "文中引用的企業部署比較：單一 agent 加 skills 在品質、成本與延遲上常勝過其他兩種設計。"
+        },
+        {
+          "title": "Anthropic 的 multi-agent research system",
+          "url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+          "note": "文中舉出仍適合使用 subagent 的例子。"
+        },
+        {
+          "title": "Tool search tool",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool",
+          "note": "讓 agent 先只看到工具的簡短描述，需要時才載入完整定義。"
+        },
+        {
+          "title": "/claude-api 技能：build-eval、prompt-audit、hillclimb、cost-optimize",
+          "note": "分別用來建立評估、找出為舊模型寫的提示、對照評估反覆改進，以及分析成本與延遲。"
+        }
+      ]
     }
   ],
   "sources": [

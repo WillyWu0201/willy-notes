@@ -2,6 +2,7 @@
   "outputDir": "content/digests",
   "statePath": "automation/.cache/feed-seen.json",
   "keywords": {
+    "金融資安": ["banking trojan", "banking malware", "banking app", "mobile banking", "fraud", "Android malware", "Android trojan", "mobile malware", "remote access trojan", "overlay attack", "account takeover", "OTP", "one-time password", "NFC relay", "ghost tap", "SIM swap", "smishing", "skimmer", "crypto wallet", "drainer", "accessibility service", "Play Integrity", "App Attest", "app shielding", "金融資安", "銀行木馬", "手機木馬", "網銀", "網路銀行", "行動銀行", "銀行App", "金融App", "金融 App", "詐騙App", "假App", "惡意App", "簡訊釣魚", "釣魚簡訊", "驗證碼", "盜刷", "帳號盜用", "遠端操控", "金融詐騙", "支付詐騙"],
     "AI": ["AI", "LLM", "agent", "agentic", "MCP", "人工智慧", "生成式"],
     "iOS / Apple": ["iOS", "Swift", "SwiftUI", "Xcode", "Apple Intelligence", "Foundation Models", "Apple Pay", "Wallet", "App Store"],
     "金融": ["fintech", "金融科技", "payment", "支付", "open banking", "開放銀行", "數位金融"],
@@ -9,7 +10,7 @@
   },
   "sources": [
     { "id": "anthropic-news", "name": "Anthropic News", "type": "links", "url": "https://www.anthropic.com/news", "match": "^https://www\\.anthropic\\.com/news/[a-z0-9-]+$" },
-    { "id": "claude-articles", "name": "Claude Blog", "type": "links", "url": "https://claude.com/resources/articles", "match": "^https://claude\\.com/resources/articles/[a-z0-9-]+$" },
+    { "id": "claude-articles", "name": "Claude Blog", "type": "links", "url": "https://claude.com/resources/articles", "match": "^https://claude\\.com/resources/articles/[a-z0-9-]+$", "all": true, "firstRunDays": 30 },
     { "id": "yt-ai-engineer", "name": "AI Engineer (YouTube)", "type": "youtube", "url": "https://www.youtube.com/@aiDotEngineer/videos" },
     { "id": "yt-apple-developer", "name": "Apple Developer (YouTube)", "type": "youtube", "url": "https://www.youtube.com/@AppleDeveloper/videos" },
     { "id": "apple-security", "name": "Apple 安全性更新", "type": "apple-security", "url": "https://support.apple.com/en-us/100100" },
@@ -26,6 +27,19 @@
     { "id": "hamel", "name": "Hamel Husain", "type": "rss", "url": "https://hamel.dev/index.xml", "all": true, "firstRunDays": 30 },
     { "id": "eugene-yan", "name": "Eugene Yan", "type": "rss", "url": "https://eugeneyan.com/rss/", "all": true, "firstRunDays": 30 },
     { "id": "anthropic-engineering", "name": "Anthropic Engineering", "type": "links", "url": "https://www.anthropic.com/engineering", "match": "^https://www\\.anthropic\\.com/research/[A-Za-z0-9-]+$", "all": true, "firstRunDays": 30 },
-    { "id": "martin-fowler", "name": "Martin Fowler", "type": "rss", "url": "https://martinfowler.com/feed.atom" }
+    { "id": "martin-fowler", "name": "Martin Fowler", "type": "rss", "url": "https://martinfowler.com/feed.atom" },
+    { "id": "zimperium", "name": "Zimperium", "type": "links", "url": "https://zimperium.com/blog", "match": "^https://zimperium\\.com/blog/[a-z0-9-]+$", "groups": ["金融資安"] },
+    { "id": "threatfabric", "name": "ThreatFabric", "type": "rss", "url": "https://www.threatfabric.com/blogs/rss.xml", "groups": ["金融資安"] },
+    { "id": "securelist", "name": "Kaspersky Securelist", "type": "rss", "url": "https://securelist.com/feed/", "groups": ["金融資安"] },
+    { "id": "eset", "name": "ESET WeLiveSecurity", "type": "rss", "url": "https://www.welivesecurity.com/en/rss/feed/", "groups": ["金融資安"] },
+    { "id": "checkpoint-research", "name": "Check Point Research", "type": "rss", "url": "https://research.checkpoint.com/feed/", "groups": ["金融資安"] },
+    { "id": "cyble", "name": "Cyble", "type": "rss", "url": "https://cyble.com/feed/", "groups": ["金融資安"] },
+    { "id": "malwarebytes", "name": "Malwarebytes Labs", "type": "rss", "url": "https://www.malwarebytes.com/blog/feed/index.xml", "groups": ["金融資安"] },
+    { "id": "lookout", "name": "Lookout", "type": "rss", "url": "https://www.lookout.com/blog/rss.xml", "groups": ["金融資安"] },
+    { "id": "zscaler", "name": "Zscaler ThreatLabz", "type": "rss", "url": "https://www.zscaler.com/blogs/feeds/security-research", "groups": ["金融資安"] },
+    { "id": "google-security", "name": "Google Security Blog", "type": "rss", "url": "https://security.googleblog.com/feeds/posts/default", "groups": ["金融資安"] },
+    { "id": "android-developers", "name": "Android Developers Blog", "type": "rss", "url": "https://android-developers.googleblog.com/feeds/posts/default", "groups": ["金融資安"] },
+    { "id": "the-hacker-news", "name": "The Hacker News", "type": "rss", "url": "https://feeds.feedburner.com/TheHackersNews", "groups": ["金融資安"] },
+    { "id": "twcert", "name": "TWCERT/CC", "type": "rss", "url": "https://www.twcert.org.tw/tw/rss-104-1.xml", "groups": ["金融資安"] }
   ]
 }

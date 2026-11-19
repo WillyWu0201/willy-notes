@@ -96,13 +96,14 @@ node scripts/build-details.mjs
 
 `prep` 會依逐字稿長度＋章節數做負載平衡;`merge` 只在每一筆都通過驗證時才寫入,失敗會列出要重跑的 id,並在 Apple 更新章節時自動把該場 `chapters` 同步成最新。
 
-## 資訊摘要(AI / iOS / Apple / 金融)
+## 資訊摘要(AI / iOS / Apple / 金融 / 金融 App 資安)
 
 追蹤的來源分兩種:
 
 - **閱讀器直接訂閱**:`automation/reader-feeds.opml`(33 個 RSS,匯入 Feedly / NetNewsWire 等即可),全收不篩選。
 - **腳本抓取 + 關鍵字篩選**:沒有 RSS 的網站(Anthropic、Claude Blog、YouTube 頻道、Apple 安全性更新、MAS、Fintech Brainfood、Evident),加上量大的官方 RSS(央行、金管會、HKMA、iThome)。來源與關鍵字都在 `automation/feeds.json`。
-- **AI 開發方式精選作者**:Addy Osmani、Simon Willison(長文)、Latent Space、Hamel Husain、Eugene Yan、Anthropic Engineering 設了 `"all": true`,全部收、不篩關鍵字;第一次執行往回抓 30 天(`firstRunDays`)。Martin Fowler 主題較雜,照常篩關鍵字。
+- **金融 App 資安**:資安研究機構與資安新聞的原站(Zimperium、ThreatFabric、Kaspersky Securelist、ESET、Check Point、Cyble、Malwarebytes、Lookout、Zscaler、Google Security Blog、Android Developers Blog、The Hacker News、TWCERT/CC)。這些來源設了 `"groups": ["金融資安"]`,只比對「金融資安」這組關鍵字,不會因為提到 AI 就混進其他分頁。BleepingComputer、McAfee Labs 會擋機器人(HTTP 403),沒有加。
+- **AI 開發方式精選作者**:Addy Osmani、Simon Willison(長文)、Latent Space、Hamel Husain、Eugene Yan、Anthropic Engineering、Claude Blog 設了 `"all": true`,全部收、不篩關鍵字;第一次執行往回抓 30 天(`firstRunDays`)。Martin Fowler 主題較雜,照常篩關鍵字。
 
 每天 09:00 由 Claude 桌面 App 的排程任務 `daily-digest`(「每日資訊摘要」)在主 checkout 自動跑完整流程:
 
@@ -112,8 +113,9 @@ npm run digest:collect   # 抓資料 → content/digests/{日期}.json → 準�
 npm run digest:publish   # 驗證合併分析 → 產生 public/digest/ → 部署前檢查 → commit → 部署
 ```
 
-- 頁面分成四個分頁籤:AI 開發方式、AI 產業動態、iOS / Apple、金融與虛擬資產。AI 開發方式每篇有深度分析卡(一句話、重點、反思問題、延伸閱讀),其他每篇一兩句摘要。分析不通過驗證的文章只顯示標題。
-- `digest:publish` 驗證規則見 `scripts/digest-merge.mjs`:分類必須是四類之一、延伸閱讀的連結必須出現在原文裡、只收 http/https。不通過的會印 `PROBLEM:`,不影響其他篇。
+- 頁面分成五個分頁籤:AI 開發方式、AI 產業動態、iOS / Apple、金融與虛擬資產、金融 App 資安。AI 開發方式每篇有深度分析卡(一句話、重點、反思問題、延伸閱讀),其他每篇一兩句摘要。分析不通過驗證的文章只顯示標題。
+- 分類定義在 `scripts/digest-lib.mjs` 的 `CATEGORIES`,網頁分頁和日知 App 讀的 `public/digest/api/v1/index.json` 都照它產生;新增分類時,App 不用改版。
+- `digest:publish` 驗證規則見 `scripts/digest-merge.mjs`:分類必須是 `CATEGORIES` 之一、延伸閱讀的連結必須出現在原文裡、只收 http/https。不通過的會印 `PROBLEM:`,不影響其他篇。
 - **部署前檢查**:目前分支不是 `main`、會一起部署的檔案(`public/`、`functions/`、`lib/`、`wrangler.toml`,以及產頁用的 `scripts/build-digest.mjs`、`blog-lib.mjs`、`digest-lib.mjs`)有 `public/digest/` 以外未 commit 的變更、或 `public/blog/drafts/` 存在時,只產頁、不 commit 也不部署,印出 `SKIPPED:` 與原因。
 - `digest:publish` 除了今天,也會合併最近 7 天內還沒合併的分析(例如收集和發佈跨過午夜、或中途被打斷),不會遺失。
 - 檢查通過時只 commit `content/digests` 與 `public/digest`(不 push),再部署到正式站(`--branch main`)。
