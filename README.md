@@ -103,7 +103,7 @@ node scripts/build-details.mjs
 - **閱讀器直接訂閱**:`automation/reader-feeds.opml`(33 個 RSS,匯入 Feedly / NetNewsWire 等即可),全收不篩選。
 - **腳本抓取 + 關鍵字篩選**:沒有 RSS 的網站(Anthropic、Claude Blog、YouTube 頻道、Apple 安全性更新、MAS、Fintech Brainfood、Evident),加上量大的官方 RSS(央行、金管會、HKMA、iThome)。來源與關鍵字都在 `automation/feeds.json`。
 - **金融 App 資安**:資安研究機構與資安新聞的原站(Zimperium、ThreatFabric、Kaspersky Securelist、ESET、Check Point、Cyble、Malwarebytes、Lookout、Zscaler、Google Security Blog、Android Developers Blog、The Hacker News、TWCERT/CC)。這些來源設了 `"groups": ["金融資安"]`,只比對「金融資安」這組關鍵字,不會因為提到 AI 就混進其他分頁。BleepingComputer、McAfee Labs 會擋機器人(HTTP 403),沒有加。
-- **AI 開發方式精選作者**:Addy Osmani、Simon Willison(長文)、Latent Space、Hamel Husain、Eugene Yan、Anthropic Engineering 設了 `"all": true`,全部收、不篩關鍵字;第一次執行往回抓 30 天(`firstRunDays`)。Martin Fowler 主題較雜,照常篩關鍵字。
+- **AI 開發方式精選作者**:Addy Osmani、Simon Willison(長文)、Latent Space、Hamel Husain、Eugene Yan、Anthropic Engineering、Claude Blog 設了 `"all": true`,全部收、不篩關鍵字;第一次執行往回抓 30 天(`firstRunDays`)。Martin Fowler 主題較雜,照常篩關鍵字。
 
 每天 09:00 由 Claude 桌面 App 的排程任務 `daily-digest`(「每日資訊摘要」)在主 checkout 自動跑完整流程:
 

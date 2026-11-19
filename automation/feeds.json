@@ -10,7 +10,7 @@
   },
   "sources": [
     { "id": "anthropic-news", "name": "Anthropic News", "type": "links", "url": "https://www.anthropic.com/news", "match": "^https://www\\.anthropic\\.com/news/[a-z0-9-]+$" },
-    { "id": "claude-articles", "name": "Claude Blog", "type": "links", "url": "https://claude.com/resources/articles", "match": "^https://claude\\.com/resources/articles/[a-z0-9-]+$" },
+    { "id": "claude-articles", "name": "Claude Blog", "type": "links", "url": "https://claude.com/resources/articles", "match": "^https://claude\\.com/resources/articles/[a-z0-9-]+$", "all": true, "firstRunDays": 30 },
     { "id": "yt-ai-engineer", "name": "AI Engineer (YouTube)", "type": "youtube", "url": "https://www.youtube.com/@aiDotEngineer/videos" },
     { "id": "yt-apple-developer", "name": "Apple Developer (YouTube)", "type": "youtube", "url": "https://www.youtube.com/@AppleDeveloper/videos" },
     { "id": "apple-security", "name": "Apple 安全性更新", "type": "apple-security", "url": "https://support.apple.com/en-us/100100" },
